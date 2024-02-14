@@ -1,0 +1,44 @@
+(input file "log.dai")           ; definition of output logs
+
+(output
+;;      Annual output
+;;
+;       Crop production variables
+        ("harvest" (where "Annual-Harvest.dlf"))
+;;      Water balance  
+        ("Field water"           (when (and (month 4) (mday 1) (hour 0))) (where "Annual-FWater.dlf"))  
+        ("Field water"           (when (and (month 4) (mday 1) (hour 0)))(to -100 [cm]) (where "Annual-FWater_100cm.dlf"))  
+        ("Surface Water Balance" (when (and (month 4) (mday 1) (hour 0))) (where "Annual-SWater.dlf"))  
+;;      Nitrogen balance  
+        ("Field nitrogen"        (when (and (month 4) (mday 1) (hour 0))) (where "Annual-FN.dlf")) 
+         ("Field nitrogen"        (when (and (month 4) (mday 1) (hour 0))) (to -100 [cm])(where "Annual-FN_100cm.dlf")) 
+;;      Tracer balance
+        ("Field chemical"        (chemical "Tracer")
+                                 (when (and (month 4) (mday 1) (hour 0))) (where "Annual-Tracer.dlf"))  
+
+;
+;;      Daily output
+;;
+;       Crop production variables
+        ("Crop"                 (when daily) (where "Daily-CropProduction.dlf"))
+;;      Water balance  
+        ("Field water"          (when daily) (where "Daily-FWater.dlf"))  
+        ("Soil water"           (when daily) (where "Daily-SoilWater.dlf"))  
+        ("Surface Water Balance"(when daily) (where "Daily-SWater.dlf"))  
+;;      Nitrogen balance  
+        ("Field nitrogen"       (when daily) (where "Daily-FN.dlf"))  
+;;      Tracer balance
+        ("Field chemical"       (chemical "Tracer")
+                                (when daily) (where "Daily-Tracer.dlf"))   
+        ("Soil chemical"        (chemical "Tracer")
+                                (when daily) (where "Soil-Tracer.dlf"))   
+;
+;;      Soil profile data
+        ("Soil Water Content"       (when daily)(where "Daily-Theta.dlf"))
+        ("Soil Water Potential (pF)"(when daily)(where "Daily-pF.dlf"))
+        ("Soil Water Potential"     (when daily)(where "Daily-h.dlf"))
+        ("Matrix Water Flux"        (when daily)(where "Daily-WaterFlux.dlf"))
+        ("Soil NO3 Concentration"   (when daily)(where "Daily-SNO3.dlf"))
+        ("Chemical Concentration"   (chemical "Tracer")(unit "mg/l")
+                                    (when daily)(where "Daily-Tracer_conc.dlf"))
+)

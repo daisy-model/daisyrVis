@@ -1,0 +1,29 @@
+dlf-0.0 -- Field chemical (defined in 'log-std.dai').
+
+VERSION: 6.41
+LOGFILE: Annual-Tracer.dlf
+RUN: Mon Aug 28 16:37:22 2023
+
+COLUMN: *
+CHEMICAL: Tracer
+INTERVAL: box none
+
+LOG: Content, transport and transformation of chemicals in the field.
+
+SIMFILE: Runfile2b.dai
+SIM: Arable farm rotation; Soil: 1D/ResFarm/Free; Weather: Daily values and P hourly values
+
+--------------------
+year	month	mday	hour	Spray	Deposit	Harvest	Dissipate	Litter Decompose	Litter Transform	Surface Decompose	Surface Transform	Runoff	Leak matrix	Leak biopores	Biopore drain	Soil drain	Surface drain	External	Uptake	Soil Decompose	Soil Transform	Snow	Canopy	Litter	Surface	Soil	Biopores	Error
+				g/ha	g/ha	g/ha	g/ha	g/ha	g/ha	g/ha	g/ha	g/ha	g/ha	g/ha	g/ha	g/ha	g/ha	g/ha	g/ha	g/ha	g/ha	g/ha	g/ha	g/ha	g/ha	g/ha	g/ha	g/ha
+1990	4	1	0	00.00	00.00	00.00	00.00	00.00	00.00	00.00	00.00	00.00	00.00	00.00	00.00	00.00	00.00	00.00	00.00	00.00	00.00	0	0	0	0	100317	0	0
+1991	4	1	0	320000	0	0	0	0	0	0	0	0	29284.7	-0	0	-0	00.00	0	161948	-0	0	0	109.28	0	0	228975	0	0
+1992	4	1	0	335000	0	1.79913e-39	0	0	0	0	0	3.68415	28487.3	-0	0	-0	00.00	0	254618	-0	0	0	2.02116e-06	0	0	280976	0	0
+1993	4	1	0	0	0	0	0	0	0	0	0	2.82125e-16	81484.2	-0	0	-0	00.00	0	69615.5	-0	0	0	0	0	0	129876	0	0
+1994	4	1	0	229000	0	0	0	0	0	0	0	2.46814e-07	28124.3	-0	0	-0	00.00	0	213697	-0	0	0	0	0	0	117055	0	0
+1995	4	1	0	261000	0	0	0	0	0	0	0	0	24725.3	-0	0	-0	00.00	0	241979	-0	0	0	0	0	0	111351	0	0
+1996	4	1	0	320000	0	0	0	0	0	0	0	0	4283.36	-0	0	-0	00.00	0	171353	-0	0	0	122.384	0	0	255592	0	0
+1997	4	1	0	335000	0	5.7995e-30	0	0	0	0	0	2.34225e-17	28601.8	-0	0	-0	00.00	0	256188	-0	0	0	6.34785e-05	0	0	305924	0	0
+1998	4	1	0	0	0	0	0	0	0	0	0	2.838e-22	42108.1	-0	0	-0	00.00	0	103063	-0	0	0	0	0	0	160753	0	0
+1999	4	1	0	229000	0	0	0	0	0	0	0	1.79725e-09	18043.3	-0	0	-0	00.00	0	224716	-0	0	0	0	0	0	146994	0	0
+2000	4	1	0	261000	0	0	0	0	0	0	0	30.4012	102005	-0	0	-0	00.00	0	244515	-0	0	0	0	0	0	61443.6	0	0

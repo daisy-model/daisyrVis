@@ -1,0 +1,18 @@
+Package: daisyrVis
+Title: Visualization of Daisy Log Files
+Version: 0.0.0.9000
+Authors@R: 
+    person("Silas", "Ørting", , "silas@di.ku.dk", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-3081-1547"))
+Description: Functions for visualizing log files from Daisy simulations.
+License: GPL (>= 3)
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.1
+Imports: 
+    cowplot,
+    ggplot2,
+    methods,
+    rlang,
+    stats,
+    utils

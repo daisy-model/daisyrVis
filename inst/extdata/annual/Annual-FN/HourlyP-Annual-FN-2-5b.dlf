@@ -1,0 +1,42 @@
+dlf-0.0 -- Field nitrogen (defined in 'log-std.dai').
+
+VERSION: 6.41
+LOGFILE: Annual-FN.dlf
+RUN: Tue Aug 29 13:50:07 2023
+
+COLUMN: *
+INTERVAL: box none
+
+LOG: Nitrogen input, output, transformation and content for the system.
+LOG: 
+LOG: The intended use of this log is large scale nitrogen balance, for
+LOG: example reservoir management. It provide information about how
+LOG: much nitrogen is in the field (down to a specified depth), where
+LOG: it is located in the field (surface, soil matrix or in biopores),
+LOG: what form is has (crop, soil organic matter, or mineral) as well
+LOG: as the sources, sinks and amounts of nitrogen entering or leaving
+LOG: the system, and transformation between the four forms.  It does
+LOG: not provide information about internal translocation of nitrogen
+LOG: between surface, soil matrix and biopores, use see the 'Soil
+LOG: nitrogen' log instead for that.
+LOG: 
+LOG: For the balances of this log to work, you must include the entire
+LOG: root zone
+
+SIMFILE: Runfile.dai
+SIM: Arable farm rotation; Soil: 1D/ResFarm/Biopores/Pipe; Weather: Daily values and P hourly values
+
+--------------------
+year	month	mday	hour	Min-Surface-Fertilizer	Min-Soil-Fertilizer	Deposition	Matrix-Leaching	Biopore-Leaching	Soil-Drain	Biopore-Drain	Surface-Loss	Min-Surface	Min-Soil	Min-Biopores	Error	Mineralization	Immobilization	Crop-Uptake	Volatilization	N2O-Nitrification	Denitrification	Fixated	Org-Fertilizer	Seed	Harvest	Residuals-Surface	Residuals-Soil	Org-Surface	Org-Soil	Crop
+				kg N/ha	kg N/ha	kg N/ha	kg N/ha	kg N/ha	kg N/ha	kg N/ha	kg N/ha	kg N/ha	kg N/ha	kg N/ha	kg N/ha	kg N/ha	kg N/ha	kg N/ha	kg N/ha	kg N/ha	kg N/ha	kg N/ha	kg N/ha	kg N/ha	kg N/ha	kg N/ha	kg N/ha	kg N/ha	kg N/ha	kg N/ha
+1990	4	1	0	00.00	00.00	00.00	00.00	00.00	00.00	00.00	00.00	0.0645746	113.374	0.00552764	0	00.00	00.00	00.00	00.00	00.00	00.00	00.00	00.00	00.00	00.00	00.00	00.00	1.54452e-27	26604	0
+1991	4	1	0	320	0	12.8453	4.55231	-1.88378e-16	7.10502	0	0.154213	1.75799	227.136	0.0012931	0	122.079	22.4511	292.404	0	3.25861	9.54884	0	0	8	224.989	28.5864	18.821	0.161163	26551.6	28.0073
+1992	4	1	0	335	0	13.6343	5.06215	7.4141e-17	7.97915	0	0.778529	0.0699988	208.968	0.00364028	0	127.278	0.0602881	473.88	0	4.905	3.10036	0	0	2	237.844	95.7018	32.3654	27.6671	26524.9	137.976
+1993	4	1	0	0	0	14.9513	5.99147	9.46995e-17	28.6982	0	0.347909	0.0430408	120.952	0.00229886	0	156.234	6.05442	192.911	0	3.945	21.2818	0	0	4	163.102	131.929	28.3796	0.000898065	26562.7	11.4771
+1994	4	1	0	229	0	13.1108	4.42188	-1.6466e-16	7.80286	0	0.677029	0.0732057	49.0371	1.86339e-05	0	117.226	26.6301	382.327	0	3.92631	5.4388	0	0	4	240.035	97.5	35.5811	0.00104409	26605.2	24.6874
+1995	4	1	0	261	0	9.70281	3.91438	7.25403e-17	2.20495	0	0.0723012	0.0337724	114.099	1.57557e-11	0	150.72	24.591	319.503	0	4.49439	1.62006	0	0	0	218.812	91.6829	33.6956	1.35074e-27	26604.5	0
+1996	4	1	0	320	0	12.9518	2.02708	-1.51302e-16	-0	0	0.592172	2.92764	255.463	0.00717316	0	119.163	17.853	273.529	0	3.40292	10.4469	0	0	8	226.44	28.0826	17.1149	0.0381552	26548.3	9.89141
+1997	4	1	0	335	0	13.7678	4.37407	7.80428e-17	7.39025	0	0.509563	0.0797511	240.686	0.0128186	0	131.825	0.087072	473.331	0	4.85644	7.66369	0	0	2	224.584	92.7238	33.7022	0.0132224	26543	134.212
+1998	4	1	0	0	0	12.7763	5.52764	6.83876e-18	13.5298	0	0.355243	0.0569407	181.708	0.00381877	0	176.671	3.38872	207.703	0	4.68723	13.266	0	0	4	152.89	129.578	29.804	0.00575996	26529.1	33.6432
+1999	4	1	0	229	0	10.7693	3.86545	-2.85053e-17	1.2359	0	0.3015	0.092594	71.2692	0.00176785	0	124.702	22.4925	437.112	0	4.07865	5.7903	0	0	4	302.076	103.363	34.0148	0.0509442	26564.2	35.3014
+2000	4	1	0	261	0	17.7548	7.72772	-2.54449e-18	25.2434	0	2.3195	0.0801611	50.4961	0.00142999	0	133.25	2.66723	352.403	0	4.22212	38.2074	0	0	0	245.215	103.415	39.0735	1.52739e-27	26576.2	0
