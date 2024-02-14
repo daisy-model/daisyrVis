@@ -31,5 +31,6 @@ and remove
     library(daisyrVis)
     example(plot_annual)
 
-Should produce a plot similar to this [Bar plots of four annualy logged variables from four different Daisy log files](inst/extdata/annual/Annual-FN/plot_annual_example.png)
+Should produce a plot similar to this
 
+![Bar plots of four annualy logged variables from four different Daisy log files](inst/extdata/annual/Annual-FN/plot_annual_example.png)
