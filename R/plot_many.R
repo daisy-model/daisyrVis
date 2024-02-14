@@ -48,4 +48,3 @@ plot_many <- function(dlfs, x_var, y_vars, geom, title_suffix='') {
     })
     cowplot::plot_grid(plotlist=plotlist, labels='AUTO')
 }
-    

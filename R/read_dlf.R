@@ -68,7 +68,6 @@ read_dlf <- function(path) {
         new('Dlf', header=header, units=units, body=body)
     },
     finally = {
-        cat('Closing connection\n')
         close(dlf_file)
     })
 }
