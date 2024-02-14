@@ -1,9 +1,13 @@
+# nolint start: object_name_linter
 #' Class encapsulating Daisy log file (dlf) data
 #' @slot header  A list with named components containing meta information
 #' @slot units  A data.frame with the units of the values in body
 #' @slot body  A data.frame with the values from the dlf file
 #' @export Dlf
-Dlf <- setClass("Dlf", slots=list(header='list', units='data.frame', body='data.frame'))
+Dlf <- setClass("Dlf", slots=list(header='list',
+                                  units='data.frame',
+                                  body='data.frame'))
+# nolint end
 
 #' Read a dlf file (Daisy log file)
 #'
@@ -11,8 +15,8 @@ Dlf <- setClass("Dlf", slots=list(header='list', units='data.frame', body='data.
 #'
 #' @return An S4 object of class Dlf with three slots: header, units, body
 #'
-#' header is list with everything in the dlf file before the data. key: value mappings
-#' from the header are stored as named components of the list.
+#' header is list with everything in the dlf file before the data. key: value
+#' pairs from the header are stored as named components of the list.
 #' units is a data.framecontaining the units of the values in body.
 #' body is a data.frame containing the logged values
 #'
@@ -39,9 +43,8 @@ read_dlf <- function(path) {
             line <- trimws(line)
             if (nchar(line) > 0) {
                 if (startsWith(line, 'dlf')) {
-                    header[['info']] = line
-                }
-                else {
+                    header[['info']] <- line
+                } else {
                     kv_pair <- strsplit(line, ':', fixed=TRUE)[[1]]
                     k <- trimws(kv_pair[1])
                     v <- trimws(kv_pair[2])
@@ -50,9 +53,8 @@ read_dlf <- function(path) {
                     }
                     if (k %in% names(header)) {
                         header[k] <- paste(header[k], v, sep='\n')
-                    }
-                    else {
-                        header[k] = v
+                    } else {
+                        header[k] <- v
                     }
                 }
             }
@@ -62,8 +64,9 @@ read_dlf <- function(path) {
         units <- readLines(dlf_file, n=1, encoding='UTF-8')[[1]]
         units <- strsplit(trimws(units, whitespace='\n'), '\t')[[1]]
         names(units) <- csv_header
-        units <- as.data.frame(as.list(units)) # We make it a data.frame so names match with body
-        
+        # Make units a data.frame so names match body (e.g. _ replaced with .)
+        units <- as.data.frame(as.list(units))
+
         body <- utils::read.table(dlf_file, sep='\t', col.names=csv_header)
         new('Dlf', header=header, units=units, body=body)
     },

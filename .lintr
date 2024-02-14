@@ -1,0 +1,6 @@
+linters: linters_with_defaults(
+    quotes_linter = NULL,
+    indentation_linter = indentation_linter(4L),
+    infix_spaces_linter = infix_spaces_linter(exclude_operators = c("EQ_SUB", "EQ_FORMALS"))
+ )
+encoding: "UTF-8"

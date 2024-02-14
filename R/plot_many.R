@@ -1,7 +1,7 @@
 #' Plot one or more variables from one or more Dlfs with a user supplied geom.
 #' Each variable is plotted in a separate subplot.
-#' @param dlfs  Either a list of Dlf or a single Dlf. If a list with of components, the names are
-#'              used for the legend.
+#' @param dlfs  Either a list of Dlf or a single Dlf. If a list with of
+#'              components, the names are  used for the legend.
 #' @param x_var  Name of variable for x axis
 #' @param y_vars  Either a list of variables to plot, or a single variable
 #' @param geom  A function calling a ggplot2 geom_* function
@@ -22,7 +22,7 @@ plot_many <- function(dlfs, x_var, y_vars, geom, title_suffix='') {
     groups <- names(dlfs)
     if (is.null(groups)) {
         groups <- seq(1, length(dlfs))
-    }    
+    }
     x_var_sym <- rlang::sym(x_var) # This is for aes
     plotlist <- lapply(y_vars, function(y_var) {
         y_dfs <- lapply(groups, function(group) {
@@ -38,13 +38,15 @@ plot_many <- function(dlfs, x_var, y_vars, geom, title_suffix='') {
             df
         })
         df <- do.call('rbind', y_dfs)
-        ## Use `get` in aes to avoid note about "no visible binding" from check()
+        ## Use `get` in aes to avoid ckeck() note about "no visible binding"
         ggplot2::ggplot(df, ggplot2::aes(x=!!x_var_sym,
                                          y=get('value'),
                                          group=get('group.name'),
                                          fill=get('group.name'))) +
-            geom() + 
-            ggplot2::labs(y = dlfs[[1]]@units[y_var], fill='Dlf', title=paste0(y_var, title_suffix))
+            geom() +
+            ggplot2::labs(y = dlfs[[1]]@units[y_var],
+                          fill='Dlf',
+                          title=paste0(y_var, title_suffix))
     })
     cowplot::plot_grid(plotlist=plotlist, labels='AUTO')
 }
