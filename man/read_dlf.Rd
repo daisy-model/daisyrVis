@@ -12,8 +12,8 @@ read_dlf(path)
 \value{
 An S4 object of class Dlf with three slots: header, units, body
 
-header is list with everything in the dlf file before the data. key: value mappings
-from the header are stored as named components of the list.
+header is list with everything in the dlf file before the data. key: value
+pairs from the header are stored as named components of the list.
 units is a data.framecontaining the units of the values in body.
 body is a data.frame containing the logged values
 }

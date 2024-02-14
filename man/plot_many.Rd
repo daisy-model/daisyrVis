@@ -8,8 +8,8 @@ Each variable is plotted in a separate subplot.}
 plot_many(dlfs, x_var, y_vars, geom, title_suffix = "")
 }
 \arguments{
-\item{dlfs}{Either a list of Dlf or a single Dlf. If a list with of components, the names are
-used for the legend.}
+\item{dlfs}{Either a list of Dlf or a single Dlf. If a list with of
+components, the names are  used for the legend.}
 
 \item{x_var}{Name of variable for x axis}
 
