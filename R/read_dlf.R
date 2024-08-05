@@ -61,10 +61,11 @@ read_dlf <- function(path) {
         }
         csv_header <- readLines(dlf_file, n=1, encoding='UTF-8')[[1]]
         csv_header <- strsplit(trimws(csv_header, whitespace='\n'), '\t')[[1]]
+        csv_header <- gsub('-', '', gsub(' @ ', '_', csv_header))
         units <- readLines(dlf_file, n=1, encoding='UTF-8')[[1]]
         units <- strsplit(trimws(units, whitespace='\n'), '\t')[[1]]
         names(units) <- csv_header
-        # Make units a data.frame so names match body (e.g. _ replaced with .)
+        # Make units a data.frame so names match body (e.g. - removed)
         units <- as.data.frame(as.list(units))
 
         body <- utils::read.table(dlf_file, sep='\t', col.names=csv_header)

@@ -16,8 +16,8 @@
 #' dlfs <- lapply(scenarios, function(fname) {
 #'     read_dlf(file.path(data_dir, fname))
 #' })
-#' # Be careful with variable names. R replaces '-' with '.'
-#' vars <- c('Matrix.Leaching', 'Crop.Uptake', 'Soil.Drain', 'Surface.Loss')
+#' # Be careful with variable names. R does not like '-' so we remove it
+#' vars <- c('MatrixLeaching', 'CropUptake', 'SoilDrain', 'SurfaceLoss')
 #' plot_annual(dlfs, vars, ' - Annual Field Nitrogen')
 plot_annual <- function(dlfs, variables, title_suffix='') {
     geom <- function() {
