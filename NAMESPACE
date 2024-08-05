@@ -2,7 +2,9 @@
 
 export(Dlf)
 export(daisy_time_to_timestamp)
+export(depth_wide_to_long)
 export(plot_annual)
 export(plot_many)
 export(read_dlf)
 importFrom(methods,new)
+importFrom(stats,reshape)
