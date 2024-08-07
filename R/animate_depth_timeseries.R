@@ -23,6 +23,5 @@ animate_depth_timeseries <- function(dlf, var_name) {
                         mode="markers") %>%
         plotly::animation_slider(currentvalue=list(prefix="Time"), y=1.1,
                                  yanchor="bottom") %>%
-        plotly::animation_button(y=1, yanchor="top") %>%
-        plotly::layout(yaxis=list(autorange="reversed"))
+        plotly::animation_button(y=1, yanchor="top")
 }

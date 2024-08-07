@@ -28,9 +28,10 @@ depth_wide_to_long <- function(dlf, var_name, time_name="time",
     names <- colnames(dlf@body)
     varying <- names[startsWith(names, var_name)]
     body <- reshape(
-        dlf@body, varying, direction="long", sep="_", timevar=depth_name,
+        dlf@body, varying, direction="long", sep="..AT..", timevar=depth_name,
         new.row.names=NULL
     )[c(depth_name, "time", var_name)]
+    body[, depth_name] <- as.numeric(gsub("_", "-", body[, depth_name]))
     if (time_name != "time") {
         colnames(body)[2] <- time_name
     }
