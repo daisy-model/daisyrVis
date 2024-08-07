@@ -39,8 +39,8 @@ Each variable is plotted in a separate subplot.
 }
 \examples{
 data_dir <- system.file("extdata", package="daisyrVis")
-path <- file.path(data_dir, 'annual/Annual-FN/HourlyP-Annual-FN-2-2b.dlf')
+path <- file.path(data_dir, "annual/Annual-FN/HourlyP-Annual-FN-2-2b.dlf")
 dlf <- read_dlf(path)
-geom <- function(gg) { gg + ggplot2::geom_col(position='dodge') }
-plot_many(dlf, 'year', 'Crop', geom)
+geom <- function(gg) { gg + ggplot2::geom_col(position="dodge") }
+plot_many(dlf, "year", "Crop", geom)
 }
