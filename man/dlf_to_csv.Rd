@@ -12,6 +12,9 @@ dlf_to_csv(dlf, path, sep = ",", include_dlf_header = FALSE)
 \item{path}{Output path to write to}
 
 \item{sep}{Separator to use in csv file}
+
+\item{include_dlf_header}{If TRUE write the Dlf to the begining of the csv
+file}
 }
 \description{
 Write a dlf object as a csv file
