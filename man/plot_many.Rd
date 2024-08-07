@@ -5,7 +5,14 @@
 \title{Plot one or more variables from one or more Dlfs with a user supplied geom.
 Each variable is plotted in a separate subplot.}
 \usage{
-plot_many(dlfs, x_var, y_vars, geom, title_suffix = "")
+plot_many(
+  dlfs,
+  x_var,
+  y_vars,
+  geom,
+  title_suffix = "",
+  x_var_is_posix_time = FALSE
+)
 }
 \arguments{
 \item{dlfs}{Either a list of Dlf or a single Dlf. If a list with of
@@ -15,9 +22,13 @@ components, the names are  used for the legend.}
 
 \item{y_vars}{Either a list of variables to plot, or a single variable}
 
-\item{geom}{A function calling a ggplot2 geom_* function}
+\item{geom}{A single parameter function calling a ggplot2 geom_* function.
+It is passed the plot object as the only parameter.}
 
 \item{title_suffix}{A string this is appended to the title of all subplots}
+
+\item{x_var_is_posix_time}{Set to TRUE if x_var is POSIXct class, e.g if
+you have used daisy_time_to_timestamp}
 }
 \value{
 ggplot2
@@ -28,8 +39,8 @@ Each variable is plotted in a separate subplot.
 }
 \examples{
 data_dir <- system.file("extdata", package="daisyrVis")
-path <- file.path(data_dir, 'annual/Annual-FN/HourlyP-Annual-FN-2-2b.dlf')
+path <- file.path(data_dir, "annual/Annual-FN/HourlyP-Annual-FN-2-2b.dlf")
 dlf <- read_dlf(path)
-geom <- function() { ggplot2::geom_col(position='dodge') }
-plot_many(dlf, 'year', 'Crop', geom)
+geom <- function(gg) { gg + ggplot2::geom_col(position="dodge") }
+plot_many(dlf, "year", "Crop", geom)
 }

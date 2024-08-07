@@ -22,10 +22,10 @@ Read a dlf file (Daisy log file)
 }
 \examples{
 data_dir <- system.file("extdata", package="daisyrVis")
-path <- file.path(data_dir, 'annual/Annual-FN/HourlyP-Annual-FN-2-2b.dlf')
+path <- file.path(data_dir, "annual/Annual-FN/HourlyP-Annual-FN-2-2b.dlf")
 dlf <- read_dlf(path)
 slotNames(dlf)
 names(dlf@header)
 dlf@units$Crop
-dlf@body['Crop']
+dlf@body["Crop"]
 }

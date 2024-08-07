@@ -34,3 +34,13 @@ and remove
 Should produce a plot similar to this
 
 ![Bar plots of four annualy logged variables from four different Daisy log files](inst/extdata/annual/Annual-FN/plot_annual_example.png)
+
+## Development
+Follows https://r-pkgs.org/
+
+Start `R` in base of repository. Then use devtools to load, check and install package
+
+    library(devtools)
+    load_all()
+    check()
+    install()

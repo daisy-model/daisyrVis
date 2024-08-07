@@ -23,15 +23,15 @@ Make a bar plot of one or more variables from one or more dlfs
 \examples{
 # Load dlf data with read_dlf
 data_dir <- file.path(system.file("extdata", package="daisyrVis"),
-                      'annual/Annual-FN')
-scenarios <- list('2-2b'='HourlyP-Annual-FN-2-2b.dlf',
-                  '2-3b'='HourlyP-Annual-FN-2-3b.dlf',
-                  '2-4b'='HourlyP-Annual-FN-2-4b.dlf',
-                  '2-5b'='HourlyP-Annual-FN-2-5b.dlf')
+                      "annual/Annual-FN")
+scenarios <- list("2-2b"="HourlyP-Annual-FN-2-2b.dlf",
+                  "2-3b"="HourlyP-Annual-FN-2-3b.dlf",
+                  "2-4b"="HourlyP-Annual-FN-2-4b.dlf",
+                  "2-5b"="HourlyP-Annual-FN-2-5b.dlf")
 dlfs <- lapply(scenarios, function(fname) {
     read_dlf(file.path(data_dir, fname))
 })
-# Be careful with variable names. R replaces '-' with '.'
-vars <- c('Matrix.Leaching', 'Crop.Uptake', 'Soil.Drain', 'Surface.Loss')
-plot_annual(dlfs, vars, ' - Annual Field Nitrogen')
+# Be careful with variable names. R does not like - so it is replaced with _
+vars <- c("Matrix_Leaching", "Crop_Uptake", "Soil_Drain", "Surface_Loss")
+plot_annual(dlfs, vars, " - Annual Field Nitrogen")
 }
