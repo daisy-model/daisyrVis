@@ -20,8 +20,9 @@
 #' vars <- c("Matrix_Leaching", "Crop_Uptake", "Soil_Drain", "Surface_Loss")
 #' plot_annual(dlfs, vars, " - Annual Field Nitrogen")
 plot_annual <- function(dlfs, variables, title_suffix="") {
-    geom <- function() {
-        ggplot2::geom_col(position="dodge")
+    geom <- function(gg) {
+        gg + ggplot2::geom_col(position="dodge") +
+            ggplot2::guides(colour="none")
     }
     daisyrVis::plot_many(dlfs, "year", variables, geom, title_suffix)
 }
