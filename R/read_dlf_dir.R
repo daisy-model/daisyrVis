@@ -11,7 +11,7 @@
 #' data_dir <- system.file("extdata", package="daisyrVis")
 #' dlfs <- read_dlf_dir(file.path(data_dir, "annual"))
 #' print(names(dlfs))
-#' 
+#'
 #' dlfs <- drop_dir_from_names(dlfs)
 #' print(names(dlfs))
 #'
