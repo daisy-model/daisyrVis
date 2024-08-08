@@ -4,7 +4,7 @@
 #' @param variables  Either a list of variables to plot, or a single variable
 #' @param hour Which hour to plot
 #' @param title_suffix  A string that is appended to the title of all subplots
-#' @param plot_line If TRUE plot both points and line, otherwise only plot points
+#' @param plot_line If TRUE plot both points and line otherwise only plot points
 #' @return ggplot2
 #' @export
 #' @examples
@@ -48,4 +48,3 @@ plot_daily <- function(dlfs, variables, hour=0, title_suffix="",
     }
     daisyrVis::plot_many(dlfs, "time", variables, geom, title_suffix, TRUE)
 }
-

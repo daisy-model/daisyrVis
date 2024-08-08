@@ -16,7 +16,7 @@ components, the names are used for the legend.}
 
 \item{title_suffix}{A string that is appended to the title of all subplots}
 
-\item{plot_line}{If TRUE plot both points and line, otherwise only plot points}
+\item{plot_line}{If TRUE plot both points and line otherwise only plot points}
 }
 \value{
 ggplot2
