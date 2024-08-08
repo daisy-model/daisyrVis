@@ -1,0 +1,99 @@
+---
+title: "Reading dlf files"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{reading-dlf-files}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+options(rmarkdown.html_vignette.check_title = FALSE)
+```
+
+```{r setup}
+library(daisyrVis)
+```
+
+There are are two functions for reading dlf files `read_dlf` and `read_dlf_dir`. `read_dlf` reads a single dlf file, `read_dlf_dir` searches a directory tree and reads all dlf files it finds. `read_dlf_dir` is particularly useful for reading outputs the spawn program in `daisy`.
+
+## Reading a single dlf file
+
+We start by reading a single dlf file and inspect the contents. We use the Soil chemical log that is bundled with `daisyrVis` and read it with `read_dlf`.
+
+```{r}
+data_dir <- system.file("extdata", package="daisyrVis")
+path <- file.path(data_dir, "hourly/P2D-Daily-Soil_Chemical_110cm.dlf")
+dlf <- read_dlf(path)
+```
+
+`read_dlf` returns an S4 object of class `Dlf`. The data in the dlf file is stored in three _slots_ in the `Dlf` object, `header`, `units`, `body`
+```{r}
+slotNames(dlf)
+```
+
+The `header` slot is a list of the metadata that is stored before the actual data in the dlf file. The `units` slot is a `data.frame` with unit information for each data column. The `body` slot is a `data.frame` containing the data. A slot is accessed with the `@` operator
+```{r}
+dlf@header
+```
+
+```{r}
+dlf@units
+```
+
+```{r}
+head(dlf@body)
+```
+
+## Reading a directory with dlf files
+We use the tracer and field nitrogen logs that are bundled with `daisyrVis` and read them with `read_dlf_dir`
+```{r}
+data_dir <- system.file("extdata", package="daisyrVis")
+path <- file.path(data_dir, "annual")
+```
+Notice that the path is to a directory, instead of to a file as we did when reading a single dlf file.
+
+```{r}
+dlfs <- read_dlf_dir(path)
+```
+`read_dlf_dir` returns a list of `Dlf` objects
+```{r}
+names(dlfs)
+```
+To get a specific dlf we just index the list with the name
+```{r}
+name <- names(dlfs)[1]
+name
+dlfs[[name]]@header
+```
+The names are the file paths, which can be a bit unwieldly. We can either manually change the names or use the convenience functions `drop_dir_from_names` and `strip_common_prefix_from_names`
+```{r}
+dlfs <- drop_dir_from_names(dlfs)
+names(dlfs)
+```
+
+```{r}
+dlfs <- strip_common_prefix_from_names(dlfs)
+names(dlfs)
+```
+
+```{r}
+names(dlfs) <- c("A", "B", "C", "D", "E", "F", "G", "H")
+names(dlfs)
+dlfs[["A"]]@header
+```
+
+### Controlling which files are included
+`read_dlf_dir` takes an optional pattern parameter that can be used to control which files are included. By default all files with the suffix `.dlf` are included. If we only want to read files ending with `2b.dlf`, we can do
+```{r}
+data_dir <- system.file("extdata", package="daisyrVis")
+path <- file.path(data_dir, "annual")
+pattern <- ".*2b\\.dlf"
+dlfs <- read_dlf_dir(path, pattern)
+names(dlfs)
+```
+`pattern` is a regular expression. You should around with it and see if you can find a shorter pattern that results in the same files being read.
