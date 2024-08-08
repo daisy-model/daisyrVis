@@ -8,6 +8,13 @@
 \description{
 Functions for visualizing log files from Daisy simulations.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://daisy-model.github.io/daisyrVis/}
+}
+
+}
 \author{
 \strong{Maintainer}: Silas Ørting \email{silas@di.ku.dk} (\href{https://orcid.org/0000-0002-3081-1547}{ORCID})
 
