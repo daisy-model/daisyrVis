@@ -46,5 +46,5 @@ plot_daily <- function(dlfs, variables, hour=0, title_suffix="",
     } else {
         dlfs <- lapply(dlfs, prepare_dlf)
     }
-    daisyrVis::plot_many(dlfs, "time", variables, geom, title_suffix, TRUE)
+    daisyrVis::plot_many(dlfs, "time", variables, geom, title_suffix)
 }
