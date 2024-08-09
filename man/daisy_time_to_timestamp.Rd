@@ -7,7 +7,7 @@
 daisy_time_to_timestamp(dlf, time_col_name = "time")
 }
 \arguments{
-\item{dlf}{An S4 object of class Dlf}
+\item{dlf}{An S4 object of class Dlf or a list of Dlf objects}
 
 \item{time_col_name}{The name of the new timestamp column}
 }
@@ -16,7 +16,7 @@ An S4 object of class Dlf
 
 The returned object is identical to the dlf, except that the Columns 'year',
 'month', 'mday' and 'hour' are dropped and replaced with a column containing
-the corresponding POSIXlt timestamp
+the corresponding POSIXct timestamp
 }
 \description{
 Transform daisy time columns to a single timestamp
