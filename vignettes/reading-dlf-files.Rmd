@@ -8,10 +8,12 @@ vignette: >
 ---
 
 ```{r, include = FALSE}
+# nolint start: indentation-linter
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+# nolint end
 options(rmarkdown.html_vignette.check_title = FALSE)
 ```
 
