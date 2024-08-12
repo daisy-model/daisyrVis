@@ -1,0 +1,109 @@
+---
+title: "Compare simulated and measured data"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{compare-simulated-and-measured-data}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+# nolint start: indentation-linter
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.width = 7,
+  fig.height = 5
+)
+options(rmarkdown.html_vignette.check_title = FALSE)
+```
+```{r setup}
+library(daisyrVis)
+library(ggplot2)
+```
+
+We are going to read and plot some measured and simulated data, so we can visualize how well the simulated data match the measured data. 
+
+## Read, prepare and visualize measured data
+We use the LAI field measurements from part 3 of the daisy course, which is bundled with `daisyrVis`
+```{r}
+data_dir <- system.file("extdata", package="daisyrVis")
+field_path <- file.path(data_dir, "daisy-course/03/field_LAI.csv")
+field <- read.csv(field_path)
+head(field)
+```
+The csv file contains measurements obtained with two methods, `NDVI_sensor` and `Plant_sample`, at two nitrogen levels, 0 and 160.  We want to include both methods, but only nitrogen level 160.
+
+```{r}
+field <- field[field$Nitrogen_Level == 160, ]
+```
+
+In order to get proper handling of the dates when plotting, we need to convert the datetime strings to `POSIXct` objects
+```{r}
+field$Date <- as.POSIXct(field$Date, "%Y-%m-%d %H:%M:%S", tz="utc")
+```
+
+For the field data we will directly use `ggplot2` to get a quick visualization.
+```{r}
+ggplot(data=field, mapping=aes(x=Date, y=LAI_mean, group=Method, color=Method,
+                                shape=Method)) + geom_point()
+```
+
+
+## Read, prepare and visualize simulated data
+We use simulated LAI measurements from part 3 of the daisy course, which is bundled with `daisyrVis`.
+
+```{r}
+sim_dir <- file.path(data_dir, "daisy-course/03/Output")
+sim <- read_dlf_dir(sim_dir, pattern="crop\\.csv")
+names(sim)
+head(sim[[names(sim)[1]]]@body)
+```
+There are two simulations `Olde/crop` and `New/crop`. Hopefully we will see a better fit to field data for the new one.
+
+We again need to represent datetime with `POSIXct` objects
+```{r}
+sim <- daisy_time_to_timestamp(sim, "Date")
+head(sim[[names(sim)[1]]]@body$Date)
+```
+
+For the simulated data we will use the plot function `points_and_lines` from `daisyrVis`, which knows how to plot multiple `Dlf` objects together.
+```{r}
+points_and_lines(sim, "Date", "LAI")
+```
+
+
+## Visualize simulated and measured data together
+We can combine the simulated and measured data in one plot by first plotting the simulated data and then adding the measured data
+
+```{r}
+points_and_lines(sim, "Date", "LAI") + 
+  geom_point(data=field, mapping=aes(x=Date, y=LAI_mean, group=Method,
+                                     fill=Method, color=Method, shape=Method))
+```
+This works because `points_and_lines` returns a `ggplot`object that we can add additional data and plots to. Note that this only works when you plot a single variable. If you use `point_and_lines` to plot multiple variables in different subplots, then you need to do things a bit differently.
+
+## Visualize simulated and measured data together for multiple variables
+In order to plot multiple variables from different sources, we need to have everything as `Dlf`objects using the same column names
+```{r}
+ndvi <- field[field$Method == "NDVI_sensor", c("Date", "LAI_mean")]
+plant <- field[field$Method == "Plant_sample", c("Date", "LAI_mean")]
+
+field_dlfs <- list(
+  NDVI=new("Dlf", header=list(info="Measured field data (NDVI sensor)"),
+           units=data.frame(Date="", LAI="", Height="cm"),
+           body=data.frame(Date=ndvi$Date, LAI=ndvi$LAI_mean,
+                           Height=rep(NA, nrow(ndvi)))),
+  Plant=new("Dlf", header=list(info="Measured field data (Plant samples)"),
+            units=data.frame(Date="", LAI="", Height="cm"),
+            body=data.frame(Date=plant$Date, LAI=plant$LAI_mean,
+                            Height=rep(NA, nrow(plant)))))
+```
+
+```{r}
+points_and_lines(c(sim, field_dlfs), "Date", c("LAI", "Height"))
+```
+
+```{r}
+# nolint end
+```

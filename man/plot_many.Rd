@@ -5,14 +5,7 @@
 \title{Plot one or more variables from one or more Dlfs with a user supplied geom.
 Each variable is plotted in a separate subplot.}
 \usage{
-plot_many(
-  dlfs,
-  x_var,
-  y_vars,
-  geom,
-  title_suffix = "",
-  x_var_is_posix_time = FALSE
-)
+plot_many(dlfs, x_var, y_vars, geom, title_suffix = "")
 }
 \arguments{
 \item{dlfs}{Either a list of Dlf or a single Dlf. If a list with of
@@ -26,12 +19,11 @@ components, the names are  used for the legend.}
 It is passed the plot object as the only parameter.}
 
 \item{title_suffix}{A string this is appended to the title of all subplots}
-
-\item{x_var_is_posix_time}{Set to TRUE if x_var is POSIXct class, e.g if
-you have used daisy_time_to_timestamp}
 }
 \value{
-ggplot2
+A ggplot2 object. If y_vars is a single variable then the plot can be
+themed and further data added. If y_vars is a list of more than on
+variable, it is not possible to add further data to it.
 }
 \description{
 Plot one or more variables from one or more Dlfs with a user supplied geom.

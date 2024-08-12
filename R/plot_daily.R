@@ -29,13 +29,6 @@
 #' plot_daily(dlfs, vars, hour, paste0(" - Soil chemical @ hour ", hour))
 plot_daily <- function(dlfs, variables, hour=0, title_suffix="",
                        plot_line=FALSE) {
-    geom <- function(gg) {
-        gg <- gg + ggplot2::geom_point()
-        if (plot_line) {
-            gg <- gg + ggplot2::geom_line()
-        }
-        gg + ggplot2::guides(fill="none")
-    }
     prepare_dlf <- function(dlf) {
         body <- dlf@body[dlf@body$hour == hour, ]
         dlf <- new("Dlf", header=dlf@header, units=dlf@units, body=body)
@@ -46,5 +39,6 @@ plot_daily <- function(dlfs, variables, hour=0, title_suffix="",
     } else {
         dlfs <- lapply(dlfs, prepare_dlf)
     }
-    daisyrVis::plot_many(dlfs, "time", variables, geom, title_suffix, TRUE)
+    daisyrVis::points_and_lines(dlfs, "time", variables, title_suffix,
+                                plot_line)
 }
