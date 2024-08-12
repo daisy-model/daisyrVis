@@ -20,7 +20,8 @@ Each variable is plotted in a separate subplot."></head><body>
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/reading-dlf-files.html">Reading dlf files</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/compare-simulated-and-measured-data.html">Compare simulated and measured data</a></li>
+    <li><a class="dropdown-item" href="../articles/reading-dlf-files.html">Reading dlf files</a></li>
   </ul></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
@@ -44,14 +45,7 @@ Each variable is plotted in a separate subplot.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">plot_many</span><span class="op">(</span></span>
-<span>  <span class="va">dlfs</span>,</span>
-<span>  <span class="va">x_var</span>,</span>
-<span>  <span class="va">y_vars</span>,</span>
-<span>  <span class="va">geom</span>,</span>
-<span>  title_suffix <span class="op">=</span> <span class="st">""</span>,</span>
-<span>  x_var_is_posix_time <span class="op">=</span> <span class="cn">FALSE</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">plot_many</span><span class="op">(</span><span class="va">dlfs</span>, <span class="va">x_var</span>, <span class="va">y_vars</span>, <span class="va">geom</span>, title_suffix <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -79,15 +73,12 @@ It is passed the plot object as the only parameter.</p></dd>
 <dt id="arg-title-suffix">title_suffix<a class="anchor" aria-label="anchor" href="#arg-title-suffix"></a></dt>
 <dd><p>A string this is appended to the title of all subplots</p></dd>
 
-
-<dt id="arg-x-var-is-posix-time">x_var_is_posix_time<a class="anchor" aria-label="anchor" href="#arg-x-var-is-posix-time"></a></dt>
-<dd><p>Set to TRUE if x_var is POSIXct class, e.g if
-you have used daisy_time_to_timestamp</p></dd>
-
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>ggplot2</p>
+    <p>A ggplot2 object. If y_vars is a single variable then the plot can be
+themed and further data added. If y_vars is a list of more than on
+variable, it is not possible to add further data to it.</p>
     </div>
 
     <div class="section level2">

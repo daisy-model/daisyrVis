@@ -1,6 +1,7 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
 <url><loc>https://daisy-model.github.io/daisyrVis/404.html</loc></url>
 <url><loc>https://daisy-model.github.io/daisyrVis/LICENSE.html</loc></url>
+<url><loc>https://daisy-model.github.io/daisyrVis/articles/compare-simulated-and-measured-data.html</loc></url>
 <url><loc>https://daisy-model.github.io/daisyrVis/articles/index.html</loc></url>
 <url><loc>https://daisy-model.github.io/daisyrVis/articles/reading-dlf-files.html</loc></url>
 <url><loc>https://daisy-model.github.io/daisyrVis/authors.html</loc></url>
@@ -16,6 +17,7 @@
 <url><loc>https://daisy-model.github.io/daisyrVis/reference/plot_annual.html</loc></url>
 <url><loc>https://daisy-model.github.io/daisyrVis/reference/plot_daily.html</loc></url>
 <url><loc>https://daisy-model.github.io/daisyrVis/reference/plot_many.html</loc></url>
+<url><loc>https://daisy-model.github.io/daisyrVis/reference/points_and_lines.html</loc></url>
 <url><loc>https://daisy-model.github.io/daisyrVis/reference/read_dlf.html</loc></url>
 <url><loc>https://daisy-model.github.io/daisyrVis/reference/read_dlf_dir.html</loc></url>
 <url><loc>https://daisy-model.github.io/daisyrVis/reference/strip_common_prefix_from_names.html</loc></url>

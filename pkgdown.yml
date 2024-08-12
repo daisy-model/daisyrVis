@@ -2,8 +2,9 @@ pandoc: 3.1.11
 pkgdown: 2.1.0
 pkgdown_sha: ~
 articles:
+  compare-simulated-and-measured-data: compare-simulated-and-measured-data.html
   reading-dlf-files: reading-dlf-files.html
-last_built: 2024-08-08T13:38Z
+last_built: 2024-08-12T07:57Z
 urls:
   reference: https://daisy-model.github.io/daisyrVis/reference
   article: https://daisy-model.github.io/daisyrVis/articles
