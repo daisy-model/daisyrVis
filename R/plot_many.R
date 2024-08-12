@@ -7,7 +7,9 @@
 #' @param geom  A single parameter function calling a ggplot2 geom_* function.
 #'              It is passed the plot object as the only parameter.
 #' @param title_suffix  A string this is appended to the title of all subplots
-#' @return ggplot2
+#' @return A ggplot2 object. If y_vars is a single variable then the plot can be
+#'         themed and further data added. If y_vars is a list of more than on
+#'         variable, it is not possible to add further data to it.
 #' @export
 #' @examples
 #' data_dir <- system.file("extdata", package="daisyrVis")
@@ -49,5 +51,9 @@ plot_many <- function(dlfs, x_var, y_vars, geom, title_suffix="") {
                                  shape="Dlf",
                                  title=paste0(y_var, title_suffix))
     })
-    cowplot::plot_grid(plotlist=plotlist, labels="AUTO")
+    if (length(plotlist) > 1) {
+        cowplot::plot_grid(plotlist=plotlist, labels="AUTO")
+    } else {
+        plotlist[[1]]
+    }
 }

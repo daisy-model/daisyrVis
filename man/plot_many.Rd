@@ -21,7 +21,9 @@ It is passed the plot object as the only parameter.}
 \item{title_suffix}{A string this is appended to the title of all subplots}
 }
 \value{
-ggplot2
+A ggplot2 object. If y_vars is a single variable then the plot can be
+themed and further data added. If y_vars is a list of more than on
+variable, it is not possible to add further data to it.
 }
 \description{
 Plot one or more variables from one or more Dlfs with a user supplied geom.
