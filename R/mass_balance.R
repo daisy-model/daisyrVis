@@ -1,11 +1,13 @@
-#' Calculate mass balance for a set of specified variables
+#' Calculate mass balance
 #' @param dlfs  Either a list of Dlf or a single Dlf
 #' @param input  Name(s) of variable(s) containing mass input
 #' @param output  Name(s) of variable(s) containing mass output
 #' @param content  Name(s) of variable(s) containing mass content
+#' @param use_initial_content_as_reference If TRUE subtract the initial content
+#' from the content sum before calculating balance.
 #' @return A list of Dlf or a single Dlf. Four variables are added to each Dlf,
-#'         inout_sum, outout_sum, content_sum, and balance, which hold the sum
-#'         and balance of the inout/output/content variables calculated for each
+#'         input_sum, output_sum, content_sum, and balance, which hold the sum
+#'         and balance of the input/output/content variables calculated for each
 #'         time point.
 #' @export
 #' @examples
@@ -17,10 +19,10 @@
 #'             "Drain_Biopores", "Uptake")
 #' content <- c("Content", "Biopores")
 #' dlf <- mass_balance(dlf, input, output, content)
-#' dlf <- daisy_time_to_timestamp(dlf)
-#' points_and_lines(dlf, "time",
-#'                  c("input_sum", "output_sum", "content_sum", "balance"))
-mass_balance <- function(dlfs, input, output, content) {
+# nolint start
+mass_balance <- function(dlfs, input, output, content,
+                         use_initial_content_as_reference=TRUE) {
+# nolint end
     if (is.list(dlfs)) {
         lapply(dlfs, function(dlf) {
             mass_balance(dlf, input, output, content)
@@ -31,10 +33,13 @@ mass_balance <- function(dlfs, input, output, content) {
             stop(paste("Unit mismatch:", unit))
         }
         body <- dlfs@body
-        input_sum <- cumsum(row_sum(dlfs@body[, input]))
-        output_sum <- cumsum(row_sum(dlfs@body[, output]))
-        content_sum <- row_sum(dlfs@body[, content])
-        balance <- content_sum - (input_sum - output_sum)
+        input_sum <- cumsum(row_sum(body[, input]))
+        output_sum <- cumsum(row_sum(body[, output]))
+        content_sum <- row_sum(body[, content])
+        if (use_initial_content_as_reference) {
+            content_sum <- content_sum - sum(body[1, content])
+        }
+        balance <- content_sum + output_sum - input_sum
         body <- cbind(body, data.frame(input_sum=input_sum,
                                        output_sum=output_sum,
                                        content_sum=content_sum,
@@ -47,8 +52,81 @@ mass_balance <- function(dlfs, input, output, content) {
     }
 }
 
+#' Plot Dlf object with mass balance calculation in a control chart
+#' @param dlfs  Either a list of Dlf or a single Dlf. If a list of Dlfs each
+#' Dlf is plotted in a separate subplot.
+#' @param x_var  Name of variable for x axis
+#' @param title_suffix A string that is appended to the title of all subplots
+#' @return A ggplot2 object.
+#'
 #' @export
-mass_balance_table <- function(dlfs, input, output, content) {
+#' @examples
+#' data_dir <- system.file("extdata", package="daisyrVis")
+#' path <- file.path(data_dir, "hourly/P2D-Daily-Soil_Chemical_110cm.dlf")
+#' dlf <- read_dlf(path)
+#' input <- c("In_Matrix", "In_Biopores", "External", "Transform", "Tillage")
+#' output <- c("Decompose", "Leak_Matrix", "Leak_Biopores", "Drain_Soil",
+#'             "Drain_Biopores", "Uptake")
+#' content <- c("Content", "Biopores")
+#' mb <- mass_balance(dlf, input, output, content)
+#' mb <- daisy_time_to_timestamp(mb)
+#' plot_mass_balance(mb, "time", " - Soil chemical @ 110cm")
+plot_mass_balance <- function(dlfs, x_var, title_suffix="") {
+    if (methods::is(dlfs, "Dlf")) {
+        dlfs <- list(dlfs)
+    }
+    plotlist <- lapply(dlfs, function(dlf) {
+        df <- dlf@body[, c(x_var, 'balance')]
+        sample_mean <- mean(df$balance)
+        sample_sd <- stats::sd(df$balance)
+        cl2 <- sample_mean + 2 * c(-sample_sd, sample_sd)
+        cl3 <- sample_mean + 3 * c(-sample_sd, sample_sd)
+        y_lim <- sample_mean + 4 * c(-sample_sd, sample_sd)
+        print(cl2)
+        print(cl3)
+        print(y_lim)
+        x_var_sym <- rlang::sym(x_var) # This is for aes
+        gg <- ggplot2::ggplot(df,
+                              ggplot2::aes(x=!!x_var_sym, y=get("balance"))) +
+            ggplot2::geom_point(shape=3, alpha=0.5) +
+            ggplot2::geom_hline(yintercept=sample_mean, linetype='dashed') +
+            ggplot2::geom_hline(yintercept=cl2, colour='orange',
+                                linetype='dashed') +
+            ggplot2::geom_hline(yintercept=cl3, colour='red',
+                                linetype='dashed') +
+            ggplot2::labs(y="Balance",
+                          fill="Dlf",
+                          colour="Dlf",
+                          shape="Dlf",
+                          title=paste0("Mass balance", title_suffix))
+        gg
+    })
+    if (length(plotlist) > 1) {
+        cowplot::plot_grid(plotlist=plotlist, labels="AUTO")
+    } else {
+        plotlist[[1]]
+    }
+}
+
+#' Mass balance summary for a set of specified variables
+#' @param dlfs  Either a list of Dlf or a single Dlf
+#' @param input  Name(s) of variable(s) containing mass input
+#' @param output  Name(s) of variable(s) containing mass output
+#' @param content  Name(s) of variable(s) containing mass content
+#' @return Either a single list or a list of lists, with the nested lists having
+#'         four elements: Inputs, Outputs, InitialContent, FinalContent, and
+#'         Balance.
+#' @export
+#' @examples
+#' data_dir <- system.file("extdata", package="daisyrVis")
+#' path <- file.path(data_dir, "hourly/P2D-Daily-Soil_Chemical_110cm.dlf")
+#' dlf <- read_dlf(path)
+#' input <- c("In_Matrix", "In_Biopores", "External", "Transform", "Tillage")
+#' output <- c("Decompose", "Leak_Matrix", "Leak_Biopores", "Drain_Soil",
+#'             "Drain_Biopores", "Uptake")
+#' content <- c("Content", "Biopores")
+#' mass_balance_summary(dlf, input, output, content)
+mass_balance_summary <- function(dlfs, input, output, content) {
     if (is.list(dlfs)) {
         lapply(dlfs, function(dlf) {
             mass_balance(dlf, input, output, content)
