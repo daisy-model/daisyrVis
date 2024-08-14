@@ -4,12 +4,27 @@
 \alias{daisy_time_to_timestamp}
 \title{Transform daisy time columns to a single timestamp}
 \usage{
-daisy_time_to_timestamp(dlf, time_col_name = "time")
+daisy_time_to_timestamp(
+  dlf,
+  time_col_name = "time",
+  year_col = "year",
+  month_col = "month",
+  day_col = "mday",
+  hour_col = "hour"
+)
 }
 \arguments{
 \item{dlf}{An S4 object of class Dlf or a list of Dlf objects}
 
 \item{time_col_name}{The name of the new timestamp column}
+
+\item{year_col}{Name of year column, set to NULL if no year column}
+
+\item{month_col}{Name of month column, set to NULL if no month column}
+
+\item{day_col}{Name of day column, set to NULL if no day column}
+
+\item{hour_col}{Name of hour column, set to NULL if no hour column}
 }
 \value{
 An S4 object of class Dlf
