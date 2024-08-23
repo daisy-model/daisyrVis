@@ -85,14 +85,14 @@ and read it with <code>read_dlf</code>.</p>
 <p><code>read_dlf</code> returns an S4 object of class <code>Dlf</code>.
 The data in the dlf file is stored in three <em>slots</em> in the
 <code>Dlf</code> object, <code>header</code>, <code>units</code>,
-<code>body</code></p>
+<code>data</code></p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">slotNames</span><span class="op">(</span><span class="va">dlf</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "header" "units"  "body"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "header" "units"  "data"</span></span></code></pre></div>
 <p>The <code>header</code> slot is a list of the metadata that is stored
 before the actual data in the dlf file. The <code>units</code> slot is a
 <code>data.frame</code> with unit information for each data column. The
-<code>body</code> slot is a <code>data.frame</code> containing the data.
+<code>data</code> slot is a <code>data.frame</code> containing the data.
 A slot is accessed with the <code>@</code> operator</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dlf</span><span class="op">@</span><span class="va">header</span></span>
@@ -133,7 +133,7 @@ A slot is accessed with the <code>@</code> operator</p>
 <span><span class="co">#&gt;   Error</span></span>
 <span><span class="co">#&gt; 1  g/ha</span></span></code></pre></div>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">dlf</span><span class="op">@</span><span class="va">body</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">dlf</span><span class="op">@</span><span class="va">data</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   year month mday hour In_Matrix In_Biopores  Leak_Matrix Leak_Biopores</span></span>
 <span><span class="co">#&gt; 1 1995     1    1    0         0           0 -0.000208120             0</span></span>
 <span><span class="co">#&gt; 2 1995     1    1    1         0           0 -0.000207217             0</span></span>
@@ -162,22 +162,34 @@ A slot is accessed with the <code>@</code> operator</p>
 <span><span class="co">#&gt; 4 9.80239e-19     0</span></span>
 <span><span class="co">#&gt; 5 9.80239e-19     0</span></span>
 <span><span class="co">#&gt; 6 9.80239e-19     0</span></span></code></pre></div>
+<p>We can also directly access and assign columns of the
+<code>data</code> slot with the <code>$</code> and <code>[[</code>
+operators</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">dlf</span><span class="op">$</span><span class="va">year</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 1995 1995 1995 1995 1995 1995</span></span>
+<span><span class="va">dlf</span><span class="op">$</span><span class="va">year</span> <span class="op">&lt;-</span> <span class="va">dlf</span><span class="op">$</span><span class="va">year</span> <span class="op">+</span> <span class="fl">2</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">dlf</span><span class="op">[[</span><span class="st">"year"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 1997 1997 1997 1997 1997 1997</span></span>
+<span><span class="va">dlf</span><span class="op">[[</span><span class="fl">1</span>, <span class="st">"year"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">dlf</span><span class="op">[[</span><span class="fl">1</span>, <span class="st">"year"</span><span class="op">]</span><span class="op">]</span> <span class="op">+</span> <span class="fl">10</span></span>
+<span><span class="va">dlf</span><span class="op">[[</span><span class="fl">1</span>, <span class="st">"year"</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="co">#&gt; [1] 2007</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="reading-a-directory-with-dlf-files">Reading a directory with dlf files<a class="anchor" aria-label="anchor" href="#reading-a-directory-with-dlf-files"></a>
 </h2>
 <p>We use the tracer and field nitrogen logs that are bundled with
 <code>daisyrVis</code> and read them with <code>read_dlf_dir</code></p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data_dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, package<span class="op">=</span><span class="st">"daisyrVis"</span><span class="op">)</span></span>
 <span><span class="va">path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">data_dir</span>, <span class="st">"annual"</span><span class="op">)</span></span></code></pre></div>
 <p>Notice that the path is to a directory, instead of to a file as we
 did when reading a single dlf file.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dlfs</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_dlf_dir.html">read_dlf_dir</a></span><span class="op">(</span><span class="va">path</span><span class="op">)</span></span></code></pre></div>
 <p><code>read_dlf_dir</code> returns a list of <code>Dlf</code>
 objects</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">dlfs</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "Annual-FN/HourlyP-Annual-FN-2-2b"        </span></span>
 <span><span class="co">#&gt; [2] "Annual-FN/HourlyP-Annual-FN-2-3b"        </span></span>
@@ -188,7 +200,7 @@ objects</p>
 <span><span class="co">#&gt; [7] "Annual-Tracer/HourlyP-Annual-Tracer-2-4b"</span></span>
 <span><span class="co">#&gt; [8] "Annual-Tracer/HourlyP-Annual-Tracer-2-5b"</span></span></code></pre></div>
 <p>To get a specific dlf we just index the list with the name</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">dlfs</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span>
 <span><span class="va">name</span></span>
 <span><span class="co">#&gt; [1] "Annual-FN/HourlyP-Annual-FN-2-2b"</span></span>
@@ -223,19 +235,19 @@ objects</p>
 either manually change the names or use the convenience functions
 <code>drop_dir_from_names</code> and
 <code>strip_common_prefix_from_names</code></p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dlfs</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/drop_dir_from_names.html">drop_dir_from_names</a></span><span class="op">(</span><span class="va">dlfs</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">dlfs</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "HourlyP-Annual-FN-2-2b"     "HourlyP-Annual-FN-2-3b"    </span></span>
 <span><span class="co">#&gt; [3] "HourlyP-Annual-FN-2-4b"     "HourlyP-Annual-FN-2-5b"    </span></span>
 <span><span class="co">#&gt; [5] "HourlyP-Annual-Tracer-2-2b" "HourlyP-Annual-Tracer-2-3b"</span></span>
 <span><span class="co">#&gt; [7] "HourlyP-Annual-Tracer-2-4b" "HourlyP-Annual-Tracer-2-5b"</span></span></code></pre></div>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dlfs</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/strip_common_prefix_from_names.html">strip_common_prefix_from_names</a></span><span class="op">(</span><span class="va">dlfs</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">dlfs</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "FN-2-2b"     "FN-2-3b"     "FN-2-4b"     "FN-2-5b"     "Tracer-2-2b"</span></span>
 <span><span class="co">#&gt; [6] "Tracer-2-3b" "Tracer-2-4b" "Tracer-2-5b"</span></span></code></pre></div>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">dlfs</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"D"</span>, <span class="st">"E"</span>, <span class="st">"F"</span>, <span class="st">"G"</span>, <span class="st">"H"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">dlfs</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "A" "B" "C" "D" "E" "F" "G" "H"</span></span>
@@ -273,7 +285,7 @@ either manually change the names or use the convenience functions
 can be used to control which files are included. By default all files
 with the suffix <code>.dlf</code> are included. If we only want to read
 files ending with <code>2b.dlf</code>, we can do</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data_dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, package<span class="op">=</span><span class="st">"daisyrVis"</span><span class="op">)</span></span>
 <span><span class="va">path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">data_dir</span>, <span class="st">"annual"</span><span class="op">)</span></span>
 <span><span class="va">pattern</span> <span class="op">&lt;-</span> <span class="st">".*2b\\.dlf"</span></span>

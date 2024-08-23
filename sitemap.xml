@@ -8,6 +8,8 @@
 <url><loc>https://daisy-model.github.io/daisyrVis/index.html</loc></url>
 <url><loc>https://daisy-model.github.io/daisyrVis/reference/Dlf-class.html</loc></url>
 <url><loc>https://daisy-model.github.io/daisyrVis/reference/animate_depth_timeseries.html</loc></url>
+<url><loc>https://daisy-model.github.io/daisyrVis/reference/cash-Dlf-method.html</loc></url>
+<url><loc>https://daisy-model.github.io/daisyrVis/reference/cash-set-Dlf-method.html</loc></url>
 <url><loc>https://daisy-model.github.io/daisyrVis/reference/daisy_time_to_timestamp.html</loc></url>
 <url><loc>https://daisy-model.github.io/daisyrVis/reference/daisyrVis-package.html</loc></url>
 <url><loc>https://daisy-model.github.io/daisyrVis/reference/depth_wide_to_long.html</loc></url>
@@ -24,5 +26,7 @@
 <url><loc>https://daisy-model.github.io/daisyrVis/reference/read_dlf.html</loc></url>
 <url><loc>https://daisy-model.github.io/daisyrVis/reference/read_dlf_dir.html</loc></url>
 <url><loc>https://daisy-model.github.io/daisyrVis/reference/strip_common_prefix_from_names.html</loc></url>
+<url><loc>https://daisy-model.github.io/daisyrVis/reference/sub-sub-Dlf-method.html</loc></url>
+<url><loc>https://daisy-model.github.io/daisyrVis/reference/sub-subset-Dlf-method.html</loc></url>
 </urlset>
 

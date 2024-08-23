@@ -55,11 +55,11 @@
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>An S4 object of class Dlf with three slots: header, units, body</p>
+    <p>An S4 object of class Dlf with three slots: header, units, data</p>
 <p>header is list with everything in the dlf file before the data. key: value
 pairs from the header are stored as named components of the list.
-units is a data.framecontaining the units of the values in body.
-body is a data.frame containing the logged values</p>
+units is a data.framecontaining the units of the values in data.
+data is a data.frame containing the logged values</p>
     </div>
 
     <div class="section level2">
@@ -68,25 +68,18 @@ body is a data.frame containing the logged values</p>
 <span class="r-in"><span><span class="va">path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">data_dir</span>, <span class="st">"annual/Annual-FN/HourlyP-Annual-FN-2-2b.dlf"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">dlf</span> <span class="op">&lt;-</span> <span class="fu">read_dlf</span><span class="op">(</span><span class="va">path</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">slotNames</span><span class="op">(</span><span class="va">dlf</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "header" "units"  "body"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "header" "units"  "data"  </span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">dlf</span><span class="op">@</span><span class="va">header</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "info"     "VERSION"  "LOGFILE"  "RUN"      "COLUMN"   "INTERVAL" "LOG"     </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [8] "SIMFILE"  "SIM"     </span>
 <span class="r-in"><span><span class="va">dlf</span><span class="op">@</span><span class="va">units</span><span class="op">$</span><span class="va">Crop</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "kg N/ha"</span>
-<span class="r-in"><span><span class="va">dlf</span><span class="op">@</span><span class="va">body</span><span class="op">[</span><span class="st">"Crop"</span><span class="op">]</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        Crop</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1    0.0000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2   27.9559</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  138.0880</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4   11.4810</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5   24.6333</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6    0.0000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7   10.8504</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  133.5410</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9   34.2416</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10  35.3079</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11   0.0000</span>
+<span class="r-in"><span><span class="va">dlf</span><span class="op">$</span><span class="va">Crop</span> <span class="co"># equivalent to dlf@data$Crop</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]   0.0000  27.9559 138.0880  11.4810  24.6333   0.0000  10.8504 133.5410</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9]  34.2416  35.3079   0.0000</span>
+<span class="r-in"><span><span class="va">dlf</span><span class="op">[[</span><span class="st">"Crop"</span><span class="op">]</span><span class="op">]</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]   0.0000  27.9559 138.0880  11.4810  24.6333   0.0000  10.8504 133.5410</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9]  34.2416  35.3079   0.0000</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

@@ -4,7 +4,7 @@ pkgdown_sha: ~
 articles:
   compare-simulated-and-measured-data: compare-simulated-and-measured-data.html
   reading-dlf-files: reading-dlf-files.html
-last_built: 2024-08-13T12:51Z
+last_built: 2024-08-23T07:58Z
 urls:
   reference: https://daisy-model.github.io/daisyrVis/reference
   article: https://daisy-model.github.io/daisyrVis/articles
