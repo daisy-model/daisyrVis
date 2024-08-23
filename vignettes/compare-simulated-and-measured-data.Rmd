@@ -57,14 +57,14 @@ We use simulated LAI measurements from part 3 of the daisy course, which is bund
 sim_dir <- file.path(data_dir, "daisy-course/03/Output")
 sim <- read_dlf_dir(sim_dir, pattern="crop\\.csv")
 names(sim)
-head(sim[[names(sim)[1]]]@body)
+head(sim[[names(sim)[1]]]@data)
 ```
 There are two simulations `Olde/crop` and `New/crop`. Hopefully we will see a better fit to field data for the new one.
 
 We again need to represent datetime with `POSIXct` objects
 ```{r}
 sim <- daisy_time_to_timestamp(sim, "Date")
-head(sim[[names(sim)[1]]]@body$Date)
+head(sim[[names(sim)[1]]]$Date)
 ```
 
 For the simulated data we will use the plot function `points_and_lines` from `daisyrVis`, which knows how to plot multiple `Dlf` objects together.
@@ -92,11 +92,11 @@ plant <- field[field$Method == "Plant_sample", c("Date", "LAI_mean")]
 field_dlfs <- list(
   NDVI=new("Dlf", header=list(info="Measured field data (NDVI sensor)"),
            units=data.frame(Date="", LAI="", Height="cm"),
-           body=data.frame(Date=ndvi$Date, LAI=ndvi$LAI_mean,
+           data=data.frame(Date=ndvi$Date, LAI=ndvi$LAI_mean,
                            Height=rep(NA, nrow(ndvi)))),
   Plant=new("Dlf", header=list(info="Measured field data (Plant samples)"),
             units=data.frame(Date="", LAI="", Height="cm"),
-            body=data.frame(Date=plant$Date, LAI=plant$LAI_mean,
+            data=data.frame(Date=plant$Date, LAI=plant$LAI_mean,
                             Height=rep(NA, nrow(plant)))))
 ```
 

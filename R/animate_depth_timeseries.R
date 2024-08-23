@@ -15,7 +15,7 @@
 animate_depth_timeseries <- function(dlf, var_name) {
     dlf <- daisyrVis::daisy_time_to_timestamp(dlf)
     dlf <- daisyrVis::depth_wide_to_long(dlf, var_name)
-    dlf@body %>%
+    dlf@data %>%
         plotly::plot_ly(x=~q,
                         y=~z,
                         frame=~as.character(time),

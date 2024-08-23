@@ -16,6 +16,6 @@ dlf_to_csv <- function(dlf, path, sep=",", include_dlf_header=FALSE) {
     }
     utils::write.table(dlf@units, path, append=include_dlf_header, sep=sep,
                        row.names=FALSE, fileEncoding="UTF-8")
-    utils::write.table(dlf@body, path, append=TRUE, sep=sep, row.names=FALSE,
+    utils::write.table(dlf@data, path, append=TRUE, sep=sep, row.names=FALSE,
                        col.names=FALSE, fileEncoding="UTF-8")
 }

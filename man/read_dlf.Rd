@@ -10,12 +10,12 @@ read_dlf(path)
 \item{path}{Path to dlf file}
 }
 \value{
-An S4 object of class Dlf with three slots: header, units, body
+An S4 object of class Dlf with three slots: header, units, data
 
 header is list with everything in the dlf file before the data. key: value
 pairs from the header are stored as named components of the list.
-units is a data.framecontaining the units of the values in body.
-body is a data.frame containing the logged values
+units is a data.framecontaining the units of the values in data.
+data is a data.frame containing the logged values
 }
 \description{
 Read a dlf file (Daisy log file)
@@ -27,5 +27,6 @@ dlf <- read_dlf(path)
 slotNames(dlf)
 names(dlf@header)
 dlf@units$Crop
-dlf@body["Crop"]
+dlf$Crop # equivalent to dlf@data$Crop
+dlf[["Crop"]]
 }

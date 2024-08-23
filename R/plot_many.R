@@ -29,7 +29,7 @@ plot_many <- function(dlfs, x_var, y_vars, geom, title_suffix="") {
     x_var_sym <- rlang::sym(x_var) # This is for aes
     plotlist <- lapply(y_vars, function(y_var) {
         y_dfs <- lapply(groups, function(group) {
-            df <- dlfs[[group]]@body[, c(x_var, y_var)]
+            df <- dlfs[[group]]@data[, c(x_var, y_var)]
             colnames(df)[2] <- "value"
             df$var <- y_var
             df[group_col] <- group

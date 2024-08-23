@@ -18,9 +18,9 @@
 #' data_dir <- system.file("extdata", package="daisyrVis")
 #' path <- file.path(data_dir, 'daily/DailyP/DailyP-Daily-WaterFlux.dlf')
 #' dlf <- read_dlf(path)
-#' dlf@body[1,]
+#' dlf@data[1,]
 #' dlf <- daisy_time_to_timestamp(dlf)
-#' dlf@body[1,]
+#' dlf@data[1,]
 daisy_time_to_timestamp <- function(dlf, time_col_name='time', year_col="year",
                                     month_col="month", day_col="mday",
                                     hour_col="hour") {
@@ -30,7 +30,7 @@ daisy_time_to_timestamp <- function(dlf, time_col_name='time', year_col="year",
                                     day_col, hour_col)
         })
     } else {
-        body <- dlf@body
+        data <- dlf@data
         time_cols <- c(year_col, month_col, day_col, hour_col)
         format_string <- c()
         if (!is.null(year_col)) {
@@ -46,19 +46,19 @@ daisy_time_to_timestamp <- function(dlf, time_col_name='time', year_col="year",
             format_string <- c(format_string, "%H")
         }
         format_string <- paste(format_string, collapse=" ")
-        if (!all(time_cols %in% colnames(body))) {
+        if (!all(time_cols %in% colnames(data))) {
             stop(paste("Missing time columns.",
-                       time_cols[!(time_cols %in% colnames(body))],
-                       "not in", colnames(body)), sep=" ")
+                       time_cols[!(time_cols %in% colnames(data))],
+                       "not in", colnames(data)), sep=" ")
         }
-        raw_ts <- apply(body[, time_cols], 1, function(row) {
+        raw_ts <- apply(data[, time_cols], 1, function(row) {
             paste(row, collapse=" ")
         })
-        body[[time_col_name]] <- as.POSIXct(raw_ts, format=format_string)
-        body <- body[!(colnames(body) %in% time_cols)]
-        body <- body[order(body[[time_col_name]]), , drop=FALSE]
+        data[[time_col_name]] <- as.POSIXct(raw_ts, format=format_string)
+        data <- data[!(colnames(data) %in% time_cols)]
+        data <- data[order(data[[time_col_name]]), , drop=FALSE]
         units <- dlf@units[!(colnames(dlf@units) %in% time_cols)]
         units[time_col_name] <- ''
-        new('Dlf', header=dlf@header, units=units, body=body)
+        new('Dlf', header=dlf@header, units=units, data=data)
     }
 }

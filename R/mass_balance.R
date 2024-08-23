@@ -32,15 +32,15 @@ mass_balance <- function(dlfs, input, output, content,
         if (length(unit) > 1) {
             stop(paste("Unit mismatch:", unit))
         }
-        body <- dlfs@body
-        input_sum <- cumsum(row_sum(body[, input]))
-        output_sum <- cumsum(row_sum(body[, output]))
-        content_sum <- row_sum(body[, content])
+        data <- dlfs@data
+        input_sum <- cumsum(row_sum(data[, input]))
+        output_sum <- cumsum(row_sum(data[, output]))
+        content_sum <- row_sum(data[, content])
         if (use_initial_content_as_reference) {
-            content_sum <- content_sum - sum(body[1, content])
+            content_sum <- content_sum - sum(data[1, content])
         }
         balance <- content_sum + output_sum - input_sum
-        body <- cbind(body, data.frame(input_sum=input_sum,
+        data <- cbind(data, data.frame(input_sum=input_sum,
                                        output_sum=output_sum,
                                        content_sum=content_sum,
                                        balance=balance))
@@ -48,7 +48,7 @@ mass_balance <- function(dlfs, input, output, content,
                                               output_sum=unit,
                                               content_sum=unit,
                                               balance=unit))
-        new("Dlf", header=dlfs@header, units=units, body=body)
+        new("Dlf", header=dlfs@header, units=units, data=data)
     }
 }
 
@@ -76,7 +76,7 @@ plot_mass_balance <- function(dlfs, x_var, title_suffix="") {
         dlfs <- list(dlfs)
     }
     plotlist <- lapply(dlfs, function(dlf) {
-        df <- dlf@body[, c(x_var, 'balance')]
+        df <- dlf@data[, c(x_var, 'balance')]
         sample_mean <- mean(df$balance)
         sample_sd <- stats::sd(df$balance)
         cl2 <- sample_mean + 2 * c(-sample_sd, sample_sd)
@@ -137,16 +137,16 @@ mass_balance_summary <- function(dlfs, input, output, content) {
             stop(paste("Unit mismatch:", unit))
         }
         result <- list()
-        input_sum <- col_sum(dlfs@body[, input])
+        input_sum <- col_sum(dlfs@data[, input])
         input_total <- sum(input_sum)
         result$Inputs <- c(input_sum, Total=input_total)
-        output_sum <- col_sum(dlfs@body[, output])
+        output_sum <- col_sum(dlfs@data[, output])
         output_total <- sum(output_sum)
         result$Outputs <- c(output_sum, Total=output_total)
         in_out_delta <- output_total - input_total
-        initial_content <- dlfs@body[1, content]
+        initial_content <- dlfs@data[1, content]
         initial_content_total <- sum(initial_content)
-        final_content <- dlfs@body[nrow(dlfs@body), content]
+        final_content <- dlfs@data[nrow(dlfs@data), content]
         final_content_total <- sum(final_content)
         content_delta <- final_content_total - initial_content_total
         result$InitialContent <- as.data.frame(c(initial_content,

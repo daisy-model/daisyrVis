@@ -1,24 +1,13 @@
-# nolint start: object_name_linter
-#' Class encapsulating Daisy log file (dlf) data
-#' @slot header  A list with named components containing meta information
-#' @slot units  A data.frame with the units of the values in body
-#' @slot body  A data.frame with the values from the dlf file
-#' @export Dlf
-Dlf <- setClass("Dlf", slots=list(header="list",
-                                  units="data.frame",
-                                  body="data.frame"))
-# nolint end
-
 #' Read a dlf file (Daisy log file)
 #'
 #' @param path Path to dlf file
 #'
-#' @return An S4 object of class Dlf with three slots: header, units, body
+#' @return An S4 object of class Dlf with three slots: header, units, data
 #'
 #' header is list with everything in the dlf file before the data. key: value
 #' pairs from the header are stored as named components of the list.
-#' units is a data.framecontaining the units of the values in body.
-#' body is a data.frame containing the logged values
+#' units is a data.framecontaining the units of the values in data.
+#' data is a data.frame containing the logged values
 #'
 #' @export
 #'
@@ -29,15 +18,16 @@ Dlf <- setClass("Dlf", slots=list(header="list",
 #' slotNames(dlf)
 #' names(dlf@header)
 #' dlf@units$Crop
-#' dlf@body["Crop"]
+#' dlf$Crop # equivalent to dlf@data$Crop
+#' dlf[["Crop"]]
 read_dlf <- function(path) {
-    header_body_sep <- "--------------------"
+    header_data_sep <- "--------------------"
     dlf_file <- file(path, open="rt", encoding="UTF-8")
     header <- list()
     tryCatch({
         while (TRUE) {
             line <- readLines(dlf_file, n=1, encoding="UTF-8")
-            if (length(line) == 0 || startsWith(line, header_body_sep)) {
+            if (length(line) == 0 || startsWith(line, header_data_sep)) {
                 break
             }
             line <- trimws(line)
@@ -69,11 +59,11 @@ read_dlf <- function(path) {
             units <- c(units, rep("", missing_units))
         }
         names(units) <- csv_header
-        # Make units a data.frame so names match body (e.g. - removed)
+        # Make units a data.frame so names match data (e.g. - removed)
         units <- as.data.frame(as.list(units))
 
-        body <- utils::read.table(dlf_file, sep="\t", col.names=csv_header)
-        new("Dlf", header=header, units=units, body=body)
+        data <- utils::read.table(dlf_file, sep="\t", col.names=csv_header)
+        new("Dlf", header=header, units=units, data=data)
     },
     finally = {
         close(dlf_file)

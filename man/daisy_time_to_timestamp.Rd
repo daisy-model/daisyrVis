@@ -40,7 +40,7 @@ Transform daisy time columns to a single timestamp
 data_dir <- system.file("extdata", package="daisyrVis")
 path <- file.path(data_dir, 'daily/DailyP/DailyP-Daily-WaterFlux.dlf')
 dlf <- read_dlf(path)
-dlf@body[1,]
+dlf@data[1,]
 dlf <- daisy_time_to_timestamp(dlf)
-dlf@body[1,]
+dlf@data[1,]
 }

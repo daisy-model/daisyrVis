@@ -3,7 +3,7 @@
 \name{depth_wide_to_long}
 \alias{depth_wide_to_long}
 \title{Transform wide format time series to a long format time series
-It is assumed that dlf@body only contains \code{time_name} columns and depth
+It is assumed that dlf@data only contains \code{time_name} columns and depth
 columns with the format
 <var_name>_\if{html}{\out{<depth-below-surface>}}
 e.g. "q_100"}
@@ -22,12 +22,12 @@ depth_wide_to_long(dlf, var_name, time_name = "time", depth_name = "z")
 \value{
 An S4 object of class Dlf
 
-The body of rhe returned Dlf object contains one row for each time/depth
+The data of rhe returned Dlf object contains one row for each time/depth
 combination.
 }
 \description{
 Transform wide format time series to a long format time series
-It is assumed that dlf@body only contains \code{time_name} columns and depth
+It is assumed that dlf@data only contains \code{time_name} columns and depth
 columns with the format
 <var_name>_\if{html}{\out{<depth-below-surface>}}
 e.g. "q_100"
@@ -36,8 +36,8 @@ e.g. "q_100"
 data_dir <- system.file("extdata", package="daisyrVis")
 path <- file.path(data_dir, "daily/DailyP/DailyP-Daily-WaterFlux.dlf")
 dlf <- read_dlf(path)
-dlf@body[1,]
+dlf@data[1,]
 dlf <- daisy_time_to_timestamp(dlf)
 dlf <- depth_wide_to_long(dlf, "q")
-head(dlf@body)
+head(dlf@data)
 }

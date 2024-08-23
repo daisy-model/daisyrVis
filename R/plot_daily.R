@@ -22,16 +22,16 @@
 #'
 #' ## Plot multiple dlfs together
 #' dlf2 <- dlf
-#' dlf2@body[["Leak_Matrix"]] <-  dlf2@body[["Leak_Matrix"]] + 0.001
-#' dlf2@body[["Transform"]] <-  dlf2@body[["Transform"]] + 0.05
+#' dlf2[["Leak_Matrix"]] <-  dlf2[["Leak_Matrix"]] + 0.001
+#' dlf$Transform <-  dlf2$Transform + 0.05
 #' dlfs <- list(original=dlf, derived=dlf2)
 #' hour <- hour + 2
 #' plot_daily(dlfs, vars, hour, paste0(" - Soil chemical @ hour ", hour))
 plot_daily <- function(dlfs, variables, hour=0, title_suffix="",
                        plot_line=FALSE) {
     prepare_dlf <- function(dlf) {
-        body <- dlf@body[dlf@body$hour == hour, ]
-        dlf <- new("Dlf", header=dlf@header, units=dlf@units, body=body)
+        data <- dlf@data[dlf@data$hour == hour, ]
+        dlf <- new("Dlf", header=dlf@header, units=dlf@units, data=data)
         daisyrVis::daisy_time_to_timestamp(dlf)
     }
     if (methods::is(dlfs, 'Dlf')) {

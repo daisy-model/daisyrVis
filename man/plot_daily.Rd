@@ -39,8 +39,8 @@ plot_daily(dlf, vars, hour, paste0(" - Soil chemical @ hour ", hour), TRUE)
 
 ## Plot multiple dlfs together
 dlf2 <- dlf
-dlf2@body[["Leak_Matrix"]] <-  dlf2@body[["Leak_Matrix"]] + 0.001
-dlf2@body[["Transform"]] <-  dlf2@body[["Transform"]] + 0.05
+dlf2[["Leak_Matrix"]] <-  dlf2[["Leak_Matrix"]] + 0.001
+dlf$Transform <-  dlf2$Transform + 0.05
 dlfs <- list(original=dlf, derived=dlf2)
 hour <- hour + 2
 plot_daily(dlfs, vars, hour, paste0(" - Soil chemical @ hour ", hour))

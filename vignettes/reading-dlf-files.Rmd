@@ -33,12 +33,12 @@ path <- file.path(data_dir, "hourly/P2D-Daily-Soil_Chemical_110cm.dlf")
 dlf <- read_dlf(path)
 ```
 
-`read_dlf` returns an S4 object of class `Dlf`. The data in the dlf file is stored in three _slots_ in the `Dlf` object, `header`, `units`, `body`
+`read_dlf` returns an S4 object of class `Dlf`. The data in the dlf file is stored in three _slots_ in the `Dlf` object, `header`, `units`, `data`
 ```{r}
 slotNames(dlf)
 ```
 
-The `header` slot is a list of the metadata that is stored before the actual data in the dlf file. The `units` slot is a `data.frame` with unit information for each data column. The `body` slot is a `data.frame` containing the data. A slot is accessed with the `@` operator
+The `header` slot is a list of the metadata that is stored before the actual data in the dlf file. The `units` slot is a `data.frame` with unit information for each data column. The `data` slot is a `data.frame` containing the data. A slot is accessed with the `@` operator
 ```{r}
 dlf@header
 ```
@@ -48,7 +48,17 @@ dlf@units
 ```
 
 ```{r}
-head(dlf@body)
+head(dlf@data)
+```
+
+We can also directly access and assign columns of the `data` slot with the `$` and `[[` operators
+
+```{r}
+head(dlf$year)
+dlf$year <- dlf$year + 2
+head(dlf[["year"]])
+dlf[[1, "year"]] <- dlf[[1, "year"]] + 10
+dlf[[1, "year"]]
 ```
 
 ## Reading a directory with dlf files
