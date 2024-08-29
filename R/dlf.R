@@ -40,7 +40,7 @@ setMethod("[[", "Dlf", function(x, i, j) {
     }
 })
 
-#' [[ assignemnt on the data part of the dlf
+#' [[ assignment on the data part of the dlf
 #' @param x The dlf object
 #' @param i Name or index of row OR if j is missing, name or index of column
 #' @param j Name or index of column
@@ -51,6 +51,34 @@ setMethod("[[<-", "Dlf", function(x, i, j, value) {
         x@data[[i]] <- value
     } else {
         x@data[[i, j]] <- value
+    }
+    x
+})
+
+#' [ indexing on the data part of the dlf
+#' @param x The dlf object
+#' @param i Name or index of row OR if j is missing, name or index of column
+#' @param j Name or index of column
+#' @export
+setMethod("[", "Dlf", function(x, i, j) {
+    if (missing(j)) {
+        x@data[i, ]
+    } else {
+        x@data[i, j]
+    }
+})
+
+#' [ assignment on the data part of the dlf
+#' @param x The dlf object
+#' @param i Name or index of row OR if j is missing, name or index of column
+#' @param j Name or index of column
+#' @param value New value to assign
+#' @export
+setMethod("[<-", "Dlf", function(x, i, j, value) {
+    if (missing(j)) {
+        x@data[i, ] <- value
+    } else {
+        x@data[i, j] <- value
     }
     x
 })
