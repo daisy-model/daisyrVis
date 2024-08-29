@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_daily.R
 \name{plot_daily}
 \alias{plot_daily}
-\title{Make a scatter plot of one or more variables from one or more dlfs}
+\title{Convenience function for plotting daily logged variables in a scatter plot}
 \usage{
 plot_daily(dlfs, variables, hour = 0, title_suffix = "", plot_line = FALSE)
 }
@@ -22,7 +22,7 @@ components, the names are used for the legend.}
 ggplot2
 }
 \description{
-Make a scatter plot of one or more variables from one or more dlfs
+Convenience function for plotting daily logged variables in a scatter plot
 }
 \examples{
 ## Load dlf data with read_dlf

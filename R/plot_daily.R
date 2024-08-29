@@ -1,4 +1,4 @@
-#' Make a scatter plot of one or more variables from one or more dlfs
+#' Convenience function for plotting daily logged variables in a scatter plot
 #' @param dlfs  Either a list of Dlf or a single Dlf. If a list with of
 #'              components, the names are used for the legend.
 #' @param variables  Either a list of variables to plot, or a single variable
@@ -39,6 +39,9 @@ plot_daily <- function(dlfs, variables, hour=0, title_suffix="",
     } else {
         dlfs <- lapply(dlfs, prepare_dlf)
     }
-    daisyrVis::points_and_lines(dlfs, "time", variables, title_suffix,
-                                plot_line)
+    type <- "points"
+    if (plot_line) {
+        type <- paste0(type, "lines")
+    }
+    daisyrVis::plot_dlf(dlfs, "time", variables, type, title_suffix)
 }

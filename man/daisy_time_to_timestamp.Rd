@@ -10,7 +10,8 @@ daisy_time_to_timestamp(
   year_col = "year",
   month_col = "month",
   day_col = "mday",
-  hour_col = "hour"
+  hour_col = "hour",
+  drop_daisy_time_cols = FALSE
 )
 }
 \arguments{
@@ -25,6 +26,8 @@ daisy_time_to_timestamp(
 \item{day_col}{Name of day column, set to NULL if no day column}
 
 \item{hour_col}{Name of hour column, set to NULL if no hour column}
+
+\item{drop_daisy_time_cols}{If TRUE drop the year, month, day, hour columns}
 }
 \value{
 An S4 object of class Dlf

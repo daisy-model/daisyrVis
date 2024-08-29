@@ -67,9 +67,9 @@ sim <- daisy_time_to_timestamp(sim, "Date")
 head(sim[[names(sim)[1]]]$Date)
 ```
 
-For the simulated data we will use the plot function `points_and_lines` from `daisyrVis`, which knows how to plot multiple `Dlf` objects together.
+For the simulated data we will use the plot function `plot_dlf` from `daisyrVis`, which knows how to plot multiple variables from multiple `Dlf` objects together.
 ```{r}
-points_and_lines(sim, "Date", "LAI")
+plot_dlf(sim, "Date", "LAI", "points")
 ```
 
 
@@ -77,11 +77,11 @@ points_and_lines(sim, "Date", "LAI")
 We can combine the simulated and measured data in one plot by first plotting the simulated data and then adding the measured data
 
 ```{r}
-points_and_lines(sim, "Date", "LAI") + 
+plot_dlf(sim, "Date", "LAI", "points") + 
   geom_point(data=field, mapping=aes(x=Date, y=LAI_mean, group=Method,
                                      fill=Method, color=Method, shape=Method))
 ```
-This works because `points_and_lines` returns a `ggplot`object that we can add additional data and plots to. Note that this only works when you plot a single variable. If you use `point_and_lines` to plot multiple variables in different subplots, then you need to do things a bit differently.
+This works because `plot_dlf` returns a `ggplot`object that we can add additional data and plots to. Note that this only works when you plot a single variable. If you use `point_and_lines` to plot multiple variables in different subplots, then you need to do things a bit differently.
 
 ## Visualize simulated and measured data together for multiple variables
 In order to plot multiple variables from different sources, we need to have everything as `Dlf`objects using the same column names
@@ -101,7 +101,7 @@ field_dlfs <- list(
 ```
 
 ```{r}
-points_and_lines(c(sim, field_dlfs), "Date", c("LAI", "Height"))
+plot_dlf(c(sim, field_dlfs), "Date", c("LAI", "Height"), "points")
 ```
 
 ```{r}

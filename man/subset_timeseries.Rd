@@ -2,12 +2,12 @@
 % Please edit documentation in R/subset_timeseries.R
 \name{subset_timeseries}
 \alias{subset_timeseries}
-\title{Select the subset of measurements in a specific time range}
+\title{Select the subset of measurements in a specific time range.}
 \usage{
 subset_timeseries(
   dlfs,
-  date_from,
-  date_to,
+  date_from = "",
+  date_to = "",
   time_from = "00:00:00",
   time_to = "23:59:59",
   time_zone = "UTC",
@@ -18,10 +18,12 @@ subset_timeseries(
 \item{dlfs}{Either a list of Dlf or a single Dlf}
 
 \item{date_from}{Start date (included). ISO 8601 format (yyyy-mm-dd),
-e.g 1999-01-31}
+e.g 1999-01-31. Can be the empty string "" in which case only dates after
+date_to are excluded}
 
 \item{date_to}{End date (included). ISO 8601 format (yyyy-mm-dd),
-e.g 1999-01-31}
+e.g 1999-01-31. Can be the empty string "" in which case only dates before
+date_from are excluded}
 
 \item{time_from}{Start time (included). ISO 8601 format (hh:mm:ss),
 e.g. 07:54:20}
@@ -31,13 +33,14 @@ e.g. 07:54:20}
 
 \item{time_zone}{Name of time zone.}
 
-\item{time_col}{Name of time column in dlfs.}
+\item{time_col}{Name of time column in dlfs. Must be in POSIXct format. See
+\code{daisy_time_to_timestamp} for converting daisy time columns to POSIXct}
 }
 \value{
 Dlfs with data slot containing the selected rows
 }
 \description{
-Select the subset of measurements in a specific time range
+Select the subset of measurements in a specific time range.
 }
 \examples{
 # Load dlf data with read_dlf
