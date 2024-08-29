@@ -6,6 +6,7 @@
 #' @param month_col Name of month column, set to NULL if no month column
 #' @param day_col Name of day column, set to NULL if no day column
 #' @param hour_col Name of hour column, set to NULL if no hour column
+#' @param drop_daisy_time_cols If TRUE drop the year, month, day, hour columns
 #' @return An S4 object of class Dlf
 #'
 #' The returned object is identical to the dlf, except that the Columns 'year',
@@ -23,7 +24,8 @@
 #' dlf@data[1,]
 daisy_time_to_timestamp <- function(dlf, time_col_name='time', year_col="year",
                                     month_col="month", day_col="mday",
-                                    hour_col="hour") {
+                                    hour_col="hour",
+                                    drop_daisy_time_cols=FALSE) {
     if (is.list(dlf)) {
         lapply(dlf, function(dlf_) {
             daisy_time_to_timestamp(dlf_, time_col_name, year_col, month_col,
@@ -55,7 +57,9 @@ daisy_time_to_timestamp <- function(dlf, time_col_name='time', year_col="year",
             paste(row, collapse=" ")
         })
         data[[time_col_name]] <- as.POSIXct(raw_ts, format=format_string)
-        data <- data[!(colnames(data) %in% time_cols)]
+        if (drop_daisy_time_cols) {
+            data <- data[!(colnames(data) %in% time_cols)]
+        }
         data <- data[order(data[[time_col_name]]), , drop=FALSE]
         units <- dlf@units[!(colnames(dlf@units) %in% time_cols)]
         units[time_col_name] <- ''
