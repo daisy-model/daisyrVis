@@ -148,10 +148,12 @@ objects</p>
 <span><span class="co">#&gt; [1] "2019-03-22 UTC" "2019-03-23 UTC" "2019-03-24 UTC" "2019-03-25 UTC"</span></span>
 <span><span class="co">#&gt; [5] "2019-03-26 UTC" "2019-03-27 UTC"</span></span></code></pre></div>
 <p>For the simulated data we will use the plot function
-<code>points_and_lines</code> from <code>daisyrVis</code>, which knows
-how to plot multiple <code>Dlf</code> objects together.</p>
+<code>plot_dlf</code> from <code>daisyrVis</code>, which knows how to
+plot multiple variables from multiple <code>Dlf</code> objects
+together.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/points_and_lines.html">points_and_lines</a></span><span class="op">(</span><span class="va">sim</span>, <span class="st">"Date"</span>, <span class="st">"LAI"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_dlf.html">plot_dlf</a></span><span class="op">(</span><span class="va">sim</span>, <span class="st">"Date"</span>, <span class="st">"LAI"</span>, <span class="st">"points"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [[1]]</span></span></code></pre></div>
 <p><img src="compare-simulated-and-measured-data_files/figure-html/unnamed-chunk-8-1.png" width="672"></p>
 </div>
 <div class="section level2">
@@ -160,13 +162,11 @@ how to plot multiple <code>Dlf</code> objects together.</p>
 <p>We can combine the simulated and measured data in one plot by first
 plotting the simulated data and then adding the measured data</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/points_and_lines.html">points_and_lines</a></span><span class="op">(</span><span class="va">sim</span>, <span class="st">"Date"</span>, <span class="st">"LAI"</span><span class="op">)</span> <span class="op">+</span> </span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_dlf.html">plot_dlf</a></span><span class="op">(</span><span class="va">sim</span>, <span class="st">"Date"</span>, <span class="st">"LAI"</span>, <span class="st">"points"</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">field</span>, mapping<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">Date</span>, y<span class="op">=</span><span class="va">LAI_mean</span>, group<span class="op">=</span><span class="va">Method</span>,</span>
 <span>                                     fill<span class="op">=</span><span class="va">Method</span>, color<span class="op">=</span><span class="va">Method</span>, shape<span class="op">=</span><span class="va">Method</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: Removed 7 rows containing missing values or values outside the scale range</span></span>
-<span><span class="co">#&gt; (`geom_point()`).</span></span></code></pre></div>
-<p><img src="compare-simulated-and-measured-data_files/figure-html/unnamed-chunk-9-1.png" width="672">
-This works because <code>points_and_lines</code> returns a
+<span><span class="co">#&gt; NULL</span></span></code></pre></div>
+<p>This works because <code>plot_dlf</code> returns a
 <code>ggplot</code>object that we can add additional data and plots to.
 Note that this only works when you plot a single variable. If you use
 <code>point_and_lines</code> to plot multiple variables in different
@@ -193,7 +193,7 @@ names</p>
 <span>            data<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>Date<span class="op">=</span><span class="va">plant</span><span class="op">$</span><span class="va">Date</span>, LAI<span class="op">=</span><span class="va">plant</span><span class="op">$</span><span class="va">LAI_mean</span>,</span>
 <span>                            Height<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">plant</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/points_and_lines.html">points_and_lines</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">sim</span>, <span class="va">field_dlfs</span><span class="op">)</span>, <span class="st">"Date"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"LAI"</span>, <span class="st">"Height"</span><span class="op">)</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_dlf.html">plot_dlf</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">sim</span>, <span class="va">field_dlfs</span><span class="op">)</span>, <span class="st">"Date"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"LAI"</span>, <span class="st">"Height"</span><span class="op">)</span>, <span class="st">"points"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning: Removed 7 rows containing missing values or values outside the scale range</span></span>
 <span><span class="co">#&gt; (`geom_point()`).</span></span>
 <span><span class="co">#&gt; Warning: Removed 31 rows containing missing values or values outside the scale range</span></span>
