@@ -1,0 +1,78 @@
+---
+title: "Mass balance"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{mass-balance}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+# nolint start: indentation-linter
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.width = 7,
+  fig.height = 5
+  )
+options(rmarkdown.html_vignette.check_title = FALSE)
+```
+
+```{r setup}
+library(daisyrVis)
+```
+
+We are going to read a dlf file and then calculate, summarize and plot mass balance. For this we will use the soil chemical log bundled with `daisyrVis`.
+```{r}
+data_dir <- system.file("extdata", package="daisyrVis")
+path <- file.path(data_dir, "hourly/P2D-Daily-Soil_Chemical_110cm.dlf")
+dlf <- read_dlf(path)
+## We dont need timestamps for the mass balance calculation, but we need it for
+## plotting later.
+dlf <- daisy_time_to_timestamp(dlf)
+names(dlf@data)
+nrow(dlf@data)
+```
+
+In order to do a mass balance calculation, we need to define ehich variables are input, output and content variables. In this case we use
+```{r}
+input <- c("In_Matrix", "In_Biopores", "External", "Transform", "Tillage")
+output <- c("Decompose", "Leak_Matrix", "Leak_Biopores", "Drain_Soil",
+            "Drain_Biopores", "Uptake")
+content <- c("Content", "Biopores")
+```
+
+## Mass balance summary
+We can use the function `mass_balance_summary` to summarize the mass balance at the final timestep. The result is a list containing the sum of each input and the total input; the sum of each output and the total output; the value of each initial content and total initial content; the value of each final content and total final content; and the final balance calculation.
+```{r}
+mbs <- mass_balance_summary(dlf, input, output, content)
+mbs$Inputs
+mbs$Outputs
+mbs$InitialContent
+mbs$FinalContent
+mbs$Balance
+```
+
+## Mass balance at each timestep
+We can use the function `mass_balance` to calculate a mass balance at each timestep. When calculating mass balance we can either use the initial content as reference or get total mass
+```{r}
+mb_ref <- mass_balance(dlf, input, output, content)
+mb_total <- mass_balance(dlf, input, output, content, FALSE)
+```
+
+`mass_balance` returns a `Dlf` object with a mass balance calculation for each timestep
+```{r}
+names(mb_ref@data)
+nrow(mb_ref@data)
+```
+
+### Plotting mass balance
+We can plot the mass balance calculation with `plot_mass_balance`. This will produce a controlchart plot, where each point is plotted alongside lines indicating mean, mean ± 2 standard deviations, mean ± 3 standard deviations. The point of the plot is twofold, highlight points with large deviation and highligt systematic changes deviations. We want to check that the magnitude of deviations is acceptable, and that the distribution of deviations is consistent over time.
+```{r}
+plot_mass_balance(mb_ref, "time", " - Initial content as reference")
+plot_mass_balance(mb_total, "time", " - Total content")
+```
+
+```{r, include = FALSE}
+# nolint end
+```

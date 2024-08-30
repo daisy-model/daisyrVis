@@ -81,10 +81,6 @@ plot_mass_balance <- function(dlfs, x_var, title_suffix="") {
         sample_sd <- stats::sd(df$balance)
         cl2 <- sample_mean + 2 * c(-sample_sd, sample_sd)
         cl3 <- sample_mean + 3 * c(-sample_sd, sample_sd)
-        y_lim <- sample_mean + 4 * c(-sample_sd, sample_sd)
-        print(cl2)
-        print(cl3)
-        print(y_lim)
         x_var_sym <- rlang::sym(x_var) # This is for aes
         gg <- ggplot2::ggplot(df,
                               ggplot2::aes(x=!!x_var_sym, y=get("balance"))) +
@@ -114,7 +110,7 @@ plot_mass_balance <- function(dlfs, x_var, title_suffix="") {
 #' @param output  Name(s) of variable(s) containing mass output
 #' @param content  Name(s) of variable(s) containing mass content
 #' @return Either a single list or a list of lists, with the nested lists having
-#'         four elements: Inputs, Outputs, InitialContent, FinalContent, and
+#'         five elements: Inputs, Outputs, InitialContent, FinalContent, and
 #'         Balance.
 #' @export
 #' @examples

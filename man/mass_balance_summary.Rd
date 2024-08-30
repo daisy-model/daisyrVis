@@ -17,7 +17,7 @@ mass_balance_summary(dlfs, input, output, content)
 }
 \value{
 Either a single list or a list of lists, with the nested lists having
-four elements: Inputs, Outputs, InitialContent, FinalContent, and
+five elements: Inputs, Outputs, InitialContent, FinalContent, and
 Balance.
 }
 \description{
