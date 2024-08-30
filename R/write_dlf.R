@@ -1,13 +1,13 @@
-#' Write a dlf object as a csv file
+#' Write a dlf object to a file
 #'
 #' @param dlf Dlf object to write
 #' @param path Output path to write to
 #' @param sep Separator to use in csv file
-#' @param include_dlf_header If TRUE write the Dlf to the begining of the csv
-#'                           file
+#' @param include_dlf_header If TRUE write the Dlf header to the begining of the
+#' csv file
 #'
 #' @export
-dlf_to_csv <- function(dlf, path, sep=",", include_dlf_header=FALSE) {
+write_dlf <- function(dlf, path, sep=",", include_dlf_header=FALSE) {
     if (include_dlf_header) {
         header <- data.frame(unname(unlist(dlf@header)))
         rownames(header) <- names(dlf@header)
