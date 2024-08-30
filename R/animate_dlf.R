@@ -11,8 +11,8 @@
 #' data_dir <- system.file("extdata", package="daisyrVis")
 #' path <- file.path(data_dir, "daily/DailyP/DailyP-Daily-WaterFlux.dlf")
 #' dlf <- read_dlf(path)
-#' animate_depth_timeseries(dlf, "q")
-animate_depth_timeseries <- function(dlf, var_name) {
+#' animate_dlf(dlf, "q")
+animate_dlf <- function(dlf, var_name) {
     dlf <- daisyrVis::daisy_time_to_timestamp(dlf)
     dlf <- daisyrVis::depth_wide_to_long(dlf, var_name)
     dlf@data %>%
