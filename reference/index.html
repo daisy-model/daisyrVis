@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">daisyrVis</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.1.0000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.2.0000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -19,6 +19,7 @@
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/compare-simulated-and-measured-data.html">Compare simulated and measured data</a></li>
+    <li><a class="dropdown-item" href="../articles/mass-balance.html">Mass balance</a></li>
     <li><a class="dropdown-item" href="../articles/reading-dlf-files.html">Reading dlf files</a></li>
   </ul></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
@@ -53,7 +54,7 @@
         <dd>Class encapsulating Daisy log file (dlf) data</dd>
       </dl><dl><dt>
 
-          <code><a href="animate_depth_timeseries.html">animate_depth_timeseries()</a></code>
+          <code><a href="animate_dlf.html">animate_dlf()</a></code>
 
         </dt>
         <dd>Animate a depth dependent timeseries from a Dlf file</dd>
@@ -81,12 +82,6 @@
 
         </dt>
         <dd>Transform wide format time series to a long format time series It is assumed that dlf@data only contains <code>time_name</code> columns and depth columns with the format &lt;var_name&gt;_<depth-below-surface> e.g. "q_100"</depth-below-surface></dd>
-      </dl><dl><dt>
-
-          <code><a href="dlf_to_csv.html">dlf_to_csv()</a></code>
-
-        </dt>
-        <dd>Write a dlf object as a csv file</dd>
       </dl><dl><dt>
 
           <code><a href="drop_dir_from_names.html">drop_dir_from_names()</a></code>
@@ -149,6 +144,12 @@
         <dd>Strip common prefix from dlf names</dd>
       </dl><dl><dt>
 
+          <code><a href="sub-Dlf-method.html">`[`(<i>&lt;Dlf&gt;</i>)</a></code>
+
+        </dt>
+        <dd>[ indexing on the data part of the dlf</dd>
+      </dl><dl><dt>
+
           <code><a href="sub-sub-Dlf-method.html">`[[`(<i>&lt;Dlf&gt;</i>)</a></code>
 
         </dt>
@@ -158,13 +159,25 @@
           <code><a href="sub-subset-Dlf-method.html">`[[&lt;-`(<i>&lt;Dlf&gt;</i>)</a></code>
 
         </dt>
-        <dd>[[ assignemnt on the data part of the dlf</dd>
+        <dd>[[ assignment on the data part of the dlf</dd>
       </dl><dl><dt>
 
-          <code><a href="subset_timeseries.html">subset_timeseries()</a></code>
+          <code><a href="subset-Dlf-method.html">`[&lt;-`(<i>&lt;Dlf&gt;</i>)</a></code>
+
+        </dt>
+        <dd>[ assignment on the data part of the dlf</dd>
+      </dl><dl><dt>
+
+          <code><a href="subset_dlf.html">subset_dlf()</a></code>
 
         </dt>
         <dd>Select the subset of measurements in a specific time range.</dd>
+      </dl><dl><dt>
+
+          <code><a href="write_dlf.html">write_dlf()</a></code>
+
+        </dt>
+        <dd>Write a dlf object to a file</dd>
       </dl></div>
   </main></div>
 

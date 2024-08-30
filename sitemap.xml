@@ -3,17 +3,17 @@
 <url><loc>https://daisy-model.github.io/daisyrVis/LICENSE.html</loc></url>
 <url><loc>https://daisy-model.github.io/daisyrVis/articles/compare-simulated-and-measured-data.html</loc></url>
 <url><loc>https://daisy-model.github.io/daisyrVis/articles/index.html</loc></url>
+<url><loc>https://daisy-model.github.io/daisyrVis/articles/mass-balance.html</loc></url>
 <url><loc>https://daisy-model.github.io/daisyrVis/articles/reading-dlf-files.html</loc></url>
 <url><loc>https://daisy-model.github.io/daisyrVis/authors.html</loc></url>
 <url><loc>https://daisy-model.github.io/daisyrVis/index.html</loc></url>
 <url><loc>https://daisy-model.github.io/daisyrVis/reference/Dlf-class.html</loc></url>
-<url><loc>https://daisy-model.github.io/daisyrVis/reference/animate_depth_timeseries.html</loc></url>
+<url><loc>https://daisy-model.github.io/daisyrVis/reference/animate_dlf.html</loc></url>
 <url><loc>https://daisy-model.github.io/daisyrVis/reference/cash-Dlf-method.html</loc></url>
 <url><loc>https://daisy-model.github.io/daisyrVis/reference/cash-set-Dlf-method.html</loc></url>
 <url><loc>https://daisy-model.github.io/daisyrVis/reference/daisy_time_to_timestamp.html</loc></url>
 <url><loc>https://daisy-model.github.io/daisyrVis/reference/daisyrVis-package.html</loc></url>
 <url><loc>https://daisy-model.github.io/daisyrVis/reference/depth_wide_to_long.html</loc></url>
-<url><loc>https://daisy-model.github.io/daisyrVis/reference/dlf_to_csv.html</loc></url>
 <url><loc>https://daisy-model.github.io/daisyrVis/reference/drop_dir_from_names.html</loc></url>
 <url><loc>https://daisy-model.github.io/daisyrVis/reference/index.html</loc></url>
 <url><loc>https://daisy-model.github.io/daisyrVis/reference/mass_balance.html</loc></url>
@@ -25,8 +25,11 @@
 <url><loc>https://daisy-model.github.io/daisyrVis/reference/read_dlf.html</loc></url>
 <url><loc>https://daisy-model.github.io/daisyrVis/reference/read_dlf_dir.html</loc></url>
 <url><loc>https://daisy-model.github.io/daisyrVis/reference/strip_common_prefix_from_names.html</loc></url>
+<url><loc>https://daisy-model.github.io/daisyrVis/reference/sub-Dlf-method.html</loc></url>
 <url><loc>https://daisy-model.github.io/daisyrVis/reference/sub-sub-Dlf-method.html</loc></url>
 <url><loc>https://daisy-model.github.io/daisyrVis/reference/sub-subset-Dlf-method.html</loc></url>
-<url><loc>https://daisy-model.github.io/daisyrVis/reference/subset_timeseries.html</loc></url>
+<url><loc>https://daisy-model.github.io/daisyrVis/reference/subset-Dlf-method.html</loc></url>
+<url><loc>https://daisy-model.github.io/daisyrVis/reference/subset_dlf.html</loc></url>
+<url><loc>https://daisy-model.github.io/daisyrVis/reference/write_dlf.html</loc></url>
 </urlset>
 
