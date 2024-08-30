@@ -22,11 +22,11 @@
 #' dlfs <- read_dlf_dir(data_dir)
 #' dlfs <- daisy_time_to_timestamp(dlfs)
 #' data.frame(lapply(dlfs, function(dlf) { dlf$time}))
-#' dlfs <- subset_timeseries(dlfs, "1995-04-01", "1999-04-01", time_zone="CEST")
+#' dlfs <- subset_dlf(dlfs, "1995-04-01", "1999-04-01", time_zone="CEST")
 #' data.frame(lapply(dlfs, function(dlf) { dlf$time}))
-subset_timeseries <- function(dlfs, date_from="", date_to="",
-                              time_from="00:00:00", time_to="23:59:59",
-                              time_zone="UTC", time_col="time") {
+subset_dlf <- function(dlfs, date_from="", date_to="",
+                       time_from="00:00:00", time_to="23:59:59",
+                       time_zone="UTC", time_col="time") {
     if (nchar(date_from) == 0 && nchar(date_to) == 0) {
         dlfs
     } else {
