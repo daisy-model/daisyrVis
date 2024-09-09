@@ -3,9 +3,10 @@ pkgdown: 2.1.0
 pkgdown_sha: ~
 articles:
   compare-simulated-and-measured-data: compare-simulated-and-measured-data.html
+  daisy-01-reading-dlf-files: daisy-01-reading-dlf-files.html
+  daisy-02-plotting-dlfs: daisy-02-plotting-dlfs.html
   mass-balance: mass-balance.html
-  reading-dlf-files: reading-dlf-files.html
-last_built: 2024-08-30T08:00Z
+last_built: 2024-09-09T07:27Z
 urls:
   reference: https://daisy-model.github.io/daisyrVis/reference
   article: https://daisy-model.github.io/daisyrVis/articles
