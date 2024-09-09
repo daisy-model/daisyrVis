@@ -2,7 +2,7 @@
 title: "Reading dlf files"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{reading-dlf-files}
+  %\VignetteIndexEntry{Reading dlf files}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -14,7 +14,6 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 # nolint end
-options(rmarkdown.html_vignette.check_title = FALSE)
 ```
 
 ```{r setup}
