@@ -91,6 +91,10 @@ dir_names_to_columns <- function(dlfs, column_name_prefix=NULL) {
         unit_cols <- data.frame(rep("", length(sub_dirs)))
         names(unit_cols) <- names(sub_dirs)
         dlf <- dlfs[[idx]]
+        ## If the log is empty, then we cannot add a column with length > 0
+        if (nrow(dlf@data) == 0) {
+            dlf@data[1, ] <- rep(NA, ncol(dlf@data))
+        }
         dlf@data <- cbind(dlf@data, sub_dirs)
         dlf@units <- cbind(dlf@units, unit_cols)
         dlf
@@ -110,8 +114,11 @@ dir_names_to_columns <- function(dlfs, column_name_prefix=NULL) {
 read_daisy_spawn_output <- function(directory, pattern=".*\\.dlf") {
     dlfs <- read_dlf_dir(directory, pattern)
     dlf_names <- basename(names(dlfs))
-    lapply(unique(dlf_names), function(log_name) {
+    log_names <- unique(dlf_names)
+    dlfs <- lapply(log_names, function(log_name) {
         daisyrVis::merge_dlfs(dir_names_to_columns(dlfs[log_name == dlf_names],
                                                    "run"), NULL)
     })
+    names(dlfs) <- log_names
+    dlfs
 }
