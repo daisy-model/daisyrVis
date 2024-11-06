@@ -21,7 +21,7 @@ Filter a list of Dlfs
 data_dir <- system.file("extdata", package="daisyrVis")
 dlfs <- read_dlf_dir(file.path(data_dir, "annual"))
 names(dlfs)
-## We only want the dlfs that have a "Harvest" column
+## We only want the dlfs that have a "Crop" column
 dlfs <- filter_dlfs(dlfs, function(dlf) {
     "Crop" \%in\% colnames(dlf@data)
 })
