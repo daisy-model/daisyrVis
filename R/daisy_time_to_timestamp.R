@@ -29,7 +29,7 @@ daisy_time_to_timestamp <- function(dlf, time_col_name='time', year_col="year",
     if (is.list(dlf)) {
         lapply(dlf, function(dlf_) {
             daisy_time_to_timestamp(dlf_, time_col_name, year_col, month_col,
-                                    day_col, hour_col)
+                                    day_col, hour_col, drop_daisy_time_cols)
         })
     } else {
         data <- dlf@data
