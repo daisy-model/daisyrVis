@@ -16,7 +16,8 @@ Imports:
     rlang,
     stats,
     utils,
-    plotly
+    plotly,
+    data.table
 Suggests: 
     knitr,
     rmarkdown,

@@ -24,9 +24,11 @@ read_dlf <- function(path) {
     header_data_sep <- "--------------------"
     dlf_file <- file(path, open="rt", encoding="UTF-8")
     header <- list()
-    tryCatch({
+    lines_read <- 0
+    tryCatch(withCallingHandlers({
         while (TRUE) {
             line <- readLines(dlf_file, n=1, encoding="UTF-8")
+            lines_read <- lines_read + 1
             if (length(line) == 0 || startsWith(line, header_data_sep)) {
                 break
             }
@@ -50,20 +52,37 @@ read_dlf <- function(path) {
             }
         }
         csv_header <- readLines(dlf_file, n=1, encoding="UTF-8")[[1]]
+        lines_read <- lines_read + 1
         csv_header <- strsplit(trimws(csv_header, whitespace="\n"), "\t")[[1]]
         csv_header <- gsub("-", "_", gsub(" @ ", "..AT..", csv_header))
         units <- readLines(dlf_file, n=1, encoding="UTF-8")[[1]]
+        lines_read <- lines_read + 1
         units <- strsplit(units, "\t")[[1]]
         missing_units <- length(csv_header) - length(units)
         if (missing_units > 0) {
             units <- c(units, rep("", missing_units))
         }
         names(units) <- csv_header
-        # Make units a data.frame so names match data (e.g. - removed)
+        ## Make units a data.frame so names match data (e.g. - removed)
         units <- as.data.frame(as.list(units))
-
-        data <- utils::read.table(dlf_file, sep="\t", col.names=csv_header)
+        ## We could use
+        ##  fread(text=readLines(dlf_file), ...
+        ## But it is much slower (about x5) than reading from the path
+        data <- data.table::fread(path, skip=lines_read, col.names=csv_header)
         new("Dlf", header=header, units=units, data=data)
+    },
+    warning = function(cond) {
+        message(paste("Warning while reading", path))
+        message(paste("Data section starts at row", lines_read))
+        message(conditionMessage(cond))
+        ## If we get warning, we still want to return a value.
+        ## This magically does what we want, but the document is a bit lacking
+        invokeRestart("muffleWarning")
+    }),
+    error = function(cond) {
+        message(paste("Error while reading", path))
+        message(paste("Data section starts at row", lines_read))
+        message(conditionMessage(cond))
     },
     finally = {
         close(dlf_file)

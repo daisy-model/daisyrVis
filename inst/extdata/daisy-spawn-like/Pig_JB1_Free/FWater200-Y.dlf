@@ -1,0 +1,40 @@
+dlf-0.0 -- Field water (defined in 'log-std.dai').
+
+VERSION: 7.0.0
+LOGFILE: FWater200-Y.dlf
+RUN: Wed Nov 13 13:29:51 2024
+
+COLUMN: *
+INTERVAL: box [-200; none]
+
+LOG: Information about water input, output and content for the system.
+LOG: 
+LOG: The intended use of this log is large scale water balance, for
+LOG: example reservoir management. It provide information about how
+LOG: much water is in the field (down to a specified depth), where it
+LOG: is located in the field (surface, soil matrix or in biopores), as
+LOG: well as the sources, sinks and amounts of water entering or
+LOG: leaving the system.  It does not provide information about
+LOG: internal translocation of water between surface, soil matrix and
+LOG: biopores, use see the 'Soil water' log instead for that.
+LOG: 
+LOG: For the balances of this log to work, you must include the entire
+LOG: root zone, as well as the biopore zone.
+
+SIMFILE: H:\LUEM_2025\DaisyFiles2022\FinalFiles\Pig_JB1_Free.dai
+SIM: Pig farm; JB1 soil; Free water drainage, Weather: Taastrup
+
+--------------------
+year	month	mday	hour	Precipitation	Irrigation	Potential evapotranspiration	Actual evapotranspiration	Matrix percolation	Biopore percolation	Matrix drain flow	Biopore drain flow	Runoff	Biopore water	Soil matrix water	Surface water
+				mm	mm	mm	mm	mm	mm	mm	mm	mm	mm	mm	mm
+1998	4	1	1	00.00	00.00	00.00	00.00	00.00	00.00	00.00	00.00	00.00	0	338.695	-3.46945e-18
+1999	4	1	0	780.275	32.0638	432.102	430.23	369.561	-0	0	0	0	0	351.23	0.0127177
+2000	4	1	0	694.9	154.128	540.43	525.957	310.769	-0	0	0	0	0	363.544	0
+2001	4	1	0	613.4	120	461.553	459.68	332.422	-0	0	0	0	0	304.808	0.0343973
+2002	4	1	0	741.1	182.064	555.994	554.361	352.533	-0	0	0	0	0	321.113	0
+2003	4	1	0	667.5	152.064	550.955	536.742	321.13	-0	0	0	0	0	282.804	0
+2004	4	1	0	717.6	122.064	595.782	588.649	205.906	-0	0	0	0	0	327.913	0
+2005	4	1	0	666	154.128	528.172	525.348	306.682	-0	0	0	0	0	316.011	0
+2006	4	1	0	537.4	180	512.346	511.064	201.565	-0	0	0	0	0	320.264	0.517742
+2007	4	1	0	913.2	182.064	623.988	623.741	493.127	-0	0	0	0	0	299.177	0
+2008	4	1	0	933	152.064	643.138	616.493	428.744	-0	0	0	0	0	339.003	0

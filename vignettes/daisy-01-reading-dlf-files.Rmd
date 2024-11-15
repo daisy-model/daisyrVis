@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 library(daisyrVis)
 ```
 
-There are are two functions for reading dlf files `read_dlf` and `read_dlf_dir`. `read_dlf` reads a single dlf file, `read_dlf_dir` searches a directory tree and reads all dlf files it finds. `read_dlf_dir` is particularly useful for reading outputs the spawn program in `daisy`.
+There are are three functions for reading dlf files `read_dlf`, `read_dlf_dir` and `read_daisy_spawn_output`. `read_dlf` reads a single dlf file, `read_dlf_dir` searches a directory tree and reads all dlf files it finds, `read_daisy_spawn_output` reads the outputs from spawn program in `daisy`.
 
 ## Reading a single dlf file
 
@@ -108,3 +108,27 @@ dlfs <- read_dlf_dir(path, pattern)
 names(dlfs)
 ```
 `pattern` is a regular expression. You should around with it and see if you can find a shorter pattern that results in the same files being read.
+
+
+## Reading Daisy spawn output
+Daisy spawn produces a directory hierarchy where each directory contains the same log files. We use the Daisy spawn outputs that are bundled with `daisyrVis` and read them with `read_daisy_spawn_output`
+```{r}
+data_dir <- system.file("extdata", package="daisyrVis")
+path <- file.path(data_dir, "daisy-spawn-like")
+list.files(path, recursive=TRUE)
+```
+Notice that each directory contains the same log files.
+```{r}
+dlfs <- read_daisy_spawn_output(path)
+```
+As `read_daisy_dir`, `read_daisy_spawn_output` also returns a list of `Dlf` objects
+```{r}
+dlf_names <- names(dlfs)
+dlf_names
+```
+But notice that instead of a list with an entry for each file that was read, we have a list with an entry for each log type that was read. All log of the same type are concatenated together, and an extra column "run" is added to the data field.
+```{r}
+name <- dlf_names[1]
+head(dlfs[[name]]@data)
+unique(dlfs[[name]]$run)
+```
