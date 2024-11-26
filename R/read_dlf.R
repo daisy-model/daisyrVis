@@ -65,6 +65,7 @@ read_dlf <- function(path) {
         names(units) <- csv_header
         ## Make units a data.frame so names match data (e.g. - removed)
         units <- as.data.frame(as.list(units))
+        colnames(units) <- csv_header
         ## We could use
         ##  fread(text=readLines(dlf_file), ...
         ## But it is much slower (about x5) than reading from the path
