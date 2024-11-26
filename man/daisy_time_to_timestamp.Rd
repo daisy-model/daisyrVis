@@ -7,10 +7,10 @@
 daisy_time_to_timestamp(
   dlf,
   time_col_name = "time",
-  year_col = "year",
-  month_col = "month",
-  day_col = "mday",
-  hour_col = "hour",
+  year_col = NULL,
+  month_col = NULL,
+  day_col = NULL,
+  hour_col = NULL,
   drop_daisy_time_cols = FALSE
 )
 }
@@ -31,6 +31,9 @@ daisy_time_to_timestamp(
 }
 \value{
 An S4 object of class Dlf
+
+If all of year_col, month_col, day_col and hour_col are NULL, then an attempt
+is made to guess the relevant names.
 
 The returned object is identical to the dlf, except that the Columns 'year',
 'month', 'mday' and 'hour' are dropped and replaced with a column containing
