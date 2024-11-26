@@ -27,9 +27,10 @@
 <url><loc>https://daisy-model.github.io/daisyrVis/reference/plot_dlf.html</loc></url>
 <url><loc>https://daisy-model.github.io/daisyrVis/reference/plot_dlf_timeseries.html</loc></url>
 <url><loc>https://daisy-model.github.io/daisyrVis/reference/plot_mass_balance.html</loc></url>
-<url><loc>https://daisy-model.github.io/daisyrVis/reference/read_daisy_spawn_output.html</loc></url>
 <url><loc>https://daisy-model.github.io/daisyrVis/reference/read_dlf.html</loc></url>
 <url><loc>https://daisy-model.github.io/daisyrVis/reference/read_dlf_dir.html</loc></url>
+<url><loc>https://daisy-model.github.io/daisyrVis/reference/read_dlf_file.html</loc></url>
+<url><loc>https://daisy-model.github.io/daisyrVis/reference/read_dlf_spawn.html</loc></url>
 <url><loc>https://daisy-model.github.io/daisyrVis/reference/strip_common_prefix_from_names.html</loc></url>
 <url><loc>https://daisy-model.github.io/daisyrVis/reference/sub-Dlf-method.html</loc></url>
 <url><loc>https://daisy-model.github.io/daisyrVis/reference/sub-sub-Dlf-method.html</loc></url>
