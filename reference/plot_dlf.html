@@ -47,7 +47,7 @@ Each variable is plotted in a separate subplot.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">plot_dlf</span><span class="op">(</span><span class="va">dlfs</span>, <span class="va">x_var</span>, <span class="va">y_vars</span>, <span class="va">type</span>, title_suffix <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">plot_dlf</span><span class="op">(</span><span class="va">dlfs</span>, <span class="va">x_var</span>, <span class="va">y_vars</span>, <span class="va">type</span>, title_suffix <span class="op">=</span> <span class="st">""</span>, group_col <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -84,7 +84,12 @@ type=function(gg)  gg + geom_point()</p></dd>
 
 
 <dt id="arg-title-suffix">title_suffix<a class="anchor" aria-label="anchor" href="#arg-title-suffix"></a></dt>
-<dd><p>A string this is appended to the title of all subplots</p></dd>
+<dd><p>A string that is appended to the title of all subplots</p></dd>
+
+
+<dt id="arg-group-col">group_col<a class="anchor" aria-label="anchor" href="#arg-group-col"></a></dt>
+<dd><p>Name of column to use for grouping. If not NULL then Dlfs
+must be a single Dlf object, not a list</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -101,10 +106,14 @@ variable, it is not possible to add further data to it.</p>
 <span class="r-in"><span><span class="va">dlf</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_dlf.html">read_dlf</a></span><span class="op">(</span><span class="va">path</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># Plot using a string for type</span></span></span>
 <span class="r-in"><span><span class="fu">plot_dlf</span><span class="op">(</span><span class="va">dlf</span>, <span class="st">"year"</span>, <span class="st">"Crop"</span>, <span class="st">"bar"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
 <span class="r-plt img"><img src="plot_dlf-1.png" alt="" width="700" height="433"></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="co"># Same plot with a function for type</span></span></span>
 <span class="r-in"><span><span class="va">geom</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">gg</span><span class="op">)</span> <span class="op">{</span> <span class="va">gg</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">geom_col</a></span><span class="op">(</span>position<span class="op">=</span><span class="st">"dodge"</span><span class="op">)</span> <span class="op">}</span></span></span>
 <span class="r-in"><span><span class="fu">plot_dlf</span><span class="op">(</span><span class="va">dlf</span>, <span class="st">"year"</span>, <span class="st">"Crop"</span>, <span class="va">geom</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in geom(gg):</span> could not find function "geom"</span>
 </code></pre></div>
     </div>

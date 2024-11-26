@@ -47,7 +47,7 @@ and merge similar log files into one dlf.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">read_daisy_spawn_output</span><span class="op">(</span><span class="va">directory</span>, pattern <span class="op">=</span> <span class="st">".*\\.dlf"</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">read_daisy_spawn_output</span><span class="op">(</span><span class="va">directory</span>, pattern <span class="op">=</span> <span class="st">".*\\.dlf"</span>, col_name <span class="op">=</span> <span class="st">"sim"</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -61,11 +61,15 @@ and merge similar log files into one dlf.</p>
 <dt id="arg-pattern">pattern<a class="anchor" aria-label="anchor" href="#arg-pattern"></a></dt>
 <dd><p>Regex pattern of files to include</p></dd>
 
+
+<dt id="arg-col-name">col_name<a class="anchor" aria-label="anchor" href="#arg-col-name"></a></dt>
+<dd><p>Name of column to store directory name in</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>A list of S4 objects of class Dlf. Each dlf is named with the
-log type and the directory is stored in the column "run"</p>
+log type and the directory is stored in the column <code>col_name</code></p>
     </div>
 
     <div class="section level2">
@@ -84,8 +88,9 @@ log type and the directory is stored in the column "run"</p>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">dlf_names</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "FWater200-Y" "Harvest"    </span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">dlfs</span><span class="op">[[</span><span class="va">dlf_names</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">run</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">dlfs</span><span class="op">[[</span><span class="va">dlf_names</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">sim</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Pig_JB1_Free"   "Pig_JB6_Free"   "Pig_JB6_Pipe"   "Plant_JB1_Free"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [5] "Plant_JB6_Free" "Plant_JB6_Pipe"</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

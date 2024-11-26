@@ -96,20 +96,24 @@ nitrogen</p>
 “Surface_Loss” and “Denitrification”.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">y_vars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Surface_Loss"</span>, <span class="st">"Denitrification"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/plot_dlf.html">plot_dlf</a></span><span class="op">(</span><span class="va">dlfs</span>, <span class="st">"year"</span>, <span class="va">y_vars</span>, type<span class="op">=</span><span class="st">"bar"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/plot_dlf.html">plot_dlf</a></span><span class="op">(</span><span class="va">dlfs</span>, <span class="st">"year"</span>, <span class="va">y_vars</span>, type<span class="op">=</span><span class="st">"bar"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "2b" "3b" "4b" "5b"</span></span></code></pre></div>
 <p><img src="daisy-02-plotting-dlfs_files/figure-html/unnamed-chunk-4-1.png" width="672">
 Notice how <code>plot_dlf</code> plots each variable in a separate sub
 plot, and each scenario (AKA dlf) with a different color.</p>
 <p>We can also make a line or points plot, or combine the plots
 types</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_dlf.html">plot_dlf</a></span><span class="op">(</span><span class="va">dlfs</span>, <span class="st">"year"</span>, <span class="va">y_vars</span>, <span class="st">"lines"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_dlf.html">plot_dlf</a></span><span class="op">(</span><span class="va">dlfs</span>, <span class="st">"year"</span>, <span class="va">y_vars</span>, <span class="st">"lines"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "2b" "3b" "4b" "5b"</span></span></code></pre></div>
 <p><img src="daisy-02-plotting-dlfs_files/figure-html/unnamed-chunk-5-1.png" width="672"></p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_dlf.html">plot_dlf</a></span><span class="op">(</span><span class="va">dlfs</span>, <span class="st">"year"</span>, <span class="va">y_vars</span>, <span class="st">"points"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_dlf.html">plot_dlf</a></span><span class="op">(</span><span class="va">dlfs</span>, <span class="st">"year"</span>, <span class="va">y_vars</span>, <span class="st">"points"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "2b" "3b" "4b" "5b"</span></span></code></pre></div>
 <p><img src="daisy-02-plotting-dlfs_files/figure-html/unnamed-chunk-5-2.png" width="672"></p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_dlf.html">plot_dlf</a></span><span class="op">(</span><span class="va">dlfs</span>, <span class="st">"year"</span>, <span class="va">y_vars</span>, <span class="st">"lines-points-bar"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_dlf.html">plot_dlf</a></span><span class="op">(</span><span class="va">dlfs</span>, <span class="st">"year"</span>, <span class="va">y_vars</span>, <span class="st">"lines-points-bar"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "2b" "3b" "4b" "5b"</span></span></code></pre></div>
 <p><img src="daisy-02-plotting-dlfs_files/figure-html/unnamed-chunk-5-3.png" width="672"></p>
 <p>The lines and points plot types are usually better suited when we
 have more data points. To see this we will load another dlf file using
@@ -134,13 +138,15 @@ timestamp using <code>daisy_time_to_timestamp</code></p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dlf</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/daisy_time_to_timestamp.html">daisy_time_to_timestamp</a></span><span class="op">(</span><span class="va">dlf</span><span class="op">)</span></span>
 <span><span class="va">y_vars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Leak_Matrix"</span>, <span class="st">"Transform"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/plot_dlf.html">plot_dlf</a></span><span class="op">(</span><span class="va">dlf</span>, <span class="st">"time"</span>, <span class="va">y_vars</span>, <span class="st">"points"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/plot_dlf.html">plot_dlf</a></span><span class="op">(</span><span class="va">dlf</span>, <span class="st">"time"</span>, <span class="va">y_vars</span>, <span class="st">"points"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; NULL</span></span></code></pre></div>
 <p><img src="daisy-02-plotting-dlfs_files/figure-html/unnamed-chunk-7-1.png" width="672"></p>
 <p>If we only want to plot a part of the time period we can use
 <code>subset_dlf</code></p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">summer95</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/subset_dlf.html">subset_dlf</a></span><span class="op">(</span><span class="va">dlf</span>, <span class="st">"1995-06-01"</span>, <span class="st">"1995-08-31"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/plot_dlf.html">plot_dlf</a></span><span class="op">(</span><span class="va">summer95</span>, <span class="st">"time"</span>, <span class="va">y_vars</span>, <span class="st">"lines"</span>, <span class="st">" - Summer of '95"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/plot_dlf.html">plot_dlf</a></span><span class="op">(</span><span class="va">summer95</span>, <span class="st">"time"</span>, <span class="va">y_vars</span>, <span class="st">"lines"</span>, <span class="st">" - Summer of '95"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; NULL</span></span></code></pre></div>
 <p><img src="daisy-02-plotting-dlfs_files/figure-html/unnamed-chunk-8-1.png" width="672"></p>
   </main>
 </div>

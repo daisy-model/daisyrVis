@@ -47,10 +47,10 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">daisy_time_to_timestamp</span><span class="op">(</span></span>
 <span>  <span class="va">dlf</span>,</span>
 <span>  time_col_name <span class="op">=</span> <span class="st">"time"</span>,</span>
-<span>  year_col <span class="op">=</span> <span class="st">"year"</span>,</span>
-<span>  month_col <span class="op">=</span> <span class="st">"month"</span>,</span>
-<span>  day_col <span class="op">=</span> <span class="st">"mday"</span>,</span>
-<span>  hour_col <span class="op">=</span> <span class="st">"hour"</span>,</span>
+<span>  year_col <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  month_col <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  day_col <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  hour_col <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  drop_daisy_time_cols <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -90,6 +90,8 @@
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>An S4 object of class Dlf</p>
+<p>If all of year_col, month_col, day_col and hour_col are NULL, then an attempt
+is made to guess the relevant names.</p>
 <p>The returned object is identical to the dlf, except that the Columns 'year',
 'month', 'mday' and 'hour' are dropped and replaced with a column containing
 the corresponding POSIXct timestamp</p>
