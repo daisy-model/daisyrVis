@@ -36,6 +36,7 @@ daisy_time_to_timestamp <- function(dlf, time_col_name='time', year_col=NULL,
     } else {
         format_strings <- c(year="%Y", month="%m", day="%d", hour="%H")
         data <- dlf@data
+        units <- dlf@units
         time_cols <- c(year=year_col, month=month_col, day=day_col,
                        hour=hour_col)
         if (is.null(time_cols)) {
@@ -55,10 +56,9 @@ daisy_time_to_timestamp <- function(dlf, time_col_name='time', year_col=NULL,
         data[[time_col_name]] <- as.POSIXct(raw_ts, format=format_string)
         if (drop_daisy_time_cols) {
             data <- data[!(colnames(data) %in% time_cols)]
+            units <- units[!(colnames(units) %in% time_cols)]
         }
-        data <- data[order(data[[time_col_name]]), , drop=FALSE]
-        units <- dlf@units[!(colnames(dlf@units) %in% time_cols)]
-        units[time_col_name] <- ''
+        units[time_col_name] <- ""
         new('Dlf', header=dlf@header, units=units, data=data)
     }
 }

@@ -38,6 +38,8 @@ filter_dlfs <- function(dlfs, FUN) {
 merge_dlfs <- function(dlfs, dlf_name_column="name") {
     if (!is.list(dlfs)) {
         dlfs
+    } else if (length(dlfs) == 1) {
+        dlfs[[1]]
     } else {
         columns <- unique(lapply(dlfs, function(dlf) {
             colnames(dlf@data)

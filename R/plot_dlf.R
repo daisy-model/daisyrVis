@@ -52,7 +52,6 @@ plot_dlf <- function(dlfs, x_var, y_vars, type, title_suffix="",
         group_name <- "Dlf"
         group_col <- "group.name"
         groups <- names(dlfs)
-        print(groups)
         if (is.null(groups)) {
             groups <- seq(1, length(dlfs))
         }

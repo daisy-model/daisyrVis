@@ -20,11 +20,10 @@ knitr::opts_chunk$set(
 library(daisyrVis)
 ```
 
-There are are three functions for reading dlf files `read_dlf`, `read_dlf_dir` and `read_daisy_spawn_output`. `read_dlf` reads a single dlf file, `read_dlf_dir` searches a directory tree and reads all dlf files it finds, `read_daisy_spawn_output` reads the outputs from spawn program in `daisy`.
+Daisy log files (.dlf) can be read with `read_dlf`. `read_dlf` can read a single dlf file, a directory tree of dlf files produced by the daisy spawn program, or a directory tree of dlf files in any order.When called with just a path the function will automatocally guess how it should process the path. You can also explicitly control how the path is processed by setting the mode parameter.
 
 ## Reading a single dlf file
-
-We start by reading a single dlf file and inspect the contents. We use the Soil chemical log that is bundled with `daisyrVis` and read it with `read_dlf`.
+We start by reading a single dlf file and inspect the contents. We use the Soil chemical log that is bundled with `daisyrVis`.
 
 ```{r}
 data_dir <- system.file("extdata", package="daisyrVis")
@@ -41,17 +40,13 @@ The `header` slot is a list of the metadata that is stored before the actual dat
 ```{r}
 dlf@header
 ```
-
 ```{r}
 dlf@units
 ```
-
 ```{r}
 head(dlf@data)
 ```
-
 We can also directly access and assign columns of the `data` slot with the `$` and `[[` operators
-
 ```{r}
 head(dlf$year)
 dlf$year <- dlf$year + 2
@@ -60,58 +55,8 @@ dlf[[1, "year"]] <- dlf[[1, "year"]] + 10
 dlf[[1, "year"]]
 ```
 
-## Reading a directory with dlf files
-We use the tracer and field nitrogen logs that are bundled with `daisyrVis` and read them with `read_dlf_dir`
-```{r}
-data_dir <- system.file("extdata", package="daisyrVis")
-path <- file.path(data_dir, "annual")
-```
-Notice that the path is to a directory, instead of to a file as we did when reading a single dlf file.
-
-```{r}
-dlfs <- read_dlf_dir(path)
-```
-`read_dlf_dir` returns a list of `Dlf` objects
-```{r}
-names(dlfs)
-```
-To get a specific dlf we just index the list with the name
-```{r}
-name <- names(dlfs)[1]
-name
-dlfs[[name]]@header
-```
-The names are the file paths, which can be a bit unwieldly. We can either manually change the names or use the convenience functions `drop_dir_from_names` and `strip_common_prefix_from_names`
-```{r}
-dlfs <- drop_dir_from_names(dlfs)
-names(dlfs)
-```
-
-```{r}
-dlfs <- strip_common_prefix_from_names(dlfs)
-names(dlfs)
-```
-
-```{r}
-names(dlfs) <- c("A", "B", "C", "D", "E", "F", "G", "H")
-names(dlfs)
-dlfs[["A"]]@header
-```
-
-### Controlling which files are included
-`read_dlf_dir` takes an optional pattern parameter that can be used to control which files are included. By default all files with the suffix `.dlf` are included. If we only want to read files ending with `2b.dlf`, we can do
-```{r}
-data_dir <- system.file("extdata", package="daisyrVis")
-path <- file.path(data_dir, "annual")
-pattern <- ".*2b\\.dlf"
-dlfs <- read_dlf_dir(path, pattern)
-names(dlfs)
-```
-`pattern` is a regular expression. You should around with it and see if you can find a shorter pattern that results in the same files being read.
-
-
 ## Reading Daisy spawn output
-Daisy spawn produces a directory hierarchy where each directory contains the same log files. We use the Daisy spawn outputs that are bundled with `daisyrVis` and read them with `read_daisy_spawn_output`
+Daisy spawn produces a directory hierarchy where each directory contains the same log files. We use the Daisy spawn outputs that are bundled with `daisyrVis`.
 ```{r}
 data_dir <- system.file("extdata", package="daisyrVis")
 path <- file.path(data_dir, "daisy-spawn-like")
@@ -119,16 +64,56 @@ list.files(path, recursive=TRUE)
 ```
 Notice that each directory contains the same log files.
 ```{r}
-dlfs <- read_daisy_spawn_output(path)
+dlfs <- read_dlf(path)
 ```
-As `read_daisy_dir`, `read_daisy_spawn_output` also returns a list of `Dlf` objects
+Instead of a single Dlf object, we now get a named list of Dlf objects
 ```{r}
 dlf_names <- names(dlfs)
 dlf_names
 ```
-But notice that instead of a list with an entry for each file that was read, we have a list with an entry for each log type that was read. All log of the same type are concatenated together, and an extra column is added to the data field. The name of the column is "sim" by default, but can be set by passing `col_name="MySimulationName"` to `read_daisy_spawn_output`
+The list names correspond to the log types that was read. All logs of the same type are concatenated together, and an extra column is added to the data field. The name of the column is "sim" by default, but can be set by passing `col_name="MySimulationName"`.
 ```{r}
 name <- dlf_names[1]
 head(dlfs[[name]]@data)
 unique(dlfs[[name]]$sim)
 ```
+
+## Reading a directory with dlf files
+We use the tracer and field nitrogen logs that are bundled with `daisyrVis` and read them with `read_dlf_dir`
+```{r}
+data_dir <- system.file("extdata", package="daisyrVis")
+path <- file.path(data_dir, "annual")
+list.files(path, pattern=".*dlf", recursive=TRUE)
+```
+Notice that the directories contains a different set of log files.
+
+```{r}
+dlfs <- read_dlf(path)
+```
+Instead of a single Dlf object, we now get a named list of Dlf objects
+```{r}
+names(dlfs)
+```
+The list of names correspond to file paths, which can be a bit unwieldly. We can either manually change the names or use the convenience functions `drop_dir_from_names` and `strip_common_prefix_from_names`
+```{r}
+dlfs <- drop_dir_from_names(dlfs)
+names(dlfs)
+dlfs <- strip_common_prefix_from_names(dlfs)
+names(dlfs)
+```
+
+```{r}
+name <- names(dlfs)[1]
+name
+dlfs[[name]]@header
+```
+
+### Controlling which files are included
+`read_dlf` takes an optional pattern parameter that is used for modes "spawn" and "dir" and controls which files are included. By default all files with the suffix `.dlf` are included. If we only want to read files ending with `2b.dlf`, we can do
+```{r}
+data_dir <- system.file("extdata", package="daisyrVis")
+path <- file.path(data_dir, "annual")
+dlfs <- read_dlf(path, pattern=".*2b\\.dlf")
+names(dlfs)
+```
+`pattern` is a regular expression. You should around with it and see if you can find a shorter pattern that results in the same files being read.

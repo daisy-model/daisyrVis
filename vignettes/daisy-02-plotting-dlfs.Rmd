@@ -24,10 +24,10 @@ library(daisyrVis)
 
 There is a general plot function `plot_dlf` as well as some convenience wrappers around `plot_dlf` that simplifies some basic tasks. Here we focus on `plot_dlf`.
 
-To get started we will load some dlf files with `read_dlf_dir`
+To get started we will load some dlf files with `read_dlf`
 ```{r}
 data_dir <- system.file("extdata", package="daisyrVis")
-dlfs <- read_dlf_dir(file.path(data_dir, "annual/Annual-FN"))
+dlfs <- read_dlf(file.path(data_dir, "annual/Annual-FN"))
 dlfs <- strip_common_prefix_from_names(dlfs)
 ```
 These dlfs contain annualy logged variables related to field nitrogen

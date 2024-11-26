@@ -21,7 +21,7 @@ read_dlf_dir <- function(directory, pattern=".*\\.dlf") {
     dlfs <- list()
     for (path in list.files(directory, pattern=pattern, recursive=TRUE)) {
         name <- substr(path, 1, nchar(path) - 4)
-        dlfs[[name]] <- daisyrVis::read_dlf(file.path(directory, path))
+        dlfs[[name]] <- daisyrVis::read_dlf_file(file.path(directory, path))
     }
     dlfs
 }
@@ -117,13 +117,12 @@ dir_names_to_columns <- function(dlfs, column_name_prefix=NULL) {
 #' data_dir <- file.path(system.file("extdata", package="daisyrVis",
 #'                                   "daisy-spawn-like"))
 #' print(list.files(data_dir, recursive=TRUE))
-#' dlfs <- read_daisy_spawn_output(data_dir)
+#' dlfs <- read_dlf_spawn(data_dir)
 #' dlf_names <- names(dlfs)
 #' print(dlf_names)
 #'
 #' print(unique(dlfs[[dlf_names[1]]]$sim))
-read_daisy_spawn_output <- function(directory, pattern=".*\\.dlf",
-                                    col_name="sim") {
+read_dlf_spawn <- function(directory, pattern=".*\\.dlf", col_name="sim") {
     dlfs <- read_dlf_dir(directory, pattern)
     dlf_names <- basename(names(dlfs))
     log_names <- unique(dlf_names)
