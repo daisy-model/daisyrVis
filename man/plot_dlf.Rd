@@ -5,7 +5,7 @@
 \title{Plot one or more variables from one or more Dlfs.
 Each variable is plotted in a separate subplot.}
 \usage{
-plot_dlf(dlfs, x_var, y_vars, type, title_suffix = "")
+plot_dlf(dlfs, x_var, y_vars, type, title_suffix = "", group_col = NULL)
 }
 \arguments{
 \item{dlfs}{Either a list of Dlf or a single Dlf. If a list with of
@@ -31,7 +31,10 @@ If a function, then it is passed a ggplot2 object and it should add a geom to
 the object and return it. For example,
 type=function(gg) { gg + geom_point() }}
 
-\item{title_suffix}{A string this is appended to the title of all subplots}
+\item{title_suffix}{A string that is appended to the title of all subplots}
+
+\item{group_col}{Name of column to use for grouping. If not NULL then Dlfs
+must be a single Dlf object, not a list}
 }
 \value{
 A ggplot2 object. If y_vars is a single variable then the plot can be
