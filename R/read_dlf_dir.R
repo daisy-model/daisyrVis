@@ -108,8 +108,9 @@ dir_names_to_columns <- function(dlfs, column_name_prefix=NULL) {
 #'
 #' @param directory Path to directory
 #' @param pattern Regex pattern of files to include
+#' @param col_name Name of column to store directory name in
 #' @return A list of S4 objects of class Dlf. Each dlf is named with the
-#'         log type and the directory is stored in the column "run"
+#'         log type and the directory is stored in the column `col_name`
 #' @export
 #'
 #' @examples
@@ -120,14 +121,15 @@ dir_names_to_columns <- function(dlfs, column_name_prefix=NULL) {
 #' dlf_names <- names(dlfs)
 #' print(dlf_names)
 #'
-#' print(unique(dlfs[[dlf_names[1]]]$run))
-read_daisy_spawn_output <- function(directory, pattern=".*\\.dlf") {
+#' print(unique(dlfs[[dlf_names[1]]]$sim))
+read_daisy_spawn_output <- function(directory, pattern=".*\\.dlf",
+                                    col_name="sim") {
     dlfs <- read_dlf_dir(directory, pattern)
     dlf_names <- basename(names(dlfs))
     log_names <- unique(dlf_names)
     dlfs <- lapply(log_names, function(log_name) {
         daisyrVis::merge_dlfs(dir_names_to_columns(dlfs[log_name == dlf_names],
-                                                   "run"), NULL)
+                                                   col_name), NULL)
     })
     names(dlfs) <- log_names
     dlfs

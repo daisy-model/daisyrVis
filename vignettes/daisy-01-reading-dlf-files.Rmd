@@ -126,9 +126,9 @@ As `read_daisy_dir`, `read_daisy_spawn_output` also returns a list of `Dlf` obje
 dlf_names <- names(dlfs)
 dlf_names
 ```
-But notice that instead of a list with an entry for each file that was read, we have a list with an entry for each log type that was read. All log of the same type are concatenated together, and an extra column "run" is added to the data field.
+But notice that instead of a list with an entry for each file that was read, we have a list with an entry for each log type that was read. All log of the same type are concatenated together, and an extra column is added to the data field. The name of the column is "sim" by default, but can be set by passing `col_name="MySimulationName"` to `read_daisy_spawn_output`
 ```{r}
 name <- dlf_names[1]
 head(dlfs[[name]]@data)
-unique(dlfs[[name]]$run)
+unique(dlfs[[name]]$sim)
 ```
