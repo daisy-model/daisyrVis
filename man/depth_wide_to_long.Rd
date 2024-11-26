@@ -8,16 +8,24 @@ columns with the format
 <var_name>_\if{html}{\out{<depth-below-surface>}}
 e.g. "q_100"}
 \usage{
-depth_wide_to_long(dlf, var_name, time_name = "time", depth_name = "z")
+depth_wide_to_long(
+  dlf,
+  var_name,
+  time_name = "time",
+  depth_name = "z",
+  depth_unit = "unknown"
+)
 }
 \arguments{
-\item{dlf}{An S4 object of class Dlf}
+\item{dlf}{An S4 object of class Dlf or a list of Dlf objects}
 
 \item{var_name}{Name of variable in columns}
 
 \item{time_name}{Name of time column}
 
 \item{depth_name}{Name to use for new depth column}
+
+\item{depth_unit}{Unit of depth}
 }
 \value{
 An S4 object of class Dlf
