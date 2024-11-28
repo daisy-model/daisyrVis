@@ -16,10 +16,10 @@
 #' @return ggplot2 object
 #'
 #' @export
-plot_dlf_timeseries <- function(dlfs, x_var=NULL, time_points=NULL, y_var="z",
-                                time_var='time', x_label="",
-                                y_label="", legend_name="dlf",
-                                title="", num_samples=4) {
+plot_dlf_depth <- function(dlfs, x_var=NULL, time_points=NULL, y_var="z",
+                           time_var='time', x_label="",
+                           y_label="", legend_name="dlf",
+                           title="", num_samples=4) {
     unlist_result <- FALSE
     if (!is.list(dlfs)) {
         dlfs <- list(dlf=dlfs)
