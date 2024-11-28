@@ -9,7 +9,8 @@ read_dlf(
   mode = "auto",
   pattern = ".*\\\\.dlf",
   col_name = "sim",
-  convert_time = TRUE
+  convert_time = TRUE,
+  convert_depth = TRUE
 )
 }
 \arguments{
@@ -28,8 +29,12 @@ If 'dir' assume path is a directory tree containing dlf files}
 \item{col_name}{Name of column to store directory name in. Only relevant for
 modes 'auto' and 'spawn'.}
 
-\item{convert_time}{If TRUE convert disy time to a timestamp stored under
+\item{convert_time}{If TRUE convert daisy time to a timestamp stored under
 column 'time' in the data slot of each dlf}
+
+\item{convert_depth}{If TRUE and the file contains depth data, convert it to
+a nicer depth format with three columns (depth, time, variable). It implies
+convert_time=TRUE}
 }
 \value{
 For mode 'file': An S4 object of class Dlf with three slots: header,

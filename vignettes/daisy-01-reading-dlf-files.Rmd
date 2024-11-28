@@ -55,6 +55,20 @@ dlf[[1, "year"]] <- dlf[[1, "year"]] + 10
 dlf[[1, "year"]]
 ```
 
+## Reading a depth distributed output
+Some log files contain the distribution of a variable over depth and time. By default, these a re detected and converted automatically by `read_dlf`
+```{r}
+data_dir <- system.file("extdata", package="daisyrVis")
+path <- file.path(data_dir, "daily/DailyP/DailyP-Daily-WaterFlux.dlf")
+dlf <- read_dlf(path)
+head(dlf@data)
+```
+It is possible to disable this conversion
+```{r}
+dlf <- read_dlf(path, convert_depth=FALSE)
+head(dlf@data)
+```
+
 ## Reading Daisy spawn output
 Daisy spawn produces a directory hierarchy where each directory contains the same log files. We use the Daisy spawn outputs that are bundled with `daisyrVis`.
 ```{r}

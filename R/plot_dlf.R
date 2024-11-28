@@ -19,38 +19,52 @@
 #' If a function, then it is passed a ggplot2 object and it should add a geom to
 #' the object and return it. For example,
 #'     type=function(gg) { gg + geom_point() }
+#' @param mode One of 'auto', 'single', 'grouped', 'list', 'depth'. Default is
+#' 'auto'.
+#' If 'auto' try to guess the mode.
+#' If 'single' assume dlfs is a single dlf without a grouping variable
+#' If 'grouped' assume dlfs is a single dlf with a grouping variable. The
+#' grouping variable is the value of group_col
+#' If 'list' assume dlfs is a named list of dlfs without goruping variables. The
+#' names are used gor grouping.
+#' If 'depth' assume dlfs is a single dlf with a depth timeseries.
 #' @param title_suffix  A string that is appended to the title of all subplots
-#' @param group_col Name of column to use for grouping. If not NULL then Dlfs
-#' must be a single Dlf object, not a list
+#' @param group_col Name of column to use for grouping. Ignored if mode is not
+#' 'grouped' or 'auto'#'
+#' @param x_label Label to use for x axis
+#' @param legend_label Label to use for legend
 #' @return A ggplot2 object. If y_vars is a single variable then the plot can be
 #'         themed and further data added. If y_vars is a list of more than on
 #'         variable, it is not possible to add further data to it.
 #' @export
 #' @examples
 #' data_dir <- system.file("extdata", package="daisyrVis")
-#' path <- file.path(data_dir, "annual/Annual-FN/HourlyP-Annual-FN-2-2b.dlf")
-#' dlf <- read_dlf(path)
+#' path <- file.path(data_dir, "annual/Annual-FN")
+#' dlfs <- read_dlf(path)
+#'
 #' # Plot using a string for type
-#' plot_dlf(dlf, "year", "Crop", "bar")
+#' plot_dlf(dlfs[[1]], "year", "Crop", "bar")
+#'
 #' # Same plot with a function for type
 #' geom <- function(gg) { gg + ggplot2::geom_col(position="dodge") }
-#' plot_dlf(dlf, "year", "Crop", geom)
-plot_dlf <- function(dlfs, x_var, y_vars, type, title_suffix="",
-                     group_col=NULL) {
+#' plot_dlf(dlfs[[1]], "year", "Crop", geom)
+#'
+#' # A plot with four variables
+#' dlfs <- strip_common_prefix_from_names(dlfs)
+#' vars <- c("Matrix_Leaching", "Crop_Uptake", "Soil_Drain", "Surface_Loss")
+#' plot_dlf(dlfs, "year", vars, "bar", title_suffix=" - Annual Field Nitrogen")
+plot_dlf <- function(dlfs, x_var, y_vars, type, mode="auto",
+                     title_suffix="", group_col="sim", x_label=NULL,
+                     legend_label=NULL) {
     if (is.character(type)) {
         geom <- get_geom_from_type(type)
     }
-    if (!is.null(group_col) && is.list(dlfs)) {
-        stop("Cannot specify `group_col` when passing a list of dlfs")
+    if (mode == "auto") {
+        mode <- guess_plot_mode(dlfs, group_col)
     }
-
-    ## Get the data that we are goint to plot
-    if (is.null(group_col)) {
-        if (!is.list(dlfs)) {
-            dlfs <- list(dlfs)
-        }
-        group_name <- "Dlf"
-        group_col <- "group.name"
+    if (mode == "list") {
+        ## Get the data that we are goint to plot
+        group_col <- "Dlf"
         groups <- names(dlfs)
         if (is.null(groups)) {
             groups <- seq(1, length(dlfs))
@@ -63,32 +77,45 @@ plot_dlf <- function(dlfs, x_var, y_vars, type, title_suffix="",
         df[[group_col]] <- factor(df[[group_col]])
         units <- dlfs[[1]]@units
     } else {
-        group_name <- group_col
-        df <- dlfs@data[, c(x_var, y_vars, group_col)]
+        cols <- c(x_var, y_vars)
+        if (mode == "grouped") {
+            cols <- c(cols, group_col)
+        }
+        df <- dlfs@data[, cols]
         units <- dlfs@units
+    }
+    if (is.null(x_label)) {
+        x_label <- x_var
+    }
+    if (is.null(legend_label)) {
+        legend_label <- group_col
     }
     group_col_sym <- rlang::sym(group_col)
     x_var_sym <- rlang::sym(x_var) # This is for aes
     plotlist <- lapply(y_vars, function(y_var) {
         y_var_sym <- rlang::sym(y_var) # This is for aes
-        gg <- ggplot2::ggplot(df,
-                              ggplot2::aes(x=!!x_var_sym,
-                                           y=!!y_var_sym,
-                                           group=!!group_col_sym,
-                                           fill=!!group_col_sym,
-                                           shape=!!group_col_sym,
-                                           colour=!!group_col_sym))
+        if (mode == "single") {
+            plot_aes <- ggplot2::aes(x=!!x_var_sym, y=!!y_var_sym)
+        } else {
+            plot_aes <- ggplot2::aes(x=!!x_var_sym,
+                                     y=!!y_var_sym,
+                                     group=!!group_col_sym,
+                                     fill=!!group_col_sym,
+                                     shape=!!group_col_sym,
+                                     colour=!!group_col_sym)
+        }
+        gg <- ggplot2::ggplot(df, plot_aes)
         geom(gg) + ggplot2::labs(y=paste0(y_var, format_unit(units[y_var])),
-                                 x=paste0(x_var, format_unit(units[x_var])),
-                                 fill=group_name,
-                                 colour=group_name,
-                                 shape=group_name,
+                                 x=paste0(x_label, format_unit(units[x_var])),
+                                 fill=legend_label,
+                                 colour=legend_label,
+                                 shape=legend_label,
                                  title=paste0(y_var, title_suffix))
     })
     if (length(plotlist) > 1) {
         cowplot::plot_grid(plotlist=plotlist, labels="AUTO")
     } else {
-        plotlist
+        plotlist[[1]]
     }
 }
 
@@ -127,5 +154,15 @@ get_geom_from_type <- function(type) {
             gg <- f(gg)
         }
         gg
+    }
+}
+
+guess_plot_mode <- function(dlfs, group_col) {
+    if (is.list(dlfs)) {
+        "list"
+    } else if (group_col %in% colnames(dlfs@data)) {
+        "grouped"
+    } else {
+        "single"
     }
 }

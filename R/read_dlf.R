@@ -11,8 +11,11 @@
 #' 'auto', 'spawn', and 'dir'
 #' @param col_name Name of column to store directory name in. Only relevant for
 #' modes 'auto' and 'spawn'.
-#' @param convert_time If TRUE convert disy time to a timestamp stored under
+#' @param convert_time If TRUE convert daisy time to a timestamp stored under
 #' column 'time' in the data slot of each dlf
+#' @param convert_depth If TRUE and the file contains depth data, convert it to
+#' a nicer depth format with three columns (depth, time, variable). It implies
+#' convert_time=TRUE
 #'
 #' @return For mode 'file': An S4 object of class Dlf with three slots: header,
 #' units, data.
@@ -40,9 +43,9 @@
 #' dlf$Crop # equivalent to dlf@data$Crop
 #' dlf[["Crop"]]
 read_dlf <- function(path, mode="auto", pattern=".*\\.dlf", col_name="sim",
-                     convert_time=TRUE) {
+                     convert_time=TRUE, convert_depth=TRUE) {
     if (mode == "auto") {
-        mode <- guess_mode(path, pattern)
+        mode <- guess_read_mode(path, pattern)
     }
     if (mode == "file") {
         dlfs <- daisyrVis::read_dlf_file(path)
@@ -55,12 +58,32 @@ read_dlf <- function(path, mode="auto", pattern=".*\\.dlf", col_name="sim",
     }
     if (convert_time) {
         dlfs <- daisyrVis::daisy_time_to_timestamp(dlfs)
+        if (convert_depth) {
+            unlist <- FALSE
+            if (!is.list(dlfs)) {
+                unlist <- TRUE
+                dlfs <- list(dlfs)
+            }
+            dlfs <- lapply(dlfs, function(dlf) {
+                if (is_depth_data(dlf)) {
+                    var_name <- guess_var_name(dlf)
+                    daisyrVis::depth_wide_to_long(dlf, var_name)
+                } else {
+                    dlf
+                }
+            })
+            if (unlist) {
+                dlfs <- dlfs[[1]]
+            }
+        }
+    } else if (convert_depth) {
+        message("Cannot convert depth is not converted")
     }
     dlfs
 }
 
 
-guess_mode <- function(path, pattern) {
+guess_read_mode <- function(path, pattern) {
     mode <- "auto"
     info <- file.info(path)
     if (!info$isdir) {
@@ -70,7 +93,7 @@ guess_mode <- function(path, pattern) {
         ## So there should be a set of directories, each containing the same
         ## file matching pattern
         dirs <- list.dirs(path)
-        if (length(dirs) == 0) {
+        if (length(dirs) == 1) {
             if (length(list.files(path, pattern=pattern, recursive=TRUE)) > 0) {
                 ## If there is only a base dir with files we use 'dir' mode
                 mode <- "dir"
@@ -79,9 +102,22 @@ guess_mode <- function(path, pattern) {
                             " contain any files matching pattern", pattern))
             }
         } else {
+            # Try to see if we can read it as spawn output
             file_names <- c()
             for (dir in dirs) {
+                if (dir == path) {
+                    if (length(list.files(dir, pattern=pattern)) > 0) {
+                        ## Don't know what to do when there are dlf files in the
+                        # basedir
+                        mode <- "dir"
+                        break
+                    }
+                    ## Basedir is empty. Skip it and check if files are the same
+                    ## in the other dirs
+                    next
+                }
                 if (is.null(file_names)) {
+                    ## This is the first dir we process
                     file_names <- list.files(dir, pattern=pattern,
                                              recursive=TRUE)
                 } else {
@@ -102,4 +138,18 @@ guess_mode <- function(path, pattern) {
         }
     }
     mode
+}
+
+is_depth_data <- function(dlf) {
+    columns <- colnames(dlf@data)
+    columns <- columns[!(columns %in% c('year', 'month', 'day', 'mday', 'hour',
+                                        'time'))]
+    all(grepl("..AT..", columns, fixed=TRUE))
+}
+
+guess_var_name <- function(dlf) {
+    columns <- colnames(dlf@data)
+    columns <- columns[!(columns %in% c('year', 'month', 'day', 'mday', 'hour',
+                                        'time'))]
+    strsplit(columns[1], '..AT..', fixed=TRUE)[[1]][1]
 }

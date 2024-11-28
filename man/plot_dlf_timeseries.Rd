@@ -7,23 +7,25 @@ timeseries}
 \usage{
 plot_dlf_timeseries(
   dlfs,
-  time_points,
-  x_var,
+  x_var = NULL,
+  time_points = NULL,
   y_var = "z",
   time_var = "time",
   x_label = "",
   y_label = "",
   legend_name = "dlf",
-  title = ""
+  title = "",
+  num_samples = 4
 )
 }
 \arguments{
 \item{dlfs}{An S4 object of class Dlf or a list of Dlf objects}
 
-\item{time_points}{List or vector of time points to plot. All dlfs must have
-data for all time points}
+\item{x_var}{Name of variable on x axis. If NULL assume it is the column that
+is not y_var or time_var}
 
-\item{x_var}{Name of variable on x axis}
+\item{time_points}{List or vector of time points to plot. All dlfs must have
+data for all time points. If NULL then sample random time points.}
 
 \item{y_var}{Name of variable on y axis}
 
@@ -36,6 +38,8 @@ data for all time points}
 \item{legend_name}{Name to use for legend}
 
 \item{title}{Plot title (time point will be appended)}
+
+\item{num_samples}{How many time points to sample when time_points is NULL}
 }
 \value{
 ggplot2 object

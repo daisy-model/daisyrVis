@@ -5,7 +5,17 @@
 \title{Plot one or more variables from one or more Dlfs.
 Each variable is plotted in a separate subplot.}
 \usage{
-plot_dlf(dlfs, x_var, y_vars, type, title_suffix = "", group_col = NULL)
+plot_dlf(
+  dlfs,
+  x_var,
+  y_vars,
+  type,
+  mode = "auto",
+  title_suffix = "",
+  group_col = "sim",
+  x_label = NULL,
+  legend_label = NULL
+)
 }
 \arguments{
 \item{dlfs}{Either a list of Dlf or a single Dlf. If a list with of
@@ -31,10 +41,24 @@ If a function, then it is passed a ggplot2 object and it should add a geom to
 the object and return it. For example,
 type=function(gg) { gg + geom_point() }}
 
+\item{mode}{One of 'auto', 'single', 'grouped', 'list', 'depth'. Default is
+'auto'.
+If 'auto' try to guess the mode.
+If 'single' assume dlfs is a single dlf without a grouping variable
+If 'grouped' assume dlfs is a single dlf with a grouping variable. The
+grouping variable is the value of group_col
+If 'list' assume dlfs is a named list of dlfs without goruping variables. The
+names are used gor grouping.
+If 'depth' assume dlfs is a single dlf with a depth timeseries.}
+
 \item{title_suffix}{A string that is appended to the title of all subplots}
 
-\item{group_col}{Name of column to use for grouping. If not NULL then Dlfs
-must be a single Dlf object, not a list}
+\item{group_col}{Name of column to use for grouping. Ignored if mode is not
+'grouped' or 'auto'#'}
+
+\item{x_label}{Label to use for x axis}
+
+\item{legend_label}{Label to use for legend}
 }
 \value{
 A ggplot2 object. If y_vars is a single variable then the plot can be
@@ -47,11 +71,18 @@ Each variable is plotted in a separate subplot.
 }
 \examples{
 data_dir <- system.file("extdata", package="daisyrVis")
-path <- file.path(data_dir, "annual/Annual-FN/HourlyP-Annual-FN-2-2b.dlf")
-dlf <- read_dlf(path)
+path <- file.path(data_dir, "annual/Annual-FN")
+dlfs <- read_dlf(path)
+
 # Plot using a string for type
-plot_dlf(dlf, "year", "Crop", "bar")
+plot_dlf(dlfs[[1]], "year", "Crop", "bar")
+
 # Same plot with a function for type
 geom <- function(gg) { gg + ggplot2::geom_col(position="dodge") }
-plot_dlf(dlf, "year", "Crop", geom)
+plot_dlf(dlfs[[1]], "year", "Crop", geom)
+
+# A plot with four variables
+dlfs <- strip_common_prefix_from_names(dlfs)
+vars <- c("Matrix_Leaching", "Crop_Uptake", "Soil_Drain", "Surface_Loss")
+plot_dlf(dlfs, "year", vars, "bar", title_suffix=" - Annual Field Nitrogen")
 }

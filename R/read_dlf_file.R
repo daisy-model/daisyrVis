@@ -21,40 +21,18 @@
 #' dlf$Crop # equivalent to dlf@data$Crop
 #' dlf[["Crop"]]
 read_dlf_file <- function(path) {
-    header_data_sep <- "--------------------"
     dlf_file <- file(path, open="rt", encoding="UTF-8")
-    header <- list()
     lines_read <- 0
     tryCatch(withCallingHandlers({
-        while (TRUE) {
-            line <- readLines(dlf_file, n=1, encoding="UTF-8")
-            lines_read <- lines_read + 1
-            if (length(line) == 0 || startsWith(line, header_data_sep)) {
-                break
-            }
-            line <- trimws(line)
-            if (nchar(line) > 0) {
-                if (startsWith(line, "dlf")) {
-                    header[["info"]] <- line
-                } else {
-                    kv_pair <- strsplit(line, ":", fixed=TRUE)[[1]]
-                    k <- trimws(kv_pair[1])
-                    v <- trimws(kv_pair[2])
-                    if (is.na(v)) {
-                        v <- ""
-                    }
-                    if (k %in% names(header)) {
-                        header[k] <- paste(header[k], v, sep="\n")
-                    } else {
-                        header[k] <- v
-                    }
-                }
-            }
-        }
+        result <- read_dlf_file_header(dlf_file, lines_read)
+        header <- result$header
+        lines_read <- result$lines_read
+
         csv_header <- readLines(dlf_file, n=1, encoding="UTF-8")[[1]]
         lines_read <- lines_read + 1
         csv_header <- strsplit(trimws(csv_header, whitespace="\n"), "\t")[[1]]
         csv_header <- gsub("-", "_", gsub(" @ ", "..AT..", csv_header))
+
         units <- readLines(dlf_file, n=1, encoding="UTF-8")[[1]]
         lines_read <- lines_read + 1
         units <- strsplit(units, "\t")[[1]]
@@ -64,6 +42,7 @@ read_dlf_file <- function(path) {
         }
         units <- as.data.frame(as.list(units))
         colnames(units) <- csv_header
+
         ## We could use
         ##  fread(text=readLines(dlf_file), ...
         ## But it is much slower (about x5) than reading from the path
@@ -86,4 +65,35 @@ read_dlf_file <- function(path) {
     finally = {
         close(dlf_file)
     })
+}
+
+read_dlf_file_header <- function(dlf_file, lines_read) {
+    header_data_sep <- "--------------------"
+    header <- list()
+    while (TRUE) {
+        line <- readLines(dlf_file, n=1, encoding="UTF-8")
+        lines_read <- lines_read + 1
+        if (length(line) == 0 || startsWith(line, header_data_sep)) {
+            break
+        }
+        line <- trimws(line)
+        if (nchar(line) > 0) {
+            if (startsWith(line, "dlf")) {
+                header[["info"]] <- line
+            } else {
+                kv_pair <- strsplit(line, ":", fixed=TRUE)[[1]]
+                k <- trimws(kv_pair[1])
+                v <- trimws(kv_pair[2])
+                if (is.na(v)) {
+                    v <- ""
+                }
+                if (k %in% names(header)) {
+                    header[k] <- paste(header[k], v, sep="\n")
+                } else {
+                    header[k] <- v
+                }
+            }
+        }
+    }
+    list(header=header, lines_read=lines_read)
 }

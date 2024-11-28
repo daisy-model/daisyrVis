@@ -56,10 +56,7 @@ path <- file.path(data_dir, "hourly/P2D-Daily-Soil_Chemical_110cm.dlf")
 dlf <- read_dlf(path)
 colnames(dlf@data)
 ```
-
-Before plotting we need to convert the date/time columns to a timestamp using `daisy_time_to_timestamp`
 ```{r}
-dlf <- daisy_time_to_timestamp(dlf)
 y_vars <- c("Leak_Matrix", "Transform")
 plot_dlf(dlf, "time", y_vars, "points")
 ```
@@ -67,5 +64,5 @@ plot_dlf(dlf, "time", y_vars, "points")
 If we only want to plot a part of the time period we can use `subset_dlf`
 ```{r}
 summer95 <- subset_dlf(dlf, "1995-06-01", "1995-08-31")
-plot_dlf(summer95, "time", y_vars, "lines", " - Summer of '95")
+plot_dlf(summer95, "time", y_vars, "lines", title_suffix=" - Summer of '95")
 ```

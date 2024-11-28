@@ -43,9 +43,8 @@ e.g. "q_100"
 \examples{
 data_dir <- system.file("extdata", package="daisyrVis")
 path <- file.path(data_dir, "daily/DailyP/DailyP-Daily-WaterFlux.dlf")
-dlf <- read_dlf(path)
+dlf <- read_dlf(path, convert_depth=FALSE)
 dlf@data[1,]
-dlf <- daisy_time_to_timestamp(dlf)
 dlf <- depth_wide_to_long(dlf, "q")
 head(dlf@data)
 }

@@ -36,7 +36,6 @@ The contents of the package can be listed with
 
     library(daisyrVis)
     example(read_dlf)
-    example(read_dlf_dir)
 
 ### Plotting
 
@@ -44,11 +43,9 @@ The contents of the package can be listed with
     example(plot_dlf)
     example(animate_dlf)
     example(plot_mass_balance)
-    example(plot_annual) # Convenience wrapper around plot_dlf
-    example(plot_daily)  # Convenience wrapper around plot_dlf
 
     
-The call to `eaxmple(plot_annual)` should produce a plot similar to this
+The call to `eaxmple(plot_dlf)` should produce a plot similar to this
 
 ![Bar plots of four annualy logged variables from four different Daisy log files](inst/extdata/annual/Annual-FN/plot_annual_example.png)
 

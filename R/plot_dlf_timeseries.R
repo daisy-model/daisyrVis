@@ -2,26 +2,36 @@
 #' timeseries
 #'
 #' @param dlfs An S4 object of class Dlf or a list of Dlf objects
+#' @param x_var Name of variable on x axis. If NULL assume it is the column that
+#' is not y_var or time_var
 #' @param time_points List or vector of time points to plot. All dlfs must have
-#' data for all time points
-#' @param x_var Name of variable on x axis
+#' data for all time points. If NULL then sample random time points.
 #' @param y_var Name of variable on y axis
 #' @param time_var Name of time variable
 #' @param x_label Label for x axis (unit will be appended)
 #' @param y_label Label for y axis (unit will be appended)
 #' @param legend_name Name to use for legend
 #' @param title Plot title (time point will be appended)
+#' @param num_samples How many time points to sample when time_points is NULL
 #' @return ggplot2 object
 #'
 #' @export
-plot_dlf_timeseries <- function(dlfs, time_points, x_var, y_var="z",
+plot_dlf_timeseries <- function(dlfs, x_var=NULL, time_points=NULL, y_var="z",
                                 time_var='time', x_label="",
                                 y_label="", legend_name="dlf",
-                                title="") {
+                                title="", num_samples=4) {
     unlist_result <- FALSE
-    if (methods::is(dlfs, "Dlf")) {
-        dlfs <- list(dlfs)
+    if (!is.list(dlfs)) {
+        dlfs <- list(dlf=dlfs)
         unlist_result <- TRUE
+    }
+    if (is.null(x_var)) {
+        columns <- colnames(dlfs[[1]]@data)
+        x_var <- columns[!columns %in% c(y_var, time_var)][1]
+    }
+    if (is.null(time_points)) {
+        time_points <- sample(unique(dlfs[[1]]@data[[time_var]]),
+                              num_samples, replace=TRUE)
     }
     if (!is.list(time_points)) {
         time_points <- as.list(time_points)

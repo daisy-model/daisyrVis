@@ -4,12 +4,17 @@
 \alias{animate_dlf}
 \title{Animate a depth dependent timeseries from a Dlf file}
 \usage{
-animate_dlf(dlf, var_name)
+animate_dlf(dlf, x_var = NULL, y_var = "z", time_var = "time")
 }
 \arguments{
 \item{dlf}{An S4 object of class Dlf}
 
-\item{var_name}{Name of variable in columns}
+\item{x_var}{Name of variable on x axis. If NULL assume it is the column that
+is not y_var or time_var}
+
+\item{y_var}{Name of variable on y axis}
+
+\item{time_var}{Name of time variable}
 }
 \value{
 A plotly figure
