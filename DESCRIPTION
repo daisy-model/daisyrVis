@@ -1,6 +1,6 @@
 Package: daisyrVis
 Title: Visualization of Daisy Log Files
-Version: 0.0.3.0000
+Version: 0.0.4.0000
 Authors@R: 
     person("Silas", "Ørting", , "silas@di.ku.dk", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-3081-1547"))
