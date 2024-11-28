@@ -49,14 +49,15 @@ timeseries</p>
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">plot_dlf_timeseries</span><span class="op">(</span></span>
 <span>  <span class="va">dlfs</span>,</span>
-<span>  <span class="va">time_points</span>,</span>
-<span>  <span class="va">x_var</span>,</span>
+<span>  x_var <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  time_points <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  y_var <span class="op">=</span> <span class="st">"z"</span>,</span>
 <span>  time_var <span class="op">=</span> <span class="st">"time"</span>,</span>
 <span>  x_label <span class="op">=</span> <span class="st">""</span>,</span>
 <span>  y_label <span class="op">=</span> <span class="st">""</span>,</span>
 <span>  legend_name <span class="op">=</span> <span class="st">"dlf"</span>,</span>
-<span>  title <span class="op">=</span> <span class="st">""</span></span>
+<span>  title <span class="op">=</span> <span class="st">""</span>,</span>
+<span>  num_samples <span class="op">=</span> <span class="fl">4</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -68,13 +69,14 @@ timeseries</p>
 <dd><p>An S4 object of class Dlf or a list of Dlf objects</p></dd>
 
 
+<dt id="arg-x-var">x_var<a class="anchor" aria-label="anchor" href="#arg-x-var"></a></dt>
+<dd><p>Name of variable on x axis. If NULL assume it is the column that
+is not y_var or time_var</p></dd>
+
+
 <dt id="arg-time-points">time_points<a class="anchor" aria-label="anchor" href="#arg-time-points"></a></dt>
 <dd><p>List or vector of time points to plot. All dlfs must have
-data for all time points</p></dd>
-
-
-<dt id="arg-x-var">x_var<a class="anchor" aria-label="anchor" href="#arg-x-var"></a></dt>
-<dd><p>Name of variable on x axis</p></dd>
+data for all time points. If NULL then sample random time points.</p></dd>
 
 
 <dt id="arg-y-var">y_var<a class="anchor" aria-label="anchor" href="#arg-y-var"></a></dt>
@@ -99,6 +101,10 @@ data for all time points</p></dd>
 
 <dt id="arg-title">title<a class="anchor" aria-label="anchor" href="#arg-title"></a></dt>
 <dd><p>Plot title (time point will be appended)</p></dd>
+
+
+<dt id="arg-num-samples">num_samples<a class="anchor" aria-label="anchor" href="#arg-num-samples"></a></dt>
+<dd><p>How many time points to sample when time_points is NULL</p></dd>
 
 </dl></div>
     <div class="section level2">

@@ -91,7 +91,7 @@ nitrogen</p>
 <span><span class="co">#&gt; [22] "Denitrification"        "Fixated"                "Org_Fertilizer"        </span></span>
 <span><span class="co">#&gt; [25] "Seed"                   "Harvest"                "Residuals_Surface"     </span></span>
 <span><span class="co">#&gt; [28] "Residuals_Soil"         "Org_Surface"            "Org_Soil"              </span></span>
-<span><span class="co">#&gt; [31] "Crop"                   "sim"                    "time"</span></span></code></pre></div>
+<span><span class="co">#&gt; [31] "Crop"                   "time"</span></span></code></pre></div>
 <p>We can plot all the variables, or a subset. Here we plot
 “Surface_Loss” and “Denitrification”.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
@@ -129,18 +129,15 @@ have more data points. To see this we will load another dlf file using
 <span><span class="co">#&gt; [17] "Decompose"               "Transform"              </span></span>
 <span><span class="co">#&gt; [19] "Content"                 "Biopores"               </span></span>
 <span><span class="co">#&gt; [21] "Error"                   "time"</span></span></code></pre></div>
-<p>Before plotting we need to convert the date/time columns to a
-timestamp using <code>daisy_time_to_timestamp</code></p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">dlf</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/daisy_time_to_timestamp.html">daisy_time_to_timestamp</a></span><span class="op">(</span><span class="va">dlf</span><span class="op">)</span></span>
-<span><span class="va">y_vars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Leak_Matrix"</span>, <span class="st">"Transform"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">y_vars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Leak_Matrix"</span>, <span class="st">"Transform"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/plot_dlf.html">plot_dlf</a></span><span class="op">(</span><span class="va">dlf</span>, <span class="st">"time"</span>, <span class="va">y_vars</span>, <span class="st">"points"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="daisy-02-plotting-dlfs_files/figure-html/unnamed-chunk-7-1.png" width="672"></p>
 <p>If we only want to plot a part of the time period we can use
 <code>subset_dlf</code></p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">summer95</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/subset_dlf.html">subset_dlf</a></span><span class="op">(</span><span class="va">dlf</span>, <span class="st">"1995-06-01"</span>, <span class="st">"1995-08-31"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/plot_dlf.html">plot_dlf</a></span><span class="op">(</span><span class="va">summer95</span>, <span class="st">"time"</span>, <span class="va">y_vars</span>, <span class="st">"lines"</span>, <span class="st">" - Summer of '95"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/plot_dlf.html">plot_dlf</a></span><span class="op">(</span><span class="va">summer95</span>, <span class="st">"time"</span>, <span class="va">y_vars</span>, <span class="st">"lines"</span>, title_suffix<span class="op">=</span><span class="st">" - Summer of '95"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="daisy-02-plotting-dlfs_files/figure-html/unnamed-chunk-8-1.png" width="672"></p>
   </main>
 </div>

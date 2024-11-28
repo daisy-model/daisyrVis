@@ -49,7 +49,8 @@
 <span>  mode <span class="op">=</span> <span class="st">"auto"</span>,</span>
 <span>  pattern <span class="op">=</span> <span class="st">".*\\.dlf"</span>,</span>
 <span>  col_name <span class="op">=</span> <span class="st">"sim"</span>,</span>
-<span>  convert_time <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  convert_time <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  convert_depth <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -81,8 +82,14 @@ modes 'auto' and 'spawn'.</p></dd>
 
 
 <dt id="arg-convert-time">convert_time<a class="anchor" aria-label="anchor" href="#arg-convert-time"></a></dt>
-<dd><p>If TRUE convert disy time to a timestamp stored under
+<dd><p>If TRUE convert daisy time to a timestamp stored under
 column 'time' in the data slot of each dlf</p></dd>
+
+
+<dt id="arg-convert-depth">convert_depth<a class="anchor" aria-label="anchor" href="#arg-convert-depth"></a></dt>
+<dd><p>If TRUE and the file contains depth data, convert it to
+a nicer depth format with three columns (depth, time, variable). It implies
+convert_time=TRUE</p></dd>
 
 </dl></div>
     <div class="section level2">
