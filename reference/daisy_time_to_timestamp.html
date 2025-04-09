@@ -106,12 +106,12 @@ the corresponding POSIXct timestamp</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Data section starts at row 17</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Discarded single-line footer: &lt;&lt;1990	4	28	0	0.892003	0.965204	0.992118	0.984267	0.995394	0.867143	0.665696	0.405031	0.360616	0.317983	0.256743	0.121373	0.00275476	-0.0963126	-0.175119	-0.255377	-0.33114	-0.403575	-0.444362	-0.485611	-0.51228	-0.53814	-0.557847	-0.571283	-0.578562	-0.580094&gt;&gt;</span>
 <span class="r-in"><span><span class="va">dlf</span><span class="op">@</span><span class="va">data</span><span class="op">[</span><span class="fl">1</span>,<span class="op">]</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   z       time        q</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0 1990-04-02 0.686972</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   year month mday hour       time z        q</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 1990     4    2    0 1990-04-02 0 0.686972</span>
 <span class="r-in"><span><span class="va">dlf</span> <span class="op">&lt;-</span> <span class="fu">daisy_time_to_timestamp</span><span class="op">(</span><span class="va">dlf</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">dlf</span><span class="op">@</span><span class="va">data</span><span class="op">[</span><span class="fl">1</span>,<span class="op">]</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   z       time        q</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0 2024-11-28 0.686972</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   year month mday hour       time z        q</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 1990     4    2    0 1990-04-02 0 0.686972</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

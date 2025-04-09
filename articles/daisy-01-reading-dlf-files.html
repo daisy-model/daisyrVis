@@ -192,13 +192,13 @@ time. By default, these a re detected and converted automatically by
 <span><span class="co">#&gt; Data section starts at row 17</span></span>
 <span><span class="co">#&gt; Discarded single-line footer: &lt;&lt;1990 4   28  0   0.892003    0.965204    0.992118    0.984267    0.995394    0.867143    0.665696    0.405031    0.360616    0.317983    0.256743    0.121373    0.00275476  -0.0963126  -0.175119   -0.255377   -0.33114    -0.403575   -0.444362   -0.485611   -0.51228    -0.53814    -0.557847   -0.571283   -0.578562   -0.580094&gt;&gt;</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">dlf</span><span class="op">@</span><span class="va">data</span><span class="op">)</span></span>
-<span><span class="co">#&gt;   z       time        q</span></span>
-<span><span class="co">#&gt; 1 0 1990-04-02 0.686972</span></span>
-<span><span class="co">#&gt; 2 0 1990-04-03 0.329720</span></span>
-<span><span class="co">#&gt; 3 0 1990-04-04 0.569315</span></span>
-<span><span class="co">#&gt; 4 0 1990-04-05 0.552182</span></span>
-<span><span class="co">#&gt; 5 0 1990-04-06 0.804888</span></span>
-<span><span class="co">#&gt; 6 0 1990-04-07 1.570560</span></span></code></pre></div>
+<span><span class="co">#&gt;   year month mday hour       time     z        q</span></span>
+<span><span class="co">#&gt; 1 1990     4    2    0 1990-04-02   0.0 0.686972</span></span>
+<span><span class="co">#&gt; 2 1990     4    2    0 1990-04-02  -1.0 0.664115</span></span>
+<span><span class="co">#&gt; 3 1990     4    2    0 1990-04-02  -2.0 0.639810</span></span>
+<span><span class="co">#&gt; 4 1990     4    2    0 1990-04-02  -3.0 0.613606</span></span>
+<span><span class="co">#&gt; 5 1990     4    2    0 1990-04-02  -5.5 0.544964</span></span>
+<span><span class="co">#&gt; 6 1990     4    2    0 1990-04-02 -10.5 0.395473</span></span></code></pre></div>
 <p>It is possible to disable this conversion</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dlf</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_dlf.html">read_dlf</a></span><span class="op">(</span><span class="va">path</span>, convert_depth<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
