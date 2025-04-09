@@ -65,8 +65,8 @@ read_dlf <- function(path, mode="auto", pattern=".*\\.dlf", col_name="sim",
                 dlfs <- list(dlfs)
             }
             dlfs <- lapply(dlfs, function(dlf) {
-                if (is_depth_data(dlf)) {
-                    var_name <- guess_var_name(dlf)
+                if (is_depth_data(dlf, col_name)) {
+                    var_name <- guess_var_name(dlf, col_name)
                     daisyrVis::depth_wide_to_long(dlf, var_name)
                 } else {
                     dlf
@@ -140,16 +140,16 @@ guess_read_mode <- function(path, pattern) {
     mode
 }
 
-is_depth_data <- function(dlf) {
+is_depth_data <- function(dlf, col_name) {
     columns <- colnames(dlf@data)
     columns <- columns[!(columns %in% c('year', 'month', 'day', 'mday', 'hour',
-                                        'time'))]
+                                        col_name, 'time'))]
     all(grepl("..AT..", columns, fixed=TRUE))
 }
 
-guess_var_name <- function(dlf) {
+guess_var_name <- function(dlf, col_name) {
     columns <- colnames(dlf@data)
     columns <- columns[!(columns %in% c('year', 'month', 'day', 'mday', 'hour',
-                                        'time'))]
+                                        col_name, 'time'))]
     strsplit(columns[1], '..AT..', fixed=TRUE)[[1]][1]
 }

@@ -27,28 +27,37 @@ depth_wide_to_long <- function(dlf, var_name, time_name="time",
                                depth_name="z", depth_unit="unknown") {
     if (is.list(dlf)) {
         lapply(dlf, function(dlf_) {
-            depth_wide_to_long(dlf_, var_name, time_name, depth_name)
+            depth_wide_to_long(
+                dlf_, var_name, time_name, depth_name, depth_unit
+            )
         })
     } else {
-        names <- colnames(dlf@data)
-        varying <- names[startsWith(names, var_name)]
-        data <- reshape(
-            dlf@data, varying, direction="long", sep="..AT..",
-            timevar=depth_name, new.row.names=NULL
-        )[c(depth_name, "time", var_name)]
-        data[, depth_name] <- as.numeric(gsub("_", "-", data[, depth_name]))
-        if (time_name != "time") {
-            colnames(data)[2] <- time_name
-        }
-        rownames(data) <- seq(1, nrow(data))
-        if (time_name %in% dlf@units) {
-            time_unit <- dlf@units[time_name]
-        } else {
-            time_unit <- ""
-        }
-        units <- data.frame(z=depth_unit,
-                            time=time_unit,
-                            q=dlf@units[varying[1]])
+        df <- dlf@data
+        ## Find the depth columns. Then convert _ to - in column names so we can
+        ## convert to depth values with as.double
+        sep <- "..AT.."
+        prefix <- paste0(var_name, sep)
+        names <- colnames(df)
+        varying_idx <- startsWith(names, prefix)
+        ## We need the unit associated with the variable later
+        var_unit <- dlf@units[names[varying_idx][1]]
+        varying <- gsub('_', '-', names[varying_idx])
+        colnames(df)[varying_idx] <- varying
+        ## Reshape the data. Base reshape is slow and tidyr::pivot_longer does
+        ## what we want out of the box
+        data <- tidyr::pivot_longer(df, varying, names_to=depth_name,
+                                    values_to=var_name, names_prefix=prefix,
+                                    names_transform=as.double)
+        ## The result from tidyr is a tibble. We should consider switching to
+        ## tibble instead of data.frame, but for now we convert it to a
+        ## data.frame
+        data <- data.frame(data)
+
+        ## Figure out the units
+        col_names_to_keep <- names[!varying_idx]
+        units <- data.frame(c(dlf@units[col_names_to_keep],
+                              depth=depth_unit,
+                              var=var_unit))
         colnames(units) <- colnames(data)
         new("Dlf", header=dlf@header, units=units, data=data)
     }

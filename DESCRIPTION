@@ -17,7 +17,8 @@ Imports:
     stats,
     utils,
     plotly,
-    data.table
+    data.table,
+    tidyr
 Suggests: 
     knitr,
     rmarkdown,
