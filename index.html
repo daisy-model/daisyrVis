@@ -61,13 +61,13 @@
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p><code>daisyrVis</code> is currently only available from github.</p>
+<p><code>daisyrVis</code> is currently only available from github. You need Rtools to build the package. If not already installed, you can install it with your package manager or from <a href="https://cran.r-project.org" class="external-link uri">https://cran.r-project.org</a>. You can then use <code>pak</code> or <code>devtools</code> to install. If you use <code>devtools</code> you need to have <code>git</code> installed. If not already installed, you can install it with your package manager or from <a href="https://git-scm.com" class="external-link uri">https://git-scm.com</a>.</p>
 <p>Use <code>pak</code> to install</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">'pak'</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pkg_install</span>(<span class="st">'https://github.com/daisy-model/daisyrVis'</span>)</span></code></pre></div>
 <p>and remove</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pkg_remove</span>(<span class="st">'daisyrVis'</span>)</span></code></pre></div>
-<p>Or use <code>devtools</code> to install</p>
+<p>Or use <code>devtools</code> to install. You might need to install git</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">'devtools'</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_git</span>(<span class="st">'https://github.com/daisy-model/daisyrVis'</span>)</span></code></pre></div>
 <p>and remove</p>
