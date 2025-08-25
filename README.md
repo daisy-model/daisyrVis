@@ -8,18 +8,10 @@ A suite of visualization tools for Daisy log files written in R.
 ## Installation
 `daisyrVis` is currently only available from github. You need Rtools to build the package. If not already installed, you can install it with your package manager or from https://cran.r-project.org. You can then use `pak` or `devtools` to install. If you use `devtools` you need to have `git` installed. If not already installed, you can install it with your package manager or from https://git-scm.com.
 
-Use `pak` to install
-
-    install.packages('pak')
-    pak::pkg_install('https://github.com/daisy-model/daisyrVis')
-
-and remove
-
-    pak::pkg_remove('daisyrVis')
-
-Or use `devtools` to install. You might need to install git 
+Use `devtools` to install. You might need to install git 
 
     install.packages('devtools')
+    install.packages('git2r')
     devtools::install_git('https://github.com/daisy-model/daisyrVis')
 
 and remove
