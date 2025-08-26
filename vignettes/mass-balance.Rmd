@@ -27,14 +27,14 @@ We are going to read a dlf file and then calculate, summarize and plot mass bala
 data_dir <- system.file("extdata", package="daisyrVis")
 path <- file.path(data_dir, "hourly/P2D-Daily-Soil_Chemical_110cm.dlf")
 dlf <- read_dlf(path)
-## We dont need timestamps for the mass balance calculation, but we need it for
+## We don't need timestamps for the mass balance calculation, but we need it for
 ## plotting later.
 dlf <- daisy_time_to_timestamp(dlf)
 names(dlf@data)
 nrow(dlf@data)
 ```
 
-In order to do a mass balance calculation, we need to define ehich variables are input, output and content variables. In this case we use
+In order to do a mass balance calculation, we need to define which variables are input, output and content variables. In this case we use
 ```{r}
 input <- c("In_Matrix", "In_Biopores", "External", "Transform", "Tillage")
 output <- c("Decompose", "Leak_Matrix", "Leak_Biopores", "Drain_Soil",
@@ -67,7 +67,7 @@ nrow(mb_ref@data)
 ```
 
 ### Plotting mass balance
-We can plot the mass balance calculation with `plot_mass_balance`. This will produce a controlchart plot, where each point is plotted alongside lines indicating mean, mean ± 2 standard deviations, mean ± 3 standard deviations. The point of the plot is twofold, highlight points with large deviation and highligt systematic changes deviations. We want to check that the magnitude of deviations is acceptable, and that the distribution of deviations is consistent over time.
+We can plot the mass balance calculation with `plot_mass_balance`. This will produce a controlchart plot, where each point is plotted alongside lines indicating mean, mean ± 2 standard deviations, mean ± 3 standard deviations. The point of the plot is twofold, highlight points with large deviation and highlight systematic change in deviations. We want to check that the magnitude of deviations is acceptable, and that the distribution of deviations is consistent over time.
 ```{r}
 plot_mass_balance(mb_ref, "time", " - Initial content as reference")
 plot_mass_balance(mb_total, "time", " - Total content")

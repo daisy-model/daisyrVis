@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 library(daisyrVis)
 ```
 
-Daisy log files (.dlf) can be read with `read_dlf`. `read_dlf` can read a single dlf file, a directory tree of dlf files produced by the daisy spawn program, or a directory tree of dlf files in any order.When called with just a path the function will automatocally guess how it should process the path. You can also explicitly control how the path is processed by setting the mode parameter.
+Daisy log files (.dlf) can be read with `read_dlf`. `read_dlf` can read a single dlf file, a directory tree of dlf files produced by the daisy spawn program, or a directory tree of dlf files in any order. When called with just a path the function will automatically guess how it should process the path. You can also explicitly control how the path is processed by setting the mode parameter.
 
 ## Reading a single dlf file
 We start by reading a single dlf file and inspect the contents. We use the Soil chemical log that is bundled with `daisyrVis`.
@@ -29,6 +29,7 @@ We start by reading a single dlf file and inspect the contents. We use the Soil 
 data_dir <- system.file("extdata", package="daisyrVis")
 path <- file.path(data_dir, "hourly/P2D-Daily-Soil_Chemical_110cm.dlf")
 dlf <- read_dlf(path)
+head(dlf)
 ```
 
 `read_dlf` returns an S4 object of class `Dlf`. The data in the dlf file is stored in three _slots_ in the `Dlf` object, `header`, `units`, `data`
@@ -56,12 +57,12 @@ dlf[[1, "year"]]
 ```
 
 ## Reading a depth distributed output
-Some log files contain the distribution of a variable over depth and time. By default, these a re detected and converted automatically by `read_dlf`
+Some log files contain the distribution of a variable over depth and time. By default, these are detected and converted automatically by `read_dlf`
 ```{r}
 data_dir <- system.file("extdata", package="daisyrVis")
 path <- file.path(data_dir, "daily/DailyP/DailyP-Daily-WaterFlux.dlf")
 dlf <- read_dlf(path)
-head(dlf@data)
+head(dlf)
 ```
 It is possible to disable this conversion
 ```{r}
@@ -82,12 +83,14 @@ dlfs <- read_dlf(path)
 ```
 Instead of a single Dlf object, we now get a named list of Dlf objects
 ```{r}
+typeof(dlfs)
 dlf_names <- names(dlfs)
 dlf_names
 ```
-The list names correspond to the log types that was read. All logs of the same type are concatenated together, and an extra column is added to the data field. The name of the column is "sim" by default, but can be set by passing `col_name="MySimulationName"`.
+The list names correspond to the log types that was read. All logs of the same type are concatenated together, and an extra column is added to the data field. The name of the column is "sim" by default, but can be set by passing `col_name="MySimulationName"` to `read_dlf`.
 ```{r}
 name <- dlf_names[1]
+name
 head(dlfs[[name]]@data)
 unique(dlfs[[name]]$sim)
 ```
@@ -108,7 +111,7 @@ Instead of a single Dlf object, we now get a named list of Dlf objects
 ```{r}
 names(dlfs)
 ```
-The list of names correspond to file paths, which can be a bit unwieldly. We can either manually change the names or use the convenience functions `drop_dir_from_names` and `strip_common_prefix_from_names`
+The list of names correspond to file paths, which can be a bit unwieldy. We can either manually change the names or use the convenience functions `drop_dir_from_names` and `strip_common_prefix_from_names`
 ```{r}
 dlfs <- drop_dir_from_names(dlfs)
 names(dlfs)

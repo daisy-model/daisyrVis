@@ -21,16 +21,32 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(daisyrVis)
 ```
+There is a general plot function `plot_dlf` that handles both single files and list of files as returned by `read_dlf`.
 
-There is a general plot function `plot_dlf` as well as some convenience wrappers around `plot_dlf` that simplifies some basic tasks. Here we focus on `plot_dlf`.
 
-To get started we will load some dlf files with `read_dlf`
+## Plotting data from a directory of dlf files
+To get started we will read some dlf files with `read_dlf`
 ```{r}
 data_dir <- system.file("extdata", package="daisyrVis")
-dlfs <- read_dlf(file.path(data_dir, "annual/Annual-FN"))
-dlfs <- strip_common_prefix_from_names(dlfs)
+dlfs <- read_dlf(file.path(data_dir, "annual"))
+names(dlfs)
 ```
-These dlfs contain annualy logged variables related to field nitrogen
+`plot_dlf` can only plot multiple dlf files with the same columns. The data we just read contains data from two different log types and multiple scenarios
+
+```{r}
+colnames(dlfs[[1]]@data)
+colnames(dlfs[[8]]@data)
+```
+So we need to select a subset of the files that have the same columns.
+
+```{r}
+dlfs <- dlfs[c(1, 2, 3, 4)]
+names(dlfs)
+dlfs <- drop_dir_from_names(dlfs)
+dlfs <- strip_common_prefix_from_names(dlfs)
+names(dlfs)
+```
+These dlfs contain annually logged variables related to field nitrogen
 ```{r}
 colnames(dlfs[[1]]@data)
 ```
@@ -66,3 +82,46 @@ If we only want to plot a part of the time period we can use `subset_dlf`
 summer95 <- subset_dlf(dlf, "1995-06-01", "1995-08-31")
 plot_dlf(summer95, "time", y_vars, "lines", title_suffix=" - Summer of '95")
 ```
+
+
+## Plotting Daisy spawn output
+
+To get started we will read some dlf files with `read_dlf`
+```{r}
+data_dir <- system.file("extdata", package="daisyrVis")
+path <- file.path(data_dir, "daisy-spawn-like")
+dlfs <- read_dlf(path)
+names(dlfs)
+```
+
+As before we need to ensure that we only plot dlfs with the same columns. In this case `read_dlf` has done most of the work for us and we can directly index the list of dlfs
+```{r}
+colnames(dlfs$Harvest@data)
+plot_dlf(dlfs$Harvest, "time", "leaf_DM", "lines")
+```
+
+We can of course also plot the other log type
+```{r}
+colnames(dlfs$`FWater200-Y`@data)
+plot_dlf(dlfs$`FWater200-Y`, "time", "Irrigation", "bar")
+```
+
+## Plotting depth distributed output
+To get started we will read a dlf file with `read_dlf`
+```{r}
+data_dir <- system.file("extdata", package="daisyrVis")
+path <- file.path(data_dir, "daily/DailyP/DailyP-Daily-WaterFlux.dlf")
+dlf <- read_dlf(path)
+head(dlf)
+```
+
+`plot_dlf` does not yet support plotting depth data. Instead you have to use `plot_dlf_depth`
+```{r}
+plot_dlf_depth(dlf, "q")
+```
+By default `plot_dlf_depth` selects four time points at random. You can also pass the desired time points
+```{r}
+plot_dlf_depth(dlf, "q", c("1990-04-23", "1990-04-27"))
+```
+
+Depth distributed data is often better visualized by animating it. This can be done with `animate_dlf`. Try running `example(animate_dlf)`.

@@ -19,15 +19,14 @@
 #' If a function, then it is passed a ggplot2 object and it should add a geom to
 #' the object and return it. For example,
 #'     type=function(gg) { gg + geom_point() }
-#' @param mode One of 'auto', 'single', 'grouped', 'list', 'depth'. Default is
+#' @param mode One of 'auto', 'single', 'grouped', 'list'. Default is
 #' 'auto'.
 #' If 'auto' try to guess the mode.
 #' If 'single' assume dlfs is a single dlf without a grouping variable
 #' If 'grouped' assume dlfs is a single dlf with a grouping variable. The
 #' grouping variable is the value of group_col
-#' If 'list' assume dlfs is a named list of dlfs without goruping variables. The
-#' names are used gor grouping.
-#' If 'depth' assume dlfs is a single dlf with a depth timeseries.
+#' If 'list' assume dlfs is a named list of dlfs without grouping variables. The
+#' names are used for grouping.
 #' @param title_suffix  A string that is appended to the title of all subplots
 #' @param group_col Name of column to use for grouping. Ignored if mode is not
 #' 'grouped' or 'auto'#'
@@ -53,7 +52,7 @@
 #' dlfs <- strip_common_prefix_from_names(dlfs)
 #' vars <- c("Matrix_Leaching", "Crop_Uptake", "Soil_Drain", "Surface_Loss")
 #' plot_dlf(dlfs, "year", vars, "bar", title_suffix=" - Annual Field Nitrogen")
-plot_dlf <- function(dlfs, x_var, y_vars, type, mode="auto",
+plot_dlf <- function(dlfs, x_var, y_vars, type="points", mode="auto",
                      title_suffix="", group_col="sim", x_label=NULL,
                      legend_label=NULL) {
     if (is.character(type)) {

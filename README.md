@@ -2,19 +2,32 @@
 [![R-CMD-check](https://github.com/daisy-model/daisyrVis/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/daisy-model/daisyrVis/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-# daisyrVis 
+# daisyrVis
 A suite of visualization tools for Daisy log files written in R.
 
 ## Installation
-`daisyrVis` is currently only available from github. You need Rtools to build the package. If not already installed, you can install it with your package manager or from https://cran.r-project.org. You can then use `pak` or `devtools` to install. If you use `devtools` you need to have `git` installed. If not already installed, you can install it with your package manager or from https://git-scm.com.
+`daisyrVis` is currently only available from github. You need Rtools to build the package. If not already installed, you can install it with your package manager or from https://cran.r-project.org. You can then use `devtools` to install `daisyrVis`. Depending on your platform, you might need to install `git`.
 
-Use `devtools` to install. You might need to install git 
+First install `devtools`
 
     install.packages('devtools')
-    install.packages('git2r')
+
+The try to install `daisyrVis`
+
     devtools::install_git('https://github.com/daisy-model/daisyrVis')
 
-and remove
+If this fails try to install `git2r`
+
+    install.packages('git2r')
+
+and install `daisyrVis` again
+
+    devtools::install_git('https://github.com/daisy-model/daisyrVis')
+
+If this fails open an issue and describe the problem https://github.com/daisy-model/daisyrVis/issues
+
+
+You can remove the package with
 
     remove.packages('daisyrVis')
 
@@ -36,7 +49,7 @@ The contents of the package can be listed with
     example(animate_dlf)
     example(plot_mass_balance)
 
-    
+
 The call to `eaxmple(plot_dlf)` should produce a plot similar to this
 
 ![Bar plots of four annualy logged variables from four different Daisy log files](inst/extdata/annual/Annual-FN/plot_annual_example.png)

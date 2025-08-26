@@ -9,7 +9,7 @@ plot_dlf(
   dlfs,
   x_var,
   y_vars,
-  type,
+  type = "points",
   mode = "auto",
   title_suffix = "",
   group_col = "sim",
@@ -41,15 +41,14 @@ If a function, then it is passed a ggplot2 object and it should add a geom to
 the object and return it. For example,
 type=function(gg) { gg + geom_point() }}
 
-\item{mode}{One of 'auto', 'single', 'grouped', 'list', 'depth'. Default is
+\item{mode}{One of 'auto', 'single', 'grouped', 'list'. Default is
 'auto'.
 If 'auto' try to guess the mode.
 If 'single' assume dlfs is a single dlf without a grouping variable
 If 'grouped' assume dlfs is a single dlf with a grouping variable. The
 grouping variable is the value of group_col
-If 'list' assume dlfs is a named list of dlfs without goruping variables. The
-names are used gor grouping.
-If 'depth' assume dlfs is a single dlf with a depth timeseries.}
+If 'list' assume dlfs is a named list of dlfs without grouping variables. The
+names are used for grouping.}
 
 \item{title_suffix}{A string that is appended to the title of all subplots}
 
