@@ -61,16 +61,21 @@
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p><code>daisyrVis</code> is currently only available from github. You need Rtools to build the package. If not already installed, you can install it with your package manager or from <a href="https://cran.r-project.org" class="external-link uri">https://cran.r-project.org</a>. You can then use <code>pak</code> or <code>devtools</code> to install. If you use <code>devtools</code> you need to have <code>git</code> installed. If not already installed, you can install it with your package manager or from <a href="https://git-scm.com" class="external-link uri">https://git-scm.com</a>.</p>
-<p>Use <code>devtools</code> to install. You might need to install git</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">'devtools'</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">'git2r'</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_git</span>(<span class="st">'https://github.com/daisy-model/daisyrVis'</span>)</span></code></pre></div>
-<p>and remove</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">remove.packages</span>(<span class="st">'daisyrVis'</span>)</span></code></pre></div>
+<p><code>daisyrVis</code> is currently only available from github. You need Rtools to build the package. If not already installed, you can install it with your package manager or from <a href="https://cran.r-project.org" class="external-link uri">https://cran.r-project.org</a>. You can then use <code>devtools</code> to install <code>daisyrVis</code>. Depending on your platform, you might need to install <code>git</code>.</p>
+<p>First install <code>devtools</code></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">'devtools'</span>)</span></code></pre></div>
+<p>The try to install <code>daisyrVis</code></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_git</span>(<span class="st">'https://github.com/daisy-model/daisyrVis'</span>)</span></code></pre></div>
+<p>If this fails try to install <code>git2r</code></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">'git2r'</span>)</span></code></pre></div>
+<p>and install <code>daisyrVis</code> again</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_git</span>(<span class="st">'https://github.com/daisy-model/daisyrVis'</span>)</span></code></pre></div>
+<p>If this fails open an issue and describe the problem <a href="https://github.com/daisy-model/daisyrVis/issues" class="external-link uri">https://github.com/daisy-model/daisyrVis/issues</a></p>
+<p>You can remove the package with</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">remove.packages</span>(<span class="st">'daisyrVis'</span>)</span></code></pre></div>
 <p>The contents of the package can be listed with</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">library</span>(daisyrVis)</span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="fu">ls</span>(<span class="st">"package:daisyrVis"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">library</span>(daisyrVis)</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="fu">ls</span>(<span class="st">"package:daisyrVis"</span>)</span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
@@ -78,16 +83,16 @@
 <div class="section level3">
 <h3 id="reading-dlf-files">Reading dlf files<a class="anchor" aria-label="anchor" href="#reading-dlf-files"></a>
 </h3>
-<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">library</span>(daisyrVis)</span>
-<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="fu">example</span>(read_dlf)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">library</span>(daisyrVis)</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="fu">example</span>(read_dlf)</span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="plotting">Plotting<a class="anchor" aria-label="anchor" href="#plotting"></a>
 </h3>
-<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">library</span>(daisyrVis)</span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="fu">example</span>(plot_dlf)</span>
-<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="fu">example</span>(animate_dlf)</span>
-<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="fu">example</span>(plot_mass_balance)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">library</span>(daisyrVis)</span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="fu">example</span>(plot_dlf)</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="fu">example</span>(animate_dlf)</span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a><span class="fu">example</span>(plot_mass_balance)</span></code></pre></div>
 <p>The call to <code>eaxmple(plot_dlf)</code> should produce a plot similar to this</p>
 <div class="float">
 <img src="inst/extdata/annual/Annual-FN/plot_annual_example.png" alt="Bar plots of four annualy logged variables from four different Daisy log files"><div class="figcaption">Bar plots of four annualy logged variables from four different Daisy log files</div>
@@ -96,16 +101,16 @@
 <div class="section level3">
 <h3 id="mass-balance">Mass balance<a class="anchor" aria-label="anchor" href="#mass-balance"></a>
 </h3>
-<div class="sourceCode" id="cb6"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">library</span>(daisyrVis)</span>
-<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="fu">example</span>(mass_balance)</span>
-<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="fu">example</span>(mass_balance_summary)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">library</span>(daisyrVis)</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="fu">example</span>(mass_balance)</span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a><span class="fu">example</span>(mass_balance_summary)</span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="utility-functions">Utility functions<a class="anchor" aria-label="anchor" href="#utility-functions"></a>
 </h3>
-<div class="sourceCode" id="cb7"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">library</span>(daisyrVis)</span>
-<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="fu">example</span>(subset_dlf)</span>
-<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="fu">example</span>(daisy_time_to_timestamp)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="fu">library</span>(daisyrVis)</span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a><span class="fu">example</span>(subset_dlf)</span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a><span class="fu">example</span>(daisy_time_to_timestamp)</span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -118,11 +123,11 @@
 </h2>
 <p>Follows <a href="https://r-pkgs.org/" class="external-link uri">https://r-pkgs.org/</a></p>
 <p>Start <code>R</code> in base of repository. Then use devtools to load, check and install package</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">library</span>(devtools)</span>
-<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="fu">load_all</span>()</span>
-<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="fu">lint</span>()</span>
-<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a><span class="fu">check</span>()</span>
-<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="fu">install</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="fu">library</span>(devtools)</span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a><span class="fu">load_all</span>()</span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a><span class="fu">lint</span>()</span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a><span class="fu">check</span>()</span>
+<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a><span class="fu">install</span>()</span></code></pre></div>
 </div>
 </div>
 

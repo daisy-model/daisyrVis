@@ -71,8 +71,8 @@
 <p>Daisy log files (.dlf) can be read with <code>read_dlf</code>.
 <code>read_dlf</code> can read a single dlf file, a directory tree of
 dlf files produced by the daisy spawn program, or a directory tree of
-dlf files in any order.When called with just a path the function will
-automatocally guess how it should process the path. You can also
+dlf files in any order. When called with just a path the function will
+automatically guess how it should process the path. You can also
 explicitly control how the path is processed by setting the mode
 parameter.</p>
 <div class="section level2">
@@ -84,7 +84,16 @@ use the Soil chemical log that is bundled with
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data_dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, package<span class="op">=</span><span class="st">"daisyrVis"</span><span class="op">)</span></span>
 <span><span class="va">path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">data_dir</span>, <span class="st">"hourly/P2D-Daily-Soil_Chemical_110cm.dlf"</span><span class="op">)</span></span>
-<span><span class="va">dlf</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_dlf.html">read_dlf</a></span><span class="op">(</span><span class="va">path</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">dlf</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_dlf.html">read_dlf</a></span><span class="op">(</span><span class="va">path</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">dlf</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   year month mday hour In_Matrix In_Biopores Leak_Matrix Leak_Biopores</span></span>
+<span><span class="co">#&gt; 1 1995     1    1    0         0           0 -0.00020812             0</span></span>
+<span><span class="co">#&gt;   Biopores to matrix Matrix to biopores Tillage Drain_Soil Drain_Biopores</span></span>
+<span><span class="co">#&gt; 1                  0                  0       0          0              0</span></span>
+<span><span class="co">#&gt;   Drain_Biopores_Indirect External Uptake  Decompose  Transform Content</span></span>
+<span><span class="co">#&gt; 1                       0        0      0 0.00301612 0.00227715 60.5101</span></span>
+<span><span class="co">#&gt;      Biopores Error       time</span></span>
+<span><span class="co">#&gt; 1 9.80239e-19     0 1995-01-01</span></span></code></pre></div>
 <p><code>read_dlf</code> returns an S4 object of class <code>Dlf</code>.
 The data in the dlf file is stored in three <em>slots</em> in the
 <code>Dlf</code> object, <code>header</code>, <code>units</code>,
@@ -182,29 +191,18 @@ operators</p>
 <h2 id="reading-a-depth-distributed-output">Reading a depth distributed output<a class="anchor" aria-label="anchor" href="#reading-a-depth-distributed-output"></a>
 </h2>
 <p>Some log files contain the distribution of a variable over depth and
-time. By default, these a re detected and converted automatically by
+time. By default, these are detected and converted automatically by
 <code>read_dlf</code></p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data_dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, package<span class="op">=</span><span class="st">"daisyrVis"</span><span class="op">)</span></span>
 <span><span class="va">path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">data_dir</span>, <span class="st">"daily/DailyP/DailyP-Daily-WaterFlux.dlf"</span><span class="op">)</span></span>
 <span><span class="va">dlf</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_dlf.html">read_dlf</a></span><span class="op">(</span><span class="va">path</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning while reading /home/runner/work/_temp/Library/daisyrVis/extdata/daily/DailyP/DailyP-Daily-WaterFlux.dlf</span></span>
-<span><span class="co">#&gt; Data section starts at row 17</span></span>
-<span><span class="co">#&gt; Discarded single-line footer: &lt;&lt;1990 4   28  0   0.892003    0.965204    0.992118    0.984267    0.995394    0.867143    0.665696    0.405031    0.360616    0.317983    0.256743    0.121373    0.00275476  -0.0963126  -0.175119   -0.255377   -0.33114    -0.403575   -0.444362   -0.485611   -0.51228    -0.53814    -0.557847   -0.571283   -0.578562   -0.580094&gt;&gt;</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">dlf</span><span class="op">@</span><span class="va">data</span><span class="op">)</span></span>
-<span><span class="co">#&gt;   year month mday hour       time     z        q</span></span>
-<span><span class="co">#&gt; 1 1990     4    2    0 1990-04-02   0.0 0.686972</span></span>
-<span><span class="co">#&gt; 2 1990     4    2    0 1990-04-02  -1.0 0.664115</span></span>
-<span><span class="co">#&gt; 3 1990     4    2    0 1990-04-02  -2.0 0.639810</span></span>
-<span><span class="co">#&gt; 4 1990     4    2    0 1990-04-02  -3.0 0.613606</span></span>
-<span><span class="co">#&gt; 5 1990     4    2    0 1990-04-02  -5.5 0.544964</span></span>
-<span><span class="co">#&gt; 6 1990     4    2    0 1990-04-02 -10.5 0.395473</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">dlf</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   year month mday hour       time z        q</span></span>
+<span><span class="co">#&gt; 1 1990     4    2    0 1990-04-02 0 0.686972</span></span></code></pre></div>
 <p>It is possible to disable this conversion</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dlf</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_dlf.html">read_dlf</a></span><span class="op">(</span><span class="va">path</span>, convert_depth<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning while reading /home/runner/work/_temp/Library/daisyrVis/extdata/daily/DailyP/DailyP-Daily-WaterFlux.dlf</span></span>
-<span><span class="co">#&gt; Data section starts at row 17</span></span>
-<span><span class="co">#&gt; Discarded single-line footer: &lt;&lt;1990 4   28  0   0.892003    0.965204    0.992118    0.984267    0.995394    0.867143    0.665696    0.405031    0.360616    0.317983    0.256743    0.121373    0.00275476  -0.0963126  -0.175119   -0.255377   -0.33114    -0.403575   -0.444362   -0.485611   -0.51228    -0.53814    -0.557847   -0.571283   -0.578562   -0.580094&gt;&gt;</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">dlf</span><span class="op">@</span><span class="va">data</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   year month mday hour q..AT..0 q..AT.._1 q..AT.._2 q..AT.._3 q..AT.._5.5</span></span>
 <span><span class="co">#&gt; 1 1990     4    2    0 0.686972  0.664115  0.639810  0.613606    0.544964</span></span>
@@ -264,15 +262,20 @@ bundled with <code>daisyrVis</code>.</p>
 <p>Instead of a single Dlf object, we now get a named list of Dlf
 objects</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">dlf_names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">dlfs</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/typeof.html" class="external-link">typeof</a></span><span class="op">(</span><span class="va">dlfs</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "list"</span></span>
+<span><span class="va">dlf_names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">dlfs</span><span class="op">)</span></span>
 <span><span class="va">dlf_names</span></span>
 <span><span class="co">#&gt; [1] "FWater200-Y" "Harvest"</span></span></code></pre></div>
 <p>The list names correspond to the log types that was read. All logs of
 the same type are concatenated together, and an extra column is added to
 the data field. The name of the column is “sim” by default, but can be
-set by passing <code>col_name="MySimulationName"</code>.</p>
+set by passing <code>col_name="MySimulationName"</code> to
+<code>read_dlf</code>.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">name</span> <span class="op">&lt;-</span> <span class="va">dlf_names</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span>
+<span><span class="va">name</span></span>
+<span><span class="co">#&gt; [1] "FWater200-Y"</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">dlfs</span><span class="op">[[</span><span class="va">name</span><span class="op">]</span><span class="op">]</span><span class="op">@</span><span class="va">data</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   year month mday hour Precipitation Irrigation Potential evapotranspiration</span></span>
 <span><span class="co">#&gt; 1 1998     4    1    1         0.000     0.0000                        0.000</span></span>
@@ -340,8 +343,8 @@ objects</p>
 <span><span class="co">#&gt; [7] "Annual-Tracer/HourlyP-Annual-Tracer-2-4b"</span></span>
 <span><span class="co">#&gt; [8] "Annual-Tracer/HourlyP-Annual-Tracer-2-5b"</span></span></code></pre></div>
 <p>The list of names correspond to file paths, which can be a bit
-unwieldly. We can either manually change the names or use the
-convenience functions <code>drop_dir_from_names</code> and
+unwieldy. We can either manually change the names or use the convenience
+functions <code>drop_dir_from_names</code> and
 <code>strip_common_prefix_from_names</code></p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dlfs</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/drop_dir_from_names.html">drop_dir_from_names</a></span><span class="op">(</span><span class="va">dlfs</span><span class="op">)</span></span>

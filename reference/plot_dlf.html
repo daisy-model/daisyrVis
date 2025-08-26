@@ -51,7 +51,7 @@ Each variable is plotted in a separate subplot.</p>
 <span>  <span class="va">dlfs</span>,</span>
 <span>  <span class="va">x_var</span>,</span>
 <span>  <span class="va">y_vars</span>,</span>
-<span>  <span class="va">type</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"points"</span>,</span>
 <span>  mode <span class="op">=</span> <span class="st">"auto"</span>,</span>
 <span>  title_suffix <span class="op">=</span> <span class="st">""</span>,</span>
 <span>  group_col <span class="op">=</span> <span class="st">"sim"</span>,</span>
@@ -94,15 +94,14 @@ type=function(gg)  gg + geom_point()</p></dd>
 
 
 <dt id="arg-mode">mode<a class="anchor" aria-label="anchor" href="#arg-mode"></a></dt>
-<dd><p>One of 'auto', 'single', 'grouped', 'list', 'depth'. Default is
+<dd><p>One of 'auto', 'single', 'grouped', 'list'. Default is
 'auto'.
 If 'auto' try to guess the mode.
 If 'single' assume dlfs is a single dlf without a grouping variable
 If 'grouped' assume dlfs is a single dlf with a grouping variable. The
 grouping variable is the value of group_col
-If 'list' assume dlfs is a named list of dlfs without goruping variables. The
-names are used gor grouping.
-If 'depth' assume dlfs is a single dlf with a depth timeseries.</p></dd>
+If 'list' assume dlfs is a named list of dlfs without grouping variables. The
+names are used for grouping.</p></dd>
 
 
 <dt id="arg-title-suffix">title_suffix<a class="anchor" aria-label="anchor" href="#arg-title-suffix"></a></dt>
